@@ -17,12 +17,19 @@ GuardCompanyEditDiag::GuardCompanyEditDiag(int index, QSqlTableModel *parentmode
 
 	ui = new  Ui_DialogEditGuardCompany;
 	ui->setupUi(this);
+	InitDiag();
 }
 
 GuardCompanyEditDiag::~GuardCompanyEditDiag()
 {
 	delete model;
 	delete ui;
+}
+
+void GuardCompanyEditDiag::InitDiag()
+{
+	this->setModal(true);
+	this->show();
 }
 
 void GuardCompanyEditDiag::InitDiagModFunc()
@@ -36,8 +43,14 @@ void GuardCompanyEditDiag::InitDiagModFunc()
 	ui->lineEditPhone->setText(record.value("Phone").toString());
 
 	QObject::connect(ui->pushButtonOk, SIGNAL(clicked()), this, SLOT(ClickOkButtonMod()));
-	this->show();
+
 }
+
+void GuardCompanyEditDiag::InitDiagAddFunc()
+{
+	QObject::connect(ui->pushButtonOk, SIGNAL(clicked()), this, SLOT(ClickOkButtonAdd()));
+}
+
 
 bool GuardCompanyEditDiag::IsOldCompanyNameHaveGuard()
 {
@@ -50,13 +63,6 @@ bool GuardCompanyEditDiag::IsOldCompanyNameHaveGuard()
 	}
 
 	return false;
-}
-
-
-void GuardCompanyEditDiag::InitDiagAddFunc()
-{
-	QObject::connect(ui->pushButtonOk, SIGNAL(clicked()), this, SLOT(ClickOkButtonAdd()));
-	this->show();
 }
 
 void GuardCompanyEditDiag::ClickOkButtonAdd()

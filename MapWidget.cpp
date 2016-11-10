@@ -24,6 +24,7 @@ MapWidget::~MapWidget()
 
 void MapWidget::InitWidget()
 {
+	QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
 	QString urlStr = "file:///";
     urlStr += QCoreApplication::applicationDirPath();
 	urlStr += "/map.html";

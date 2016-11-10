@@ -23,6 +23,7 @@ void GuardPositionEditDiag::InitDiag()
 	QObject::connect(ui->pushButtonCancel, SIGNAL(clicked()),
 		this, SLOT(reject()));
 
+	this->setModal(true);
 	this->show();
 }
 
@@ -55,7 +56,6 @@ void GuardPositionEditDiag::ClickOkButton()
 		QString str = QString::fromLocal8Bit("Ìí¼ÓÊý¾Ý¿â´íÎó") + model->lastError().text();
 		ErrorProc::PopMessageBox(&str, 2);
 	}
-
 }
 
 bool GuardPositionEditDiag::IsInputValid()

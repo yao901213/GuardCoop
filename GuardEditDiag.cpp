@@ -64,20 +64,20 @@ void GuardEditDiag::InitComboBox()
 void GuardEditDiag::InitDiag()
 {
 	InitComboBox();
+	this->setModal(true);
+	this->show();
 }
 
 void GuardEditDiag::InitAddFunc()
 {
 	QObject::connect(ui->pushButtonOk, SIGNAL(clicked()), this, SLOT(ClickSubmitButtonAddFunc()));
 	ui->comboBox->setCurrentIndex(0);
-	this->show();
 }
 
 void GuardEditDiag::InitModFunc()
 {
 	QSqlRecord record;
 	QObject::connect(ui->pushButtonOk, SIGNAL(clicked()), this, SLOT(ClickSubmitButtonModFunc()));
-	this->show();
 
 	model->select();
 	record = model->record(CurRowIndex);

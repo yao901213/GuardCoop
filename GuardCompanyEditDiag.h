@@ -23,6 +23,7 @@ private:
 	void ReplaceNewCompanyNameInGuardTable();
 	QString OldName;
 	bool IsTempSymbolExitInGuardTable();
+	void InitDiag();
 private slots:
 	void ClickOkButtonAdd();
 	void ClickOkButtonMod();
