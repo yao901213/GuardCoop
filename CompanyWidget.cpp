@@ -125,7 +125,6 @@ void CompanyWidget::ModifyText()
 	}
 
 	ModDialog = new ModTextInfoDiag();
-	ModDialog->show();
 	QObject::connect(ModDialog, SIGNAL(accepted()), this, SLOT(GetTextInfoFromDb()));
 	ModDialog->PageType = CurrentPageType;
 	ModDialog->InitModTextInfoDiag();

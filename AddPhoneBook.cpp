@@ -11,7 +11,8 @@ AddPhoneBook::AddPhoneBook(QDialog *parent) :
 {
 	ui = new Ui_DialogAddPhoneBook;
 	ModRowIndex = -1;
-	ui->setupUi(this);
+	ui->setupUi(this);	
+	InitDiag();
 }
 
 AddPhoneBook::AddPhoneBook(int index, QSqlTableModel *parentmodel)
@@ -23,6 +24,7 @@ AddPhoneBook::AddPhoneBook(int index, QSqlTableModel *parentmodel)
 	model->setFilter(parentmodel->filter());
 	QString ss = model->filter();
 	ui->setupUi(this);
+	InitDiag();
 }
 
 
@@ -30,6 +32,13 @@ AddPhoneBook::~AddPhoneBook()
 {
 	delete ui;
 }
+
+void AddPhoneBook::InitDiag()
+{
+	setModal(true);
+	show();
+}
+
 
 void AddPhoneBook::InitModFunc()
 {

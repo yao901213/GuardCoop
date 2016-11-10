@@ -32,6 +32,9 @@ private:
 	int GuardCompanyIndex;
 	int GuardPositionIndex;
 	DB connectDB;
+	void InitTopPic();
+	void InitStackedWidget();
+	void InitConnection();
 private slots:
 	void StackWidgetSwitch2CompanyInfo();
 	void StackWidgetSwitch2PhoneBook();

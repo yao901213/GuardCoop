@@ -85,7 +85,6 @@ void PhoneBook::ClickAddButton()
 	AddPhoneDiag = new AddPhoneBook;
 	QObject::connect(AddPhoneDiag, SIGNAL(accepted()), this, SLOT(UpdatePhoneBook()));
 	AddPhoneDiag->InitAddFunc();
-	AddPhoneDiag->show();
 }
 
 void PhoneBook::ClickSearchButton()
@@ -140,7 +139,6 @@ void PhoneBook::ClickModButton()
 	QString sss = model->filter();
 	AddPhoneDiag = new AddPhoneBook(ui->tableView->currentIndex().row(), model);
 	AddPhoneDiag->InitModFunc();
-	AddPhoneDiag->show();
 
 	QObject::connect(AddPhoneDiag, SIGNAL(accepted()), this, SLOT(UpdatePhoneBook()));
 }
@@ -164,6 +162,7 @@ void PhoneBook::ClickDelButton()
 	MessageBox.setText(MessString);
 	MessageBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
 	MessageBox.setButtonText(QMessageBox::Ok, QString::fromLocal8Bit("确定"));
+	MessageBox.setButtonText(QMessageBox::Cancel, QString::fromLocal8Bit("取消"));
 
 	if (QMessageBox::Ok == MessageBox.exec())
 	{
@@ -181,8 +180,3 @@ void PhoneBook::ClearLineEdit()
 {
 	ui->lineEdit->clear();
 }
-
-
-
-
-

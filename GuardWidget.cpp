@@ -12,7 +12,7 @@ GuardWidget::GuardWidget(QWidget *parent) :
 
 	lineEdit = new QLineEdit(this);
 	lineEdit->setObjectName(QStringLiteral("lineEdit"));
-	lineEdit->setGeometry(QRect(220, 30, 171, 20));
+	lineEdit->setGeometry(QRect(240, 30, 171, 20));
 
 	ui->setupUi(this);
 	InitWidget();

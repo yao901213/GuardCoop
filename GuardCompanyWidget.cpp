@@ -8,7 +8,7 @@ GuardCompany::GuardCompany(QWidget *parent) :
 	ui = new Ui_GuardWidget;
 	comboBox = new QComboBox(this);
 	comboBox->setObjectName(QStringLiteral("comboBox"));
-	comboBox->setGeometry(QRect(220, 30, 171, 20));
+	comboBox->setGeometry(QRect(240, 30, 171, 20));
 
 	ui->setupUi(this);
 	model = new QSqlTableModel;

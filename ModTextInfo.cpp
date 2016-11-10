@@ -27,8 +27,10 @@ void ModTextInfoDiag::InitModTextInfoDiag()
 	QString *textType = new QString;
 
 	GetPageType(textType);
+	
 	model->setTable("HumanResource.Text");
 	model->select();
+	
 	if (1 != model->rowCount())
 	{
 		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("没有找到对应的文本信息"), 2);
@@ -37,6 +39,9 @@ void ModTextInfoDiag::InitModTextInfoDiag()
 
 	ui->textEdit->setText(model->record(0).value(*textType).toString());
 	QObject::connect(ui->pushButtonOk, SIGNAL(clicked()), this, SLOT(SubmitModTextInfo()));
+	
+	this->setModal(true);
+	this->show();
 
 	delete textType;
 }

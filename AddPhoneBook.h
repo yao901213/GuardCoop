@@ -17,6 +17,7 @@ public:
 private:
 	Ui_DialogAddPhoneBook *ui;
 	QSqlTableModel *model;
+	void InitDiag();
 private slots:
 	void ClickSubmitButtonAddFunc();
 	void ClickSubmitButtonModFunc();

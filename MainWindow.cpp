@@ -1,8 +1,10 @@
 #include "MainWindow.h"
 #include "GlobalVar.h"
 #include <QObject>
+#include <QFile>
 
 bool g_IsAdminAccount = false;
+#define TOP_PIC_PATH "Resource/TopPic.jpg"
 
 MainWindow::MainWindow(QWidget *parent):
 	QWidget(parent)
@@ -25,6 +27,13 @@ void MainWindow::InitForm()
 		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("连接数据库失败"), 2);
 		return;
 	}
+	InitTopPic();
+	InitStackedWidget();
+	InitConnection();
+}
+
+void MainWindow::InitStackedWidget()
+{
 	CompanyInfo = new CompanyWidget();
 	phonebook = new PhoneBook();
 	GuardInfo = new GuardWidget();
@@ -37,6 +46,11 @@ void MainWindow::InitForm()
 	GuardCompanyIndex = ui->stackedWidget->addWidget(GuardCompanyInfo);
 	GuardPositionIndex = ui->stackedWidget->addWidget(GuardPosition);
 
+}
+
+//should be called after InitStackedWidget
+void MainWindow::InitConnection()
+{
 	//stacked widget切换之后清空通讯录中的内容
 	QObject::connect(ui->stackedWidget, SIGNAL(currentChanged(int)), phonebook, SLOT(ClearLineEdit()));
 
@@ -55,7 +69,22 @@ void MainWindow::InitForm()
 	QObject::connect(ui->pushButtonInstitution, SIGNAL(clicked()), CompanyInfo, SLOT(InitInstitutionInfo()));
 	QObject::connect(ui->pushButtonLaw, SIGNAL(clicked()), CompanyInfo, SLOT(InitLawInfo()));
 	QObject::connect(ui->pushButtonRules, SIGNAL(clicked()), CompanyInfo, SLOT(InitRulesInfo()));
+
 }
+void MainWindow::InitTopPic()
+{
+	QFile file(TOP_PIC_PATH);
+	QByteArray data;
+	file.open(QIODevice::ReadOnly);
+	data = file.readAll();
+	file.close();
+	//QVariant var(data);
+	QPixmap photo;
+	photo.loadFromData(data, "JPG");
+	ui->labelTopPic->setPixmap(photo);
+	ui->labelTopPic->setScaledContents(true);
+}
+
 
 void MainWindow::StackWidgetSwitch2CompanyInfo()
 {

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>850</width>
-    <height>591</height>
+    <width>921</width>
+    <height>690</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,14 +17,14 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>30</y>
-     <width>801</width>
-     <height>511</height>
+     <y>140</y>
+     <width>881</width>
+     <height>521</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_3">
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,6">
+     <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,0,6">
       <property name="spacing">
        <number>10</number>
       </property>
@@ -42,7 +42,7 @@
         <property name="font">
          <font>
           <family>楷体</family>
-          <pointsize>12</pointsize>
+          <pointsize>14</pointsize>
          </font>
         </property>
         <property name="cursor">
@@ -50,6 +50,9 @@
         </property>
         <property name="contextMenuPolicy">
          <enum>Qt::NoContextMenu</enum>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border-color: rgb(241, 255, 235);</string>
         </property>
         <property name="currentIndex">
          <number>0</number>
@@ -59,8 +62,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>112</width>
-           <height>357</height>
+           <width>122</width>
+           <height>352</height>
           </rect>
          </property>
          <attribute name="label">
@@ -71,7 +74,7 @@
            <rect>
             <x>10</x>
             <y>0</y>
-            <width>77</width>
+            <width>101</width>
             <height>201</height>
            </rect>
           </property>
@@ -81,6 +84,7 @@
              <property name="font">
               <font>
                <family>黑体</family>
+               <pointsize>12</pointsize>
               </font>
              </property>
              <property name="text">
@@ -96,6 +100,7 @@
              <property name="font">
               <font>
                <family>黑体</family>
+               <pointsize>12</pointsize>
               </font>
              </property>
              <property name="text">
@@ -111,6 +116,7 @@
              <property name="font">
               <font>
                <family>黑体</family>
+               <pointsize>12</pointsize>
               </font>
              </property>
              <property name="text">
@@ -126,6 +132,7 @@
              <property name="font">
               <font>
                <family>黑体</family>
+               <pointsize>12</pointsize>
               </font>
              </property>
              <property name="text">
@@ -141,6 +148,7 @@
              <property name="font">
               <font>
                <family>黑体</family>
+               <pointsize>12</pointsize>
               </font>
              </property>
              <property name="text">
@@ -159,8 +167,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>98</width>
-           <height>28</height>
+           <width>124</width>
+           <height>362</height>
           </rect>
          </property>
          <attribute name="label">
@@ -171,7 +179,7 @@
            <rect>
             <x>9</x>
             <y>0</y>
-            <width>77</width>
+            <width>101</width>
             <height>141</height>
            </rect>
           </property>
@@ -223,8 +231,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>98</width>
-           <height>28</height>
+           <width>124</width>
+           <height>362</height>
           </rect>
          </property>
          <attribute name="label">
@@ -235,8 +243,8 @@
            <rect>
             <x>10</x>
             <y>0</y>
-            <width>77</width>
-            <height>121</height>
+            <width>101</width>
+            <height>131</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -245,6 +253,7 @@
              <property name="font">
               <font>
                <family>黑体</family>
+               <pointsize>12</pointsize>
               </font>
              </property>
              <property name="text">
@@ -257,6 +266,7 @@
              <property name="font">
               <font>
                <family>黑体</family>
+               <pointsize>12</pointsize>
               </font>
              </property>
              <property name="text">
@@ -269,6 +279,7 @@
              <property name="font">
               <font>
                <family>黑体</family>
+               <pointsize>12</pointsize>
               </font>
              </property>
              <property name="text">
@@ -284,8 +295,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>98</width>
-           <height>28</height>
+           <width>124</width>
+           <height>362</height>
           </rect>
          </property>
          <attribute name="label">
@@ -297,14 +308,21 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>98</width>
-           <height>28</height>
+           <width>124</width>
+           <height>362</height>
           </rect>
          </property>
          <attribute name="label">
           <string>技防服务</string>
          </attribute>
         </widget>
+       </widget>
+      </item>
+      <item>
+       <widget class="Line" name="line_2">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
        </widget>
       </item>
       <item>
@@ -316,6 +334,32 @@
      </layout>
     </item>
    </layout>
+  </widget>
+  <widget class="QLabel" name="labelTopPic">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>881</width>
+     <height>121</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="Line" name="line">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>130</y>
+     <width>881</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
   </widget>
  </widget>
  <resources/>
