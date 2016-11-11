@@ -40,7 +40,6 @@ d:\projects\git\guardcoop\generatedfiles\debug\moc_addphonebook.cpp
 d:\projects\git\guardcoop\generatedfiles\debug\moc_mainwindow.cpp
 d:\projects\git\guardcoop\generatedfiles\debug\moc_ui_registerdialog.cpp
 d:\projects\git\guardcoop\generatedfiles\debug\moc_guardwidget.cpp
-d:\projects\git\guardcoop\generatedfiles\debug\moc_guardeditdiag.cpp
 d:\projects\git\guardcoop\generatedfiles\debug\moc_guarddetailinfodiag.cpp
 d:\projects\git\guardcoop\generatedfiles\debug\moc_guardcompanywidget.cpp
 d:\projects\git\guardcoop\generatedfiles\debug\moc_guardcompanyeditdiag.cpp
@@ -54,11 +53,12 @@ d:\projects\git\guardcoop\generatedfiles\ui_modtextinfo.h
 d:\projects\git\guardcoop\generatedfiles\ui_phonebook.h
 d:\projects\git\guardcoop\generatedfiles\ui_addphonebookdiag.h
 d:\projects\git\guardcoop\generatedfiles\ui_guardwidget.h
-d:\projects\git\guardcoop\generatedfiles\ui_guardeditdiag.h
 d:\projects\git\guardcoop\generatedfiles\ui_guarddetailinfodiag.h
 d:\projects\git\guardcoop\generatedfiles\ui_guardcompanyeditdiag.h
 d:\projects\git\guardcoop\generatedfiles\ui_mapwidget.h
 d:\projects\git\guardcoop\generatedfiles\ui_guardpositiondiag.h
+d:\projects\git\guardcoop\generatedfiles\debug\moc_guardeditdiag.cpp
+d:\projects\git\guardcoop\generatedfiles\ui_guardeditdiag.h
 d:\projects\git\guardcoop\debug\guardcoopsys.ilk
 d:\projects\git\guardcoop\debug\guardcoopsys.exe
 d:\projects\git\guardcoop\debug\guardcoopsys.pdb

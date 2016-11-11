@@ -45,6 +45,9 @@ void GuardWidget::InitWidget()
 	ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
 	ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
 	ui->tableView->setColumnHidden(4, true);
+	ui->tableView->setColumnHidden(5, true);
+	ui->tableView->setColumnHidden(6, true);
+
 	ui->tableView->resizeColumnToContents(3);
 
 	QObject::connect(ui->pushButtonAdd, SIGNAL(clicked()), this, SLOT(ClickAddButton()));

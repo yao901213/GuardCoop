@@ -5,6 +5,7 @@
 #include "InfoCheck.h"
 #include "ErrorProc.h"
 #include <QFileDialog>
+#include "GlobalVar.h"
 
 GuardEditDiag::GuardEditDiag(QDialog *parent) :
 	QDialog(parent)
@@ -58,12 +59,18 @@ void GuardEditDiag::InitComboBox()
 		ui->comboBox->addItem(CurrentName);
 	}
 
+	ui->comboBoxGender->addItem(QString::fromLocal8Bit(""));
+	ui->comboBoxGender->addItem(QString::fromLocal8Bit("男"));
+	ui->comboBoxGender->addItem(QString::fromLocal8Bit("女"));
+
 	return;
 }
 
 void GuardEditDiag::InitDiag()
 {
 	InitComboBox();
+	ui->lineEditIDCardNum->installEventFilter(this);
+
 	this->setModal(true);
 	this->show();
 }
@@ -235,4 +242,67 @@ void GuardEditDiag::ClickPreviewButton()
 	photo.loadFromData(data, "JPG");
 	ui->labelPic->setPixmap(photo);
 	ui->labelPic->setScaledContents(true);
+}
+
+bool GuardEditDiag::eventFilter(QObject *obj, QEvent *ev)
+{
+	if (obj == ui->lineEditIDCardNum)
+	{
+		if (ev->type() == QEvent::FocusOut)
+		{
+			StaticCheck = false;
+			if (InfoCheck::IsEmployeeIdCardNumValid(&ui->lineEditIDCardNum->text()))
+			{
+				ui->label_IDCardNotition->setStyleSheet(QStringLiteral("color: rgb(144, 238, 144);"));
+				ui->label_IDCardNotition->setText(QString::fromLocal8Bit("校验成功"));
+				GetBirthAndGenderFromID();
+			}
+			else
+			{
+				ui->label_IDCardNotition->setStyleSheet(QStringLiteral("color: rgb(255, 0, 0);"));
+				ui->label_IDCardNotition->setText(QString::fromLocal8Bit("身份证号码错误"));
+			}
+			StaticCheck = true;
+		}
+		if (ev->type() == QEvent::FocusIn)
+		{
+			ui->label_IDCardNotition->clear();
+		}
+	}
+
+	return QDialog::eventFilter(obj, ev);
+}
+
+void GuardEditDiag::GetBirthAndGenderFromID()
+{
+	QString ID = ui->lineEditIDCardNum->text();
+
+	int year, month, date, gender;
+	int offset = 6;
+
+	if (ID.length() == FIX_NEW_ID_CARD_NUM_LEN)
+	{
+		year = ID.mid(offset, 4).toInt();
+		offset += 4;
+	}
+	else
+	{
+		year = ID.mid(offset, 2).toInt();
+		offset += 2;
+	}
+	month = ID.mid(offset, 2).toInt();
+	offset += 2;
+	date = ID.mid(offset, 2).toInt();
+	offset += 2;
+	gender = ID.mid(offset, 1).toInt() % 2;
+
+	ui->dateEdit->setDate(QDate(year, month, date));
+	if (gender)
+	{
+		ui->comboBoxGender->setCurrentIndex(1);
+	}
+	else
+	{
+		ui->comboBoxGender->setCurrentIndex(2);
+	}
 }

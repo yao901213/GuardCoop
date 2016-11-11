@@ -1,7 +1,13 @@
 #include "ErrorProc.h"
+#include "GlobalVar.h"
 
 void ErrorProc::PopMessageBox(QString *MessString, int Type)
 {
+	if (!StaticCheck)
+	{
+		return;
+	}
+
 	QMessageBox MessageBox;
 
 	switch (Type)
