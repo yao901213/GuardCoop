@@ -51,7 +51,7 @@ void GuardEditDiag::InitComboBox()
 	for (; i < RowCount; i++)
 	{
 		CurrentName = modelCompany->record(i).value("Name").toString();
-		if (CurrentName == "¡Ÿ ±")
+		if (CurrentName == QString::fromLocal8Bit("¡Ÿ ±"))
 		{
 			continue;
 		}
