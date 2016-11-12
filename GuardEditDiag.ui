@@ -56,7 +56,7 @@
      <rect>
       <x>30</x>
       <y>30</y>
-      <width>74</width>
+      <width>71</width>
       <height>261</height>
      </rect>
     </property>
@@ -70,7 +70,7 @@
         </font>
        </property>
        <property name="text">
-        <string>工      号</string>
+        <string>工    号</string>
        </property>
       </widget>
      </item>
@@ -83,7 +83,7 @@
         </font>
        </property>
        <property name="text">
-        <string>姓      名</string>
+        <string>姓    名</string>
        </property>
       </widget>
      </item>
@@ -277,9 +277,9 @@
     </property>
     <property name="maximumTime">
      <time>
-      <hour>0</hour>
-      <minute>0</minute>
-      <second>0</second>
+      <hour>23</hour>
+      <minute>59</minute>
+      <second>59</second>
      </time>
     </property>
     <property name="displayFormat">

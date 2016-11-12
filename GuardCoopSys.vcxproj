@@ -97,7 +97,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>.;D:\Program Files\Qt\5.7\msvc2015_64\include;D:\Program Files\Qt\5.7\msvc2015_64\include\QtWidgets;D:\Program Files\Qt\5.7\msvc2015_64\include\QtGui;D:\Program Files\Qt\5.7\msvc2015_64\include\QtANGLE;D:\Program Files\Qt\5.7\msvc2015_64\include\QtSql;D:\Program Files\Qt\5.7\msvc2015_64\include\QtCore;debug;D:\Program Files\Qt\5.7\msvc2015_64\mkspecs\win32-msvc2010;.\GeneratedFiles;HeadFiles;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;D:\Qt\Qt5.7.0\5.7\msvc2015_64\include;D:\Qt\Qt5.7.0\5.7\msvc2015_64\include\QtWidgets;D:\Qt\Qt5.7.0\5.7\msvc2015_64\include\QtGui;D:\Qt\Qt5.7.0\5.7\msvc2015_64\include\QtANGLE;D:\Qt\Qt5.7.0\5.7\msvc2015_64\include\QtSql;D:\Qt\Qt5.7.0\5.7\msvc2015_64\include\QtCore;debug;D:\Qt\Qt5.7.0\5.7\msvc2015_64;.\GeneratedFiles;HeadFiles;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-w34100 -w34189 -w44996 %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>debug\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>

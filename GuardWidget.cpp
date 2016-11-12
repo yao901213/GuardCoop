@@ -47,6 +47,7 @@ void GuardWidget::InitWidget()
 	ui->tableView->setColumnHidden(4, true);
 	ui->tableView->setColumnHidden(5, true);
 	ui->tableView->setColumnHidden(6, true);
+	ui->tableView->setColumnHidden(7, true);
 
 	ui->tableView->resizeColumnToContents(3);
 

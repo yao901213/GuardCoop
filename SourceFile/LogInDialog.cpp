@@ -56,8 +56,6 @@ void LogInDialog::TestTemp()
 
 void LogInDialog::ClickLoginButton()
 {
-	QSqlQuery query;
-
 	///////////////////////
 	TestTemp();
 	//////////////////////

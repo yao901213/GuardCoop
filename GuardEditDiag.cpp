@@ -6,6 +6,7 @@
 #include "ErrorProc.h"
 #include <QFileDialog>
 #include "GlobalVar.h"
+#include <QSqlQuery>
 
 GuardEditDiag::GuardEditDiag(QDialog *parent) :
 	QDialog(parent)
@@ -94,6 +95,8 @@ void GuardEditDiag::InitModFunc()
 	ui->lineEditID->setEnabled(false);
 	ui->lineEditName->setText(record.value("Name").toString());
 	ui->lineEditIDCardNum->setText(record.value("IDCardNum").toString());
+	ui->comboBoxGender->setCurrentText(record.value("Gender").toString());
+	ui->dateEdit->setDate(record.value("DateofBirth").toDate());
 
 	QPixmap photo;
 	photo.loadFromData(record.value("Photo").toByteArray(), "JPG");
@@ -105,6 +108,7 @@ void GuardEditDiag::ClickSubmitButtonModFunc()
 {
 	model->select();
 	QSqlRecord record = model->record(CurRowIndex);
+	int ID = record.value("EmployeeID").toInt();
 
 	if (!InfoCheck::IsEmployeeIdCardNumValid(&ui->lineEditIDCardNum->text()))
 	{
@@ -120,9 +124,32 @@ void GuardEditDiag::ClickSubmitButtonModFunc()
 	}
 
 	record.setValue("EmployeeID", ui->lineEditID->text());
-	record.setValue("Name", ui->lineEditName->text());
-	record.setValue("WorkPosition", ui->comboBox->currentText());
-	record.setValue("IDCardNum", ui->lineEditIDCardNum->text());
+
+	QSqlQuery query;
+	QString queryStr = tr("UPDATE HumanResource.Guard SET Name = '%1'"
+	"WHERE EmployeeID = %2").arg(ui->lineEditName->text()).arg(ID);
+	query.prepare(queryStr);
+	query.exec();
+
+	queryStr = tr("UPDATE HumanResource.Guard SET WorkPosition = '%1'"
+		"WHERE EmployeeID = %2").arg(ui->comboBox->currentText()).arg(ID);
+	query.prepare(queryStr);
+	query.exec();
+
+	queryStr = tr("UPDATE HumanResource.Guard SET IDCardNum = '%1'"
+		"WHERE EmployeeID = %2").arg(ui->lineEditIDCardNum->text()).arg(ID);
+	query.prepare(queryStr);
+	query.exec();
+
+	queryStr = tr("UPDATE HumanResource.Guard SET DateofBirth = '%1'"
+		"WHERE EmployeeID = %2").arg(ui->dateEdit->text()).arg(ID);
+	query.prepare(queryStr);
+	query.exec();
+
+	queryStr = tr("UPDATE HumanResource.Guard SET Gender = '%1'"
+		"WHERE EmployeeID = %2").arg(ui->comboBoxGender->currentText()).arg(ID);
+	query.prepare(queryStr);
+	query.exec();
 
 	if (!ui->lineEditPhoto->text().isEmpty())
 	{
@@ -130,14 +157,10 @@ void GuardEditDiag::ClickSubmitButtonModFunc()
 		file.open(QIODevice::ReadOnly);
 		QByteArray data = file.readAll();
 		QVariant var(data);
-		record.setValue("Photo", var);
+		//record.setValue("Photo", var);
+		//model->setRecord(CurRowIndex, record);
+		//model->submitAll();
 	}
-	else
-	{
-		//record.setValue("Photo", 0);
-	}
-	model->setRecord(CurRowIndex, record);
-	model->submitAll();
 
 	this->accept();
 }
@@ -293,16 +316,16 @@ void GuardEditDiag::GetBirthAndGenderFromID()
 	month = ID.mid(offset, 2).toInt();
 	offset += 2;
 	date = ID.mid(offset, 2).toInt();
-	offset += 2;
+	offset += 4;
 	gender = ID.mid(offset, 1).toInt() % 2;
 
 	ui->dateEdit->setDate(QDate(year, month, date));
 	if (gender)
 	{
-		ui->comboBoxGender->setCurrentIndex(1);
+		ui->comboBoxGender->setCurrentText(QString::fromLocal8Bit("ÄÐ"));
 	}
 	else
 	{
-		ui->comboBoxGender->setCurrentIndex(2);
+		ui->comboBoxGender->setCurrentText(QString::fromLocal8Bit("Å®"));
 	}
 }
