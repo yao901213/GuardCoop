@@ -273,8 +273,20 @@ bool InfoCheck::IsNewIDCardCheckSumValid(QString *IdCardNum)
 	}
 
 	residue = sum % 11;
+	if (IdCardNum->right(1) == QString("x"))
+	{
+		if ('x' == IDCardCheckSum[residue])
+		{
+			return true;
+		}
+		else
+		{
+			ErrorProc::PopMessageBox(&QString::fromLocal8Bit("身份证号最后一位输入错误:%1").arg(IdCardNum->right(1).toInt()), 2);
+			return false;
+		}
+	}
 
-	if (IdCardNum->right(1).toInt() == IDCardCheckSum[residue])
+	if (IdCardNum->right(1).toInt() == (int)IDCardCheckSum[residue])
 	{
 		return true;
 	}
