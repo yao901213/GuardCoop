@@ -70,6 +70,8 @@ void GuardEditDiag::InitComboBox()
 void GuardEditDiag::InitDiag()
 {
 	InitComboBox();
+	ui->pushButtonOk->setShortcut(Qt::Key_Enter);
+	ui->pushButtonOk->setShortcut(Qt::Key_Return);
 	ui->lineEditIDCardNum->installEventFilter(this);
 
 	this->setModal(true);
@@ -80,6 +82,7 @@ void GuardEditDiag::InitAddFunc()
 {
 	QObject::connect(ui->pushButtonOk, SIGNAL(clicked()), this, SLOT(ClickSubmitButtonAddFunc()));
 	ui->comboBox->setCurrentIndex(0);
+	InitDateEdit();
 }
 
 void GuardEditDiag::InitModFunc()
@@ -96,13 +99,21 @@ void GuardEditDiag::InitModFunc()
 	ui->lineEditName->setText(record.value("Name").toString());
 	ui->lineEditIDCardNum->setText(record.value("IDCardNum").toString());
 	ui->comboBoxGender->setCurrentText(record.value("Gender").toString());
+	ui->dateEdit_Employ->setDate(record.value("DateofEmploy").toDate());
 	ui->dateEdit->setDate(record.value("DateofBirth").toDate());
 
-	QPixmap photo;
+	QPixmap photo; 
 	photo.loadFromData(record.value("Photo").toByteArray(), "JPG");
 	ui->labelPic->setPixmap(photo);
 	ui->labelPic->setScaledContents(true);
 }
+
+void GuardEditDiag::InitDateEdit()
+{
+	ui->dateEdit_Employ->setDate(QDate::currentDate());
+	ui->dateEdit_Employ->setEnabled(false);
+}
+
 
 void GuardEditDiag::ClickSubmitButtonModFunc()
 {
@@ -125,9 +136,10 @@ void GuardEditDiag::ClickSubmitButtonModFunc()
 
 	record.setValue("EmployeeID", ui->lineEditID->text());
 
+	//varbinary在读取之后重新通过model存入库中，出现数据格式不一致的问题，使用query单独插入数据，规避问题
 	QSqlQuery query;
 	QString queryStr = tr("UPDATE HumanResource.Guard SET Name = '%1'"
-	"WHERE EmployeeID = %2").arg(ui->lineEditName->text()).arg(ID);
+		"WHERE EmployeeID = %2").arg(ui->lineEditName->text()).arg(ID);
 	query.prepare(queryStr);
 	query.exec();
 
@@ -157,9 +169,9 @@ void GuardEditDiag::ClickSubmitButtonModFunc()
 		file.open(QIODevice::ReadOnly);
 		QByteArray data = file.readAll();
 		QVariant var(data);
-		//record.setValue("Photo", var);
-		//model->setRecord(CurRowIndex, record);
-		//model->submitAll();
+		record.setValue("Photo", var);
+		model->setRecord(CurRowIndex, record);
+		model->submitAll();
 	}
 
 	this->accept();
@@ -167,6 +179,7 @@ void GuardEditDiag::ClickSubmitButtonModFunc()
 
 void GuardEditDiag::ClickSubmitButtonAddFunc()
 {
+	int totalnum = 0;
 	if (!IsEmplyeeIdValid())
 	{
 		return;
@@ -186,7 +199,8 @@ void GuardEditDiag::ClickSubmitButtonAddFunc()
 
 	model->setFilter("");
 	model->select();
-	QSqlRecord record = model->record(CurRowIndex);
+	totalnum = model->rowCount();
+	QSqlRecord record = model->record();
 
 	record.setValue("EmployeeID", ui->lineEditID->text().toInt());
 	record.setValue("Name", ui->lineEditName->text());
@@ -199,6 +213,9 @@ void GuardEditDiag::ClickSubmitButtonAddFunc()
 		record.setValue("WorkPosition", QString::fromLocal8Bit("暂无"));
 	}
 	record.setValue("IDCardNum", ui->lineEditIDCardNum->text());
+	record.setValue("Gender", ui->comboBoxGender->currentText());
+	record.setValue("DateofEmploy", ui->dateEdit_Employ->text());
+	record.setValue("DateofBirth", ui->dateEdit->text());
 
 	if (!ui->lineEditPhoto->text().isEmpty())
 	{
@@ -209,9 +226,10 @@ void GuardEditDiag::ClickSubmitButtonAddFunc()
 		record.setValue("Photo", var);
 	}
 
-	model->insertRecord(CurRowIndex, record);
+	model->insertRecord(totalnum, record);
 	qDebug() << model->lastError().text();
 	model->submitAll();
+	qDebug() << model->lastError().text();
 
 	this->accept();
 }
@@ -310,7 +328,7 @@ void GuardEditDiag::GetBirthAndGenderFromID()
 	}
 	else
 	{
-		year = ID.mid(offset, 2).toInt();
+		year = ID.mid(offset, 2).toInt() + 1900;
 		offset += 2;
 	}
 	month = ID.mid(offset, 2).toInt();
