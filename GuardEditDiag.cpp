@@ -70,6 +70,7 @@ void GuardEditDiag::InitComboBox()
 void GuardEditDiag::InitDiag()
 {
 	InitComboBox();
+	
 	ui->pushButtonOk->setShortcut(Qt::Key_Enter);
 	ui->pushButtonOk->setShortcut(Qt::Key_Return);
 	ui->lineEditIDCardNum->installEventFilter(this);
@@ -81,6 +82,8 @@ void GuardEditDiag::InitDiag()
 void GuardEditDiag::InitAddFunc()
 {
 	QObject::connect(ui->pushButtonOk, SIGNAL(clicked()), this, SLOT(ClickSubmitButtonAddFunc()));
+	QObject::connect(ui->pushButtonDelPic, SIGNAL(clicked()), this, SLOT(ClearPhoto()));
+
 	ui->comboBox->setCurrentIndex(0);
 	InitDateEdit();
 }
@@ -88,7 +91,9 @@ void GuardEditDiag::InitAddFunc()
 void GuardEditDiag::InitModFunc()
 {
 	QSqlRecord record;
+
 	QObject::connect(ui->pushButtonOk, SIGNAL(clicked()), this, SLOT(ClickSubmitButtonModFunc()));
+	QObject::connect(ui->pushButtonDelPic, SIGNAL(clicked()), this, SLOT(ClickDelPicButton()));
 
 	model->select();
 	record = model->record(CurRowIndex);
@@ -163,8 +168,15 @@ void GuardEditDiag::ClickSubmitButtonModFunc()
 	query.prepare(queryStr);
 	query.exec();
 
+	queryStr = tr("UPDATE HumanResource.Guard SET DateofEmploy = '%1'"
+		"WHERE EmployeeID = %2").arg(ui->dateEdit_Employ->text()).arg(ID);
+	query.prepare(queryStr);
+	query.exec();
+
 	if (!ui->lineEditPhoto->text().isEmpty())
 	{
+		if (!IsPicPathValid())
+			return;
 		QFile file(ui->lineEditPhoto->text());
 		file.open(QIODevice::ReadOnly);
 		QByteArray data = file.readAll();
@@ -219,6 +231,8 @@ void GuardEditDiag::ClickSubmitButtonAddFunc()
 
 	if (!ui->lineEditPhoto->text().isEmpty())
 	{
+		if (!IsPicPathValid())
+			return;
 		QFile file(ui->lineEditPhoto->text());
 		file.open(QIODevice::ReadOnly);
 		QByteArray data = file.readAll();
@@ -347,3 +361,59 @@ void GuardEditDiag::GetBirthAndGenderFromID()
 		ui->comboBoxGender->setCurrentText(QString::fromLocal8Bit("女"));
 	}
 }
+
+void GuardEditDiag::ClickDelPicButton()
+{
+	QMessageBox box;
+	box.setWindowTitle(QString::fromLocal8Bit("提醒"));
+	box.setText(QString::fromLocal8Bit("确定删除图片?"));
+	box.setIcon(QMessageBox::Information);
+	box.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+	box.setButtonText(QMessageBox::Ok, QString::fromLocal8Bit("确定"));
+	box.setButtonText(QMessageBox::Cancel, QString::fromLocal8Bit("取消"));
+	if (QMessageBox::Cancel == box.exec())
+	{
+		return;
+	}
+
+	ClearPhoto();
+
+	QString querystr = tr("UPDATE HumanResource.Guard SET Photo = NULL WHERE EmployeeID = %1").
+		arg(ui->lineEditID->text().toInt());
+	QSqlQuery query;
+	query.prepare(querystr);
+	if (!query.exec())
+	{
+		qDebug() << query.lastError().text();
+	}
+
+}
+
+void GuardEditDiag::ClearPhoto()
+{
+	ui->labelPic->clear();
+	ui->lineEditPhoto->clear();
+}
+
+
+bool GuardEditDiag::IsPicPathValid()
+{
+	QFileInfo fileinfo(ui->lineEditPhoto->text());
+
+	if (!fileinfo.exists())
+	{
+		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("文件不存在，路径输入有误"), 2);
+		ui->lineEditPhoto->clear();
+		return false;
+	}
+
+	if ("jpg" != fileinfo.suffix())
+	{
+		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("文件格式不正确，只支持jpg格式的图片"), 2);
+		ui->lineEditPhoto->clear();
+		return false;
+	}
+
+	return true;
+}
+

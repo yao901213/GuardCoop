@@ -27,7 +27,10 @@ void GuardDetail::InitDiag()
 	ui->labelID->setText(record.value("EmployeeID").toString());
 	ui->labelName->setText(record.value("Name").toString());
 	ui->labelWorkPosition->setText(record.value("WorkPosition").toString());
-	ui->labelIDCardNum->setText(record.value("IDCardNum").toString());
+	ui->labelIDCard->setText(record.value("IDCardNum").toString());
+	ui->labelGender->setText(record.value("Gender").toString());
+	ui->labelDateofBirth->setText(record.value("DateofBirth").toString());
+	ui->labelDateofEmploy->setText(record.value("DateofEmploy").toString());
 
 	QPixmap photo;
 	photo.loadFromData(record.value("Photo").toByteArray(), "JPG");

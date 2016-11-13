@@ -21,8 +21,10 @@ private:
 	QSqlTableModel *modelCompany;
 	bool IsEmplyeeIdValid();
 	void InitComboBox();
-	void InitDiag();	
+	void InitDiag();
+	void InitDateEdit();
 	void GetBirthAndGenderFromID();
+	bool IsPicPathValid();
 protected:
 	bool eventFilter(QObject *obj, QEvent *ev);
 private slots:
@@ -30,7 +32,8 @@ void ClickSubmitButtonAddFunc();
 void ClickSubmitButtonModFunc();
 void ClickBrowseButton();
 void ClickPreviewButton();
-
+void ClickDelPicButton();
+void ClearPhoto();
 };
 
 
