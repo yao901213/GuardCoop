@@ -23,6 +23,8 @@ private:
 	GuardCompanyEditDiag *edit;
 	void InitGuardCompanyInfo();
 	bool IsCompanyHasGuard();
+	void InitComboBox();
+
 private slots:
 	void ClickAddButton();
 	void ClickSearchButton();

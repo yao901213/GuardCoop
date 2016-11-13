@@ -32,23 +32,7 @@ void GuardCompany::ConstrainGuestAccount()
 
 void GuardCompany::InitGuardCompanyInfo()
 {
-	int i, rowCount;
-	QString CurrentName;
-	model->select();
-	rowCount = model->rowCount();
-	comboBox->setEditable(false);
-	comboBox->addItem("");
-	for (i = 0; i < rowCount; i++)
-	{
-		CurrentName = model->record(i).value("Name").toString();
-		if (CurrentName == QString::fromLocal8Bit("临时") 
-			|| CurrentName == QString::fromLocal8Bit("暂无"))
-		{
-			continue;
-		}
-		comboBox->addItem(CurrentName);
-	}
-	comboBox->setCurrentIndex(0);
+	InitComboBox();
 
 	QObject::connect(ui->pushButtonAdd, SIGNAL(clicked()), this, SLOT(ClickAddButton()));
 	QObject::connect(ui->pushButtonDel, SIGNAL(clicked()), this, SLOT(ClickDelButton()));
@@ -165,6 +149,8 @@ void GuardCompany::UpdateTable()
 	model->select();
 
 	ui->tableView->show();
+	comboBox->clear();
+	InitComboBox();
 }
 
 bool GuardCompany::IsCompanyHasGuard()
@@ -183,3 +169,26 @@ bool GuardCompany::IsCompanyHasGuard()
 
 	return false;
 }
+
+void GuardCompany::InitComboBox()
+{
+	int i, rowCount;
+	QString CurrentName;
+	model->select();
+	rowCount = model->rowCount();
+	comboBox->setEditable(false);
+
+	comboBox->addItem("");
+	for (i = 0; i < rowCount; i++)
+	{
+		CurrentName = model->record(i).value("Name").toString();
+		if (CurrentName == QString::fromLocal8Bit("临时")
+			|| CurrentName == QString::fromLocal8Bit("暂无"))
+		{
+			continue;
+		}
+		comboBox->addItem(CurrentName);
+	}
+	comboBox->setCurrentIndex(0);
+}
+

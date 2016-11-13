@@ -3,6 +3,7 @@
 #include <QSqlRecord>
 #include <QSqlError>
 #include <QDebug>
+#include <QSqlQuery>
 
 GuardCompanyEditDiag::GuardCompanyEditDiag(int index, QSqlTableModel *parentmodel)
 {
@@ -169,51 +170,36 @@ int GuardCompanyEditDiag::GetCompanyNameNum()
 
 void GuardCompanyEditDiag::ReplaceNewCompanyNameInGuardTable()
 {
-	int i = 0;
-	int RowCount = 0;
+	QSqlQuery query;	
 	QString NewName = ui->lineEditName->text();
-	QSqlRecord record;
-	QString oldname = QString::fromLocal8Bit("临时");
 
-	modelGuard->setFilter(QObject::tr("WorkPosition = '%1'").arg(oldname));
-	modelGuard->select();
+	QString prepare = QString::fromLocal8Bit("UPDATE HumanResource.Guard SET WorkPosition = '%1' WHERE WorkPosition = '临时'")
+		.arg(NewName);
+	query.prepare(prepare);
 
-	RowCount = modelGuard->rowCount();
-	for (; i < RowCount; i++)
-	{
-		record = modelGuard->record(i);
-		record.setValue("WorkPosition", NewName);
-		modelGuard->setRecord(i, record);
-	}
-
-	modelGuard->submitAll();
-	qDebug() << modelGuard->lastError().text();
-}
-
-void GuardCompanyEditDiag::ChangeOldCompanyNameInGuardTable()
-{
-	int i = 0;
-	int RowCount = 0;
-	QString NewName = QString::fromLocal8Bit("临时");
-	QSqlRecord record;
-
-	modelGuard->setFilter(QObject::tr("WorkPosition = '%1'").arg(OldName));
-	modelGuard->select();
-
-	RowCount = modelGuard->rowCount();
-	for (; i < RowCount; i++)
-	{
-		record = modelGuard->record(i);
-		record.setValue("WorkPosition", NewName);
-		modelGuard->setRecord(i, record);
-	}
-
-	if (!modelGuard->submitAll())
+	if (!query.exec())
 	{
 		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("添加数据库错误"), 2);
 		return;
 	}
-	qDebug() << modelGuard->lastError().text();
+
+	qDebug() << query.lastError().text();
+}
+
+void GuardCompanyEditDiag::ChangeOldCompanyNameInGuardTable()
+{
+	QSqlQuery query;
+	QString prepare = QString::fromLocal8Bit("UPDATE HumanResource.Guard SET WorkPosition = '临时' WHERE WorkPosition = '%1'")
+		.arg(OldName);
+	query.prepare(prepare);
+	
+	if (!query.exec())
+	{
+		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("添加数据库错误"), 2);
+		return;
+	}
+
+	qDebug() << query.lastError().text();
 }
 
 bool GuardCompanyEditDiag::IsTempSymbolExitInGuardTable()
