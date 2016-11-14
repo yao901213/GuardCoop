@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>505</width>
-    <height>281</height>
+    <height>266</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
      <x>40</x>
      <y>30</y>
      <width>431</width>
-     <height>181</height>
+     <height>201</height>
     </rect>
    </property>
    <property name="title">
@@ -90,7 +90,7 @@
        <property name="font">
         <font>
          <family>Times New Roman</family>
-         <pointsize>12</pointsize>
+         <pointsize>9</pointsize>
         </font>
        </property>
        <property name="placeholderText">
@@ -103,7 +103,7 @@
        <property name="font">
         <font>
          <family>Agency FB</family>
-         <pointsize>12</pointsize>
+         <pointsize>9</pointsize>
         </font>
        </property>
        <property name="toolTip">
@@ -125,7 +125,7 @@
       <x>330</x>
       <y>40</y>
       <width>77</width>
-      <height>78</height>
+      <height>131</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -158,12 +158,25 @@
        </property>
       </widget>
      </item>
+     <item>
+      <widget class="QPushButton" name="pushButtonChangePwd">
+       <property name="font">
+        <font>
+         <family>楷体</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>修改密码</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </widget>
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>80</x>
+      <x>40</x>
       <y>150</y>
       <width>252</width>
       <height>22</height>

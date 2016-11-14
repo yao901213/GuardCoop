@@ -8,6 +8,7 @@
 #include "RegisterDialog.h"
 #include "MainWindow.h"
 #include "Connect2DB.h"
+#include "ChangePwd.h"
 
 namespace Ui {
 	class LogInDialog;
@@ -28,12 +29,13 @@ public:
 	public slots:
 	void ClickLoginButton();
 	void ClickRegisterButton();
+	void ClickChangeButton();
 private:
 	DB connectDb;
 	MainWindow *MainWin;
 	RegisterDialog *RegisterDiag;
 	Ui_Dialog *ui;
-
+	ChangePwd *change;
 	/////////////////
 
 	void TestTemp();

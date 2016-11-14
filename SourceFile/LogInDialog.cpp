@@ -41,6 +41,7 @@ void LogInDialog:: InitForm()
 	}
 	QObject::connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(ClickLoginButton()));
 	QObject::connect(ui->pushButton_2, SIGNAL(clicked()), this, SLOT(ClickRegisterButton()));
+	QObject::connect(ui->pushButtonChangePwd, SIGNAL(clicked()), this, SLOT(ClickChangeButton()));
 	ui->pushButton->setShortcut(Qt::Key_Enter);
 	ui->pushButton->setShortcut(Qt::Key_Return);
 
@@ -164,4 +165,9 @@ int main(int argc, char *argv[])
 	QObject::connect(ui.login, SIGNAL(accepted()), ui.window, SLOT(ConstrainGuestAccount()));
 	
 	return app.exec();
+}
+
+void LogInDialog::ClickChangeButton()
+{
+	change = new ChangePwd;
 }

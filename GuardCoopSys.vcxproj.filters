@@ -121,6 +121,12 @@
     <CustomBuild Include="GuardPositionEditDiag.h">
       <Filter>HeadFiles</Filter>
     </CustomBuild>
+    <CustomBuild Include="ChangePwdDiag.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ChangePwd.h">
+      <Filter>HeadFiles</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SourceFile\LogInDialog.cpp">
@@ -264,6 +270,15 @@
     <ClCompile Include="GeneratedFiles\Release\moc_GuardPositionEditDiag.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="ChangePwd.cpp">
+      <Filter>SourceFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_ChangePwd.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_ChangePwd.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HeadFiles\Connect2DB.h">
@@ -306,6 +321,9 @@
       <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_GuardPositionDiag.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_ChangePwdDiag.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
