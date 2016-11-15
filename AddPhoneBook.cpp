@@ -44,8 +44,8 @@ void AddPhoneBook::InitModFunc()
 {
 	QObject::connect(ui->pushButtonOk, SIGNAL(clicked()), this, SLOT(ClickSubmitButtonModFunc()));
 
+	setWindowTitle(QString::fromLocal8Bit("请输入要修改的信息"));
 	model->select();
-	QString ss = model->filter();
 	ui->lineEditName->setText(model->record(ModRowIndex).value("Name").toString());
 	ui->lineEditPhone->setText(model->record(ModRowIndex).value("PhoneNum").toString());
 	ui->lineEditEmail->setText(model->record(ModRowIndex).value("Email").toString());

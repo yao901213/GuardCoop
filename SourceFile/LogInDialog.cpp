@@ -63,7 +63,7 @@ void LogInDialog::ClickLoginButton()
 	TestTemp();
 	//////////////////////
 	
-	if (ui->lineEdit->text().trimmed().isEmpty()
+	if (ui->lineEdit->text().trimmed().isEmpty()  
 		|| ui->lineEdit_3->text().trimmed().isEmpty())
 	{
 		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("请输入用户名和密码"), 2);
