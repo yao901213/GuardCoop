@@ -124,13 +124,6 @@
               </property>
              </widget>
             </item>
-            <item>
-             <widget class="QPushButton" name="pushButton">
-              <property name="text">
-               <string>批量添加</string>
-              </property>
-             </widget>
-            </item>
            </layout>
           </widget>
          </widget>
@@ -149,7 +142,6 @@
   <tabstop>pushButtonAdd</tabstop>
   <tabstop>pushButtonDelete</tabstop>
   <tabstop>pushButtonMod</tabstop>
-  <tabstop>pushButton</tabstop>
   <tabstop>tableView</tabstop>
  </tabstops>
  <resources/>

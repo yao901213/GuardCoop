@@ -38,7 +38,7 @@ void GuardWidget::InitWidget()
 	model->setHeaderData(1, Qt::Horizontal, QString::fromLocal8Bit("姓名"), Qt::DisplayRole);
 	model->setHeaderData(2, Qt::Horizontal, QString::fromLocal8Bit("工作地点"), Qt::DisplayRole);
 	model->setHeaderData(3, Qt::Horizontal, QString::fromLocal8Bit("身份证号"), Qt::DisplayRole);
-	model->setHeaderData(7, Qt::Horizontal, QString::fromLocal8Bit("入职日期"), Qt::DisplayRole);
+	model->setHeaderData(6, Qt::Horizontal, QString::fromLocal8Bit("入职日期"), Qt::DisplayRole);
 	model->select();
 
 	ui->tableView->setModel(model);
@@ -47,7 +47,7 @@ void GuardWidget::InitWidget()
 	ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
 	ui->tableView->setColumnHidden(4, true);
 	ui->tableView->setColumnHidden(5, true);
-	ui->tableView->setColumnHidden(6, true);
+	ui->tableView->setColumnHidden(7, true);
 
 	ui->tableView->resizeColumnToContents(3);
 
