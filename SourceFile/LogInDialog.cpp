@@ -45,6 +45,8 @@ void LogInDialog:: InitForm()
 	ui->pushButton->setShortcut(Qt::Key_Enter);
 	ui->pushButton->setShortcut(Qt::Key_Return);
 
+	ui->radioButton->setChecked(true);
+
 	return;
 }
 
