@@ -31,5 +31,7 @@ private slots:
 	void AddPoint();
 	void ClickAddButton();
 	void ReloadUrl();
+	void ClickModButton();
+	void ClickDelButton();
 };
 #endif

@@ -35,6 +35,8 @@ void MapWidget::InitWidget()
 		this, SLOT(ShowAllPoints(bool)));
 	QObject::connect(ui->pushButtonAdd, SIGNAL(clicked()),
 		this, SLOT(ClickAddButton()));
+	QObject::connect(ui->pushButtonMod, SIGNAL(clicked()), this, SLOT(ClickModButton()));
+	QObject::connect(ui->pushButtonDel, SIGNAL(clicked()), this, SLOT(ClickDelButton()));
 
 	model->setTable("HumanResource.GuardPosition");
 	model->setFilter("");
@@ -86,7 +88,8 @@ void MapWidget::ShowAllPoints(bool Finished)
 
 void MapWidget::ClickAddButton()
 {
-	edit = new GuardPositionEditDiag(model);
+	edit = new GuardPositionEditDiag();
+	edit->InitDiagAddFunc();
 	QObject::connect(edit, SIGNAL(accepted()), this, SLOT(ReloadUrl()));
 }
 
@@ -102,6 +105,22 @@ void MapWidget::ResetPointIndex()
 	LoadTime = 0;
 	UpdateSymbol = false;
 	Index = 0;
+}
+
+
+void MapWidget::ClickModButton()
+{
+	edit = new GuardPositionEditDiag();
+	edit->InitDiagModFunc();
+	QObject::connect(edit, SIGNAL(accepted()), this, SLOT(ReloadUrl()));
+
+}
+void MapWidget::ClickDelButton()
+{
+	edit = new GuardPositionEditDiag();
+	edit->InitDiagDelFunc();
+	QObject::connect(edit, SIGNAL(accepted()), this, SLOT(ReloadUrl()));
+
 }
 
 

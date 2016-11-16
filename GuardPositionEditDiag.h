@@ -8,15 +8,21 @@ class GuardPositionEditDiag :public QDialog
 {
 	Q_OBJECT
 public:
-	GuardPositionEditDiag(QSqlTableModel *parentModel);
+	GuardPositionEditDiag();
 	~GuardPositionEditDiag();
+	void InitDiagAddFunc();
+	void InitDiagModFunc();
+	void InitDiagDelFunc();
 private:
-	void InitDiag();
 	Ui_DialogGuardPosition *ui;
 	bool IsInputValid();
 	QSqlTableModel *model;
 private slots:
-	void ClickOkButton();
+	void ClickOkButtonAddFunc();
+	void ClickOkButtonDelFunc();
+	void ClickOkButtonModFunc();
+	void ClickCheckButton();
+	void InitDiag();
 };
 
 #endif

@@ -39,16 +39,14 @@ void GuardCompany::InitGuardCompanyInfo()
 	QObject::connect(ui->pushButtonMod, SIGNAL(clicked()), this, SLOT(ClickModButton()));
 	QObject::connect(ui->pushButtonSearch, SIGNAL(clicked()), this, SLOT(ClickSearchButton()));
 	QObject::connect(ui->pushButtonShowAll, SIGNAL(clicked()), this, SLOT(UpdateTable()));
+
 }
 
 void GuardCompany::ShowDbData()
 {
-	int i = 0;
-	int rowcount = 0;
 	QString strtemp = QString::fromLocal8Bit("ÁÙÊ±");
-	QString strcurrent;
 
-	model->setFilter("");
+	model->setFilter(tr("Name != '%1'").arg(strtemp));
 	model->select();
 	
 	ui->tableView->setModel(model);
@@ -61,16 +59,6 @@ void GuardCompany::ShowDbData()
 	ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
 	ui->tableView->setSelectionMode(QAbstractItemView::SingleSelection);
 	ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
-
-	rowcount = model->rowCount();
-	for (i = 0; i < rowcount; i++)
-	{
-		strcurrent = model->record(i).value("Name").toString();
-		if ((strcurrent == strtemp))
-		{
-			ui->tableView->setRowHidden(i, true);
-		}
-	}
 
 	ui->tableView->show();
 }
@@ -181,7 +169,7 @@ void GuardCompany::InitComboBox()
 	modeltemp.setFilter("");
 	modeltemp.select();
 	rowCount = modeltemp.rowCount();
-	comboBox->setEditable(false);
+	comboBox->setEditable(true);
 
 	comboBox->addItem("");
 	for (i = 0; i < rowCount; i++)
