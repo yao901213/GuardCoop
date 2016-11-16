@@ -38,6 +38,7 @@ void GuardCompany::InitGuardCompanyInfo()
 	QObject::connect(ui->pushButtonDel, SIGNAL(clicked()), this, SLOT(ClickDelButton()));
 	QObject::connect(ui->pushButtonMod, SIGNAL(clicked()), this, SLOT(ClickModButton()));
 	QObject::connect(ui->pushButtonSearch, SIGNAL(clicked()), this, SLOT(ClickSearchButton()));
+	QObject::connect(ui->pushButtonShowAll, SIGNAL(clicked()), this, SLOT(UpdateTable()));
 }
 
 void GuardCompany::ShowDbData()
@@ -45,7 +46,6 @@ void GuardCompany::ShowDbData()
 	int i = 0;
 	int rowcount = 0;
 	QString strtemp = QString::fromLocal8Bit("临时");
-	QString strnull = QString::fromLocal8Bit("暂无");
 	QString strcurrent;
 
 	model->setFilter("");
@@ -66,7 +66,7 @@ void GuardCompany::ShowDbData()
 	for (i = 0; i < rowcount; i++)
 	{
 		strcurrent = model->record(i).value("Name").toString();
-		if ((strcurrent == strtemp) || (strcurrent == strnull))
+		if ((strcurrent == strtemp))
 		{
 			ui->tableView->setRowHidden(i, true);
 		}
@@ -145,7 +145,8 @@ void GuardCompany::ResetComboBox()
 
 void GuardCompany::UpdateTable()
 {
-	model->setFilter("");
+	QString strtemp = QString::fromLocal8Bit("临时");
+	model->setFilter(tr("Name != '%1'").arg(strtemp));
 	model->select();
 
 	ui->tableView->show();
@@ -174,16 +175,19 @@ void GuardCompany::InitComboBox()
 {
 	int i, rowCount;
 	QString CurrentName;
-	model->select();
-	rowCount = model->rowCount();
+	QSqlTableModel modeltemp;
+
+	modeltemp.setTable("HumanResource.GuardCompany");
+	modeltemp.setFilter("");
+	modeltemp.select();
+	rowCount = modeltemp.rowCount();
 	comboBox->setEditable(false);
 
 	comboBox->addItem("");
 	for (i = 0; i < rowCount; i++)
 	{
-		CurrentName = model->record(i).value("Name").toString();
-		if (CurrentName == QString::fromLocal8Bit("临时")
-			|| CurrentName == QString::fromLocal8Bit("暂无"))
+		CurrentName = modeltemp.record(i).value("Name").toString();
+		if (CurrentName == QString::fromLocal8Bit("临时"))
 		{
 			continue;
 		}

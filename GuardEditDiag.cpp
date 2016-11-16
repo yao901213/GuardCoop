@@ -116,7 +116,7 @@ void GuardEditDiag::InitModFunc()
 void GuardEditDiag::InitDateEdit()
 {
 	ui->dateEdit_Employ->setDate(QDate::currentDate());
-	ui->dateEdit_Employ->setEnabled(false);
+	//ui->dateEdit_Employ->setEnabled(false);
 }
 
 

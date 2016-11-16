@@ -56,6 +56,7 @@ void GuardWidget::InitWidget()
 	QObject::connect(ui->pushButtonDel, SIGNAL(clicked()), this, SLOT(ClickDelButton()));
 	QObject::connect(ui->pushButtonSearch, SIGNAL(clicked()), this, SLOT(ClickSearchButton()));
 	QObject::connect(ui->tableView, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(DouleClickRow()));
+	QObject::connect(ui->pushButtonShowAll, SIGNAL(clicked()), this, SLOT(ShowDbData()));
 
 	ui->pushButtonSearch->setFocus();
 	ui->pushButtonSearch->setShortcut(Qt::Key_Enter);
