@@ -35,6 +35,8 @@ d:\projects\git\guardcoop\x64\debug\guarddetailinfo.obj
 d:\projects\git\guardcoop\x64\debug\guardcompany.obj
 d:\projects\git\guardcoop\x64\debug\guardcompanyedit.obj
 d:\projects\git\guardcoop\x64\debug\moc_ui_registerdialog.obj
+d:\projects\git\guardcoop\x64\debug\propertyemployeeedit.obj
+d:\projects\git\guardcoop\x64\debug\moc_propertyemployeeedit.obj
 d:\projects\git\guardcoop\generatedfiles\ui_logindialog.h
 d:\projects\git\guardcoop\generatedfiles\debug\moc_phonebookedit.cpp
 d:\projects\git\guardcoop\generatedfiles\debug\moc_guardposition.cpp
@@ -58,13 +60,15 @@ d:\projects\git\guardcoop\generatedfiles\ui_textwidget.h
 d:\projects\git\guardcoop\generatedfiles\ui_modtextinfo.h
 d:\projects\git\guardcoop\generatedfiles\ui_phonebook.h
 d:\projects\git\guardcoop\generatedfiles\ui_phonebookeditdiag.h
+d:\projects\git\guardcoop\generatedfiles\ui_tablewidget.h
 d:\projects\git\guardcoop\generatedfiles\ui_guardeditdiag.h
 d:\projects\git\guardcoop\generatedfiles\ui_guarddetailinfodiag.h
 d:\projects\git\guardcoop\generatedfiles\ui_guardcompanyeditdiag.h
 d:\projects\git\guardcoop\generatedfiles\ui_mapwidget.h
 d:\projects\git\guardcoop\generatedfiles\ui_guardpositiondiag.h
 d:\projects\git\guardcoop\generatedfiles\ui_changepwddiag.h
-d:\projects\git\guardcoop\generatedfiles\ui_tablewidget.h
+d:\projects\git\guardcoop\generatedfiles\ui_propertyedit.h
+d:\projects\git\guardcoop\generatedfiles\debug\moc_propertyemployeeedit.cpp
 d:\projects\git\guardcoop\generatedfiles\debug\moc_propertyemployee.cpp
 d:\projects\git\guardcoop\debug\guardcoopsys.ilk
 d:\projects\git\guardcoop\debug\guardcoopsys.exe

@@ -57,12 +57,18 @@ bool InfoCheck::IsChineseStr(QString *str)
 {
 	int Count = str->count();
 
+	if (0 == Count)
+	{
+		return false;
+	}
+
 	for (int i = 0; i < Count; i++)
 	{
 		QChar cha = str->at(i);
 		if (IsChineseChar(&cha))
 		{
-			//这个字符是中文  
+			//这个字符是中文
+			continue;
 		}
 		else
 		{

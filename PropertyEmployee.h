@@ -6,6 +6,7 @@
 #include <QLineEdit>
 #include <QComboBox>
 #include "ui_TableWidget.h"
+#include "PropertyEmployeeEdit.h"
 
 class PropertyEmployee : public QWidget
 {
@@ -19,8 +20,13 @@ private:
 	QLineEdit *lineEdit;
 	QComboBox *ComboBox;
 	void InitWidget();
-	void UpdateTable();
 	void InitCombobox();
+	PropertyEmployeeEdit *edit;
+	void InitConnect();
+	void SetModelHeader();
+	void TableViewInit();
+public slots:
+	void UpdateTable();
 private slots:
 	void ClickSearchButton();
 	void ClickAddButton();

@@ -132,6 +132,12 @@
     <CustomBuild Include="PropertyEmployee.h">
       <Filter>HeadFiles</Filter>
     </CustomBuild>
+    <CustomBuild Include="PropertyEdit.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="PropertyEmployeeEdit.h">
+      <Filter>HeadFiles</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SourceFile\ErrorProc.cpp">
@@ -293,6 +299,15 @@
     <ClCompile Include="GeneratedFiles\Release\moc_PropertyEmployee.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="PropertyEmployeeEdit.cpp">
+      <Filter>SourceFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_PropertyEmployeeEdit.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_PropertyEmployeeEdit.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HeadFiles\Connect2DB.h">
@@ -341,6 +356,9 @@
       <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_TextWidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_PropertyEdit.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
