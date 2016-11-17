@@ -17,6 +17,8 @@ private:
 	Ui_DialogGuardPosition *ui;
 	bool IsInputValid();
 	QSqlTableModel *model;
+	bool DelFunc;
+	void SetDetailInfoDisable(bool disable);
 private slots:
 	void ClickOkButtonAddFunc();
 	void ClickOkButtonDelFunc();

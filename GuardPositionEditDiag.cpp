@@ -22,6 +22,7 @@ void GuardPositionEditDiag::InitDiag()
 	model = new QSqlTableModel();
 	model->setTable("HumanResource.GuardPosition");
 	model->setFilter("");
+	QObject::connect(ui->pushButtonCancel, SIGNAL(clicked()), this, SLOT(reject()));
 }
 
 
@@ -92,6 +93,10 @@ void GuardPositionEditDiag::InitDiagModFunc()
 {
 	QObject::connect(ui->pushButtonOk, SIGNAL(clicked()), this, SLOT(ClickOkButtonModFunc()));
 	QObject::connect(ui->pushButtonCheck, SIGNAL(clicked()), this, SLOT(ClickCheckButton()));
+	this->setWindowTitle(QString::fromLocal8Bit("请输入需要修改的岗点名"));
+	SetDetailInfoDisable(true);
+
+	DelFunc = false;
 
 	this->show();
 }
@@ -100,13 +105,51 @@ void GuardPositionEditDiag::InitDiagDelFunc()
 {
 	QObject::connect(ui->pushButtonOk, SIGNAL(clicked()), this, SLOT(ClickOkButtonDelFunc()));
 	QObject::connect(ui->pushButtonCheck, SIGNAL(clicked()), this, SLOT(ClickCheckButton()));
+	this->setWindowTitle(QString::fromLocal8Bit("请输入需要删除的岗点名"));
+	SetDetailInfoDisable(true);
+
+	DelFunc = true;
 
 	this->show();
 }
 
 void GuardPositionEditDiag::ClickOkButtonDelFunc()
 {
+	if (ui->lineEditName->text().isEmpty())
+	{
+		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("请输入名称"), 2);
+		return;
+	}
+	model->setFilter(tr("PositionName = '%1'").arg(ui->lineEditName->text()));
+	model->select();
 
+	if (1 != model->rowCount())
+	{
+		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("请输入正确的名称"), 2);
+		return;
+	}
+	QSqlRecord record = model->record(0);
+	record.setValue("Address", ui->lineEditAddress->text());
+	record.setValue("Longitude", ui->lineEditLongtitude->text().toDouble());
+	record.setValue("Latitude", ui->lineEditLatitude->text().toDouble());
+
+	QMessageBox MessageBox;
+	QString MessString = QString::fromLocal8Bit("确认删除选中的数据？名称：%1")
+		.arg(model->record(0).value("PositionName").toString());
+	MessageBox.setIcon(QMessageBox::Warning);
+	MessageBox.setWindowTitle(QString::fromLocal8Bit("警告"));
+	MessageBox.setFocus();
+	MessageBox.setText(MessString);
+	MessageBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+	MessageBox.setButtonText(QMessageBox::Ok, QString::fromLocal8Bit("确定"));
+	MessageBox.setButtonText(QMessageBox::Cancel, QString::fromLocal8Bit("取消"));
+
+	if (QMessageBox::Ok == MessageBox.exec())
+	{
+		model->removeRow(0);
+	}
+
+	this->accept();
 }
 
 void GuardPositionEditDiag::ClickOkButtonModFunc()
@@ -142,6 +185,7 @@ void GuardPositionEditDiag::ClickOkButtonModFunc()
 	{ 
 		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("修改数据库成功"), 0);
 	}
+	this->accept();
 	return;
 }
 
@@ -163,4 +207,18 @@ void GuardPositionEditDiag::ClickCheckButton()
 	ui->lineEditLatitude->setText(record.value("Latitude").toString());
 	ui->lineEditLongtitude->setText(record.value("Longitude").toString());
 	ui->lineEditName->setDisabled(true);
+
+	if (DelFunc)
+	{
+		return;
+	}
+
+	SetDetailInfoDisable(false);
+}
+
+void GuardPositionEditDiag::SetDetailInfoDisable(bool disable)
+{
+	ui->lineEditAddress->setDisabled(disable);
+	ui->lineEditLatitude->setDisabled(disable);
+	ui->lineEditLongtitude->setDisabled(disable);
 }
