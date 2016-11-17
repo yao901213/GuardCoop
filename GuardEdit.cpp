@@ -331,35 +331,10 @@ bool GuardEditDiag::eventFilter(QObject *obj, QEvent *ev)
 void GuardEditDiag::GetBirthAndGenderFromID()
 {
 	QString ID = ui->lineEditIDCardNum->text();
+	QString GenderStr;
+	InfoCheck::GetBirthAndGenderFromID(ID, *ui->dateEdit, GenderStr);
 
-	int year, month, date, gender;
-	int offset = 6;
-
-	if (ID.length() == FIX_NEW_ID_CARD_NUM_LEN)
-	{
-		year = ID.mid(offset, 4).toInt();
-		offset += 4;
-	}
-	else
-	{
-		year = ID.mid(offset, 2).toInt() + 1900;
-		offset += 2;
-	}
-	month = ID.mid(offset, 2).toInt();
-	offset += 2;
-	date = ID.mid(offset, 2).toInt();
-	offset += 4;
-	gender = ID.mid(offset, 1).toInt() % 2;
-
-	ui->dateEdit->setDate(QDate(year, month, date));
-	if (gender)
-	{
-		ui->comboBoxGender->setCurrentText(QString::fromLocal8Bit("ÄÐ"));
-	}
-	else
-	{
-		ui->comboBoxGender->setCurrentText(QString::fromLocal8Bit("Å®"));
-	}
+	ui->comboBoxGender->setCurrentText(GenderStr);
 }
 
 void GuardEditDiag::ClickDelPicButton()

@@ -296,3 +296,35 @@ bool InfoCheck::IsNewIDCardCheckSumValid(QString *IdCardNum)
 		return false;
 	}
 }
+
+void InfoCheck::GetBirthAndGenderFromID(QString &ID, QDateEdit &dateedit, QString &gender)
+{
+	int year, month, date, iGender;
+	int offset = 6;
+
+	if (ID.length() == FIX_NEW_ID_CARD_NUM_LEN)
+	{
+		year = ID.mid(offset, 4).toInt();
+		offset += 4;
+	}
+	else
+	{
+		year = ID.mid(offset, 2).toInt() + 1900;
+		offset += 2;
+	}
+	month = ID.mid(offset, 2).toInt();
+	offset += 2;
+	date = ID.mid(offset, 2).toInt();
+	offset += 4;
+	iGender = ID.mid(offset, 1).toInt() % 2;
+
+	dateedit.setDate(QDate(year, month, date));
+	if (iGender)
+	{
+		gender = QString::fromLocal8Bit("ÄÐ");
+	}
+	else
+	{
+		gender = QString::fromLocal8Bit("Å®");
+	}
+}

@@ -21,7 +21,8 @@
     </Filter>
     <Filter Include="SourceFiles">
       <UniqueIdentifier>{1e9d4a78-c1bb-4d7f-97dd-8573c86ddd22}</UniqueIdentifier>
-      <Extensions>.*</Extensions>
+      <Extensions>
+      </Extensions>
     </Filter>
     <Filter Include="HeadFiles">
       <UniqueIdentifier>{f032285b-dd52-412f-9c90-58735f82f107}</UniqueIdentifier>
@@ -126,6 +127,9 @@
       <Filter>HeadFiles</Filter>
     </CustomBuild>
     <CustomBuild Include="HeadFiles\LogIn.h">
+      <Filter>HeadFiles</Filter>
+    </CustomBuild>
+    <CustomBuild Include="PropertyEmployee.h">
       <Filter>HeadFiles</Filter>
     </CustomBuild>
   </ItemGroup>
@@ -279,6 +283,15 @@
     </ClCompile>
     <ClCompile Include="SourceFile\LogIn.cpp">
       <Filter>SourceFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="PropertyEmployee.cpp">
+      <Filter>SourceFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_PropertyEmployee.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_PropertyEmployee.cpp">
+      <Filter>Generated Files\Release</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

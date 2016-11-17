@@ -41,13 +41,14 @@ void MainWindow::InitStackedWidget()
 	GuardInfo = new GuardWidget();
 	GuardCompanyInfo = new GuardCompany();
 	GuardPosition = new GuardPosWidget();
+	propertyEmployee = new PropertyEmployee();
 
 	CompanyInfoIndex = ui->stackedWidget->addWidget(CompanyInfo);
 	PhoneBookIndex = ui->stackedWidget->addWidget(phonebook);
 	GuardInfoIndex = ui->stackedWidget->addWidget(GuardInfo);
 	GuardCompanyIndex = ui->stackedWidget->addWidget(GuardCompanyInfo);
 	GuardPositionIndex = ui->stackedWidget->addWidget(GuardPosition);
-
+	PropertyEmployeeIndex = ui->stackedWidget->addWidget(propertyEmployee);
 }
 
 //should be called after InitStackedWidget
@@ -65,6 +66,7 @@ void MainWindow::InitConnection()
 	QObject::connect(ui->pushButtonGuardInfo, SIGNAL(clicked()), this, SLOT(StackWidgetSwitch2GuardInfo()));
 	QObject::connect(ui->pushButtonGuardCompanyInfo, SIGNAL(clicked()), this, SLOT(StackWidgetSwitch2GuardCompany()));
 	QObject::connect(ui->pushButtonGuardPosition, SIGNAL(clicked()), this, SLOT(StackWidgetSwitch2GuardPosition()));
+	QObject::connect(ui->pushButtonPropertyEmployee, SIGNAL(clicked()), this, SLOT(StackWidgetSwitch2PropertyEmployee()));
 
 	//对几个文本页面的初始化
 	QObject::connect(ui->pushButtonCompany, SIGNAL(clicked()), CompanyInfo, SLOT(InitCompanyInfo()));
@@ -171,4 +173,12 @@ void MainWindow::SetLabelPosRule()
 {
 	QString str = QString::fromLocal8Bit("公司相关->规章制度");
 	ui->labelPosition->setText(strPos + str);
+}
+
+void MainWindow::StackWidgetSwitch2PropertyEmployee()
+{
+	QString str = QString::fromLocal8Bit("物业服务->人员信息");
+	ui->labelPosition->setText(strPos + str);
+
+	ui->stackedWidget->setCurrentIndex(PropertyEmployeeIndex);
 }

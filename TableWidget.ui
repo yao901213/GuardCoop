@@ -22,6 +22,12 @@
      <height>341</height>
     </rect>
    </property>
+   <property name="defaultDropAction">
+    <enum>Qt::IgnoreAction</enum>
+   </property>
+   <property name="textElideMode">
+    <enum>Qt::ElideNone</enum>
+   </property>
   </widget>
   <widget class="QPushButton" name="pushButtonSearch">
    <property name="geometry">
