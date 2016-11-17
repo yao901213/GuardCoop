@@ -1,4 +1,4 @@
-#include "GuardDetailInfoDiag.h"
+#include "GuardDetailInfo.h"
 #include <QSqlRecord>
 
 GuardDetail::GuardDetail(int SelectIndex, QSqlTableModel *parentmodel)

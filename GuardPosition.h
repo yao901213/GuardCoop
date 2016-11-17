@@ -1,17 +1,17 @@
 #pragma once
-#ifndef MAP_WIDGET_H
-#define MAP_WIDGET_H
+#ifndef GUARD_POSITION_H
+#define GUARD_POSITION_H
 #include "ui_MapWidget.h"
 #include <QSqlTableModel>
-#include "GuardPositionEditDiag.h"
+#include "GuardPositionEdit.h"
 
 
-class MapWidget :public QWidget
+class GuardPosWidget :public QWidget
 {
 	Q_OBJECT
 public:
-	MapWidget(QWidget *pare = 0);
-	~MapWidget();
+	GuardPosWidget(QWidget *pare = 0);
+	~GuardPosWidget();
 private:
 	Ui_MapWidget *ui;
 	GuardPositionEditDiag *edit;

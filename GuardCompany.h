@@ -2,10 +2,10 @@
 #ifndef GUARD_COMPANY_H
 #define GUARD_COMPANY_H
 
-#include "ui_GuardWidget.h"
+#include "ui_TableWidget.h"
 #include <QSqlTableModel>
 #include <QComboBox>
-#include "GuardCompanyEditDiag.h"
+#include "GuardCompanyEdit.h"
 
 class GuardCompany : public QWidget
 {
@@ -18,7 +18,7 @@ public:
 	void ConstrainGuestAccount();
 private:
 	QComboBox *comboBox;
-	Ui_GuardWidget *ui;
+	Ui_TableWidget *ui;
 	QSqlTableModel *model;
 	GuardCompanyEditDiag *edit;
 	void InitGuardCompanyInfo();

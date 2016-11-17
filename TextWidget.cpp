@@ -1,28 +1,28 @@
-#include "CompanyWidget.h"
+#include "TextWidget.h"
 #include "ErrorProc.h"
 #include "GlobalVar.h"
 #include <QSqlRecord>
 #include <QRect>
 #include <QObject>
 
-CompanyWidget::CompanyWidget(QWidget *parent):
+TextWidget::TextWidget(QWidget *parent):
 	QWidget(parent),
-	ui(new Ui::CompanyWidget)
+	ui(new Ui_TextWidget)
 {
 	model = new QSqlTableModel;
 	model->setTable("HumanResource.Text");
 	CurrentPageType = PAGE_BUT;
 	ui->setupUi(this);
-	InitCompanyWidget();
+	InitTextWidget();
 }
 
-CompanyWidget::~CompanyWidget()
+TextWidget::~TextWidget()
 {
 	delete ui;
 	delete model;
 }
 
-void CompanyWidget::SetLabelTextInfo(QString *TextType)
+void TextWidget::SetLabelTextInfo(QString *TextType)
 {
 	QVariant companyInfo;
 
@@ -42,7 +42,7 @@ void CompanyWidget::SetLabelTextInfo(QString *TextType)
 	ui->label_2->setAlignment(Qt::AlignTop);
 }
 
-void CompanyWidget::GetCurrentPageType(QString *textType)
+void TextWidget::GetCurrentPageType(QString *textType)
 {
 	switch (CurrentPageType)
 	{
@@ -67,48 +67,48 @@ void CompanyWidget::GetCurrentPageType(QString *textType)
 	}
 }
 
-void CompanyWidget::GetTextInfoFromDb()
+void TextWidget::GetTextInfoFromDb()
 {
 	QString textType;
 	GetCurrentPageType(&textType);
 	SetLabelTextInfo(&textType);
 }
 
-void CompanyWidget::InitCompanyInfo()
+void TextWidget::InitCompanyInfo()
 {
 	SetCurrentPage(PAGE_COMPANY);
 	GetTextInfoFromDb();
 	ui->label->setText(QString::fromLocal8Bit("公司简介"));
 }
 
-void CompanyWidget::InitInstitutionInfo()
+void TextWidget::InitInstitutionInfo()
 {
 	SetCurrentPage(PAGE_INSTITUTION);
 	GetTextInfoFromDb();
 	ui->label->setText(QString::fromLocal8Bit("机构设置"));
 }
 
-void CompanyWidget::InitRulesInfo()
+void TextWidget::InitRulesInfo()
 {
 	SetCurrentPage(PAGE_RULE);
 	GetTextInfoFromDb();
 	ui->label->setText(QString::fromLocal8Bit("规章制度"));
 }
 
-void CompanyWidget::InitLawInfo()
+void TextWidget::InitLawInfo()
 {
 	SetCurrentPage(PAGE_LAW);
 	GetTextInfoFromDb();
 	ui->label->setText(QString::fromLocal8Bit("法律法规"));
 }
 
-void CompanyWidget::ConstrainGuestAccount()
+void TextWidget::ConstrainGuestAccount()
 {
 	ui->pushButton->setEnabled(false);
 	ui->pushButton->setToolTip(QString::fromLocal8Bit("当前不是管理员账号登录，不能对内容进行修改"));
 }
 
-void CompanyWidget::InitCompanyWidget()
+void TextWidget::InitTextWidget()
 {
 	QObject::connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(ModifyText()));
 	ui->pushButton->setShortcut(Qt::Key_Enter);
@@ -117,7 +117,7 @@ void CompanyWidget::InitCompanyWidget()
 	return;
 }
 
-void CompanyWidget::ModifyText()
+void TextWidget::ModifyText()
 {
 	if (!g_IsAdminAccount)
 	{

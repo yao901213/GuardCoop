@@ -1,4 +1,4 @@
-#include "GuardCompanyEditDiag.h"
+#include "GuardCompanyEdit.h"
 #include "ErrorProc.h"
 #include <QSqlRecord>
 #include <QSqlError>

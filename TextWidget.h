@@ -2,25 +2,25 @@
 #ifndef COMPANY_WIDGET_H
 #define COMPANY_WIDGET_H
 
-#include "ui_CompanyWidget.h"
+#include "ui_TextWidget.h"
 #include <QSqlTableModel>
 #include "ModTextInfo.h"
 
 namespace Ui {
-	class CompanyWidget;
+	class TextWidget;
 }
 
 
-class CompanyWidget : public QWidget
+class TextWidget : public QWidget
 {
 	Q_OBJECT
 public:
-	explicit CompanyWidget(QWidget *parent = 0);
-	~CompanyWidget();
+	explicit TextWidget(QWidget *parent = 0);
+	~TextWidget();
 	ModTextInfoDiag *ModDialog;
 	void ConstrainGuestAccount();
 private:
-	Ui::CompanyWidget *ui;
+	Ui_TextWidget *ui;
 	QSqlTableModel *model;
 	void SetLabelTextInfo(QString *TextType);
 	PAGE_TYPE CurrentPageType;
@@ -31,7 +31,7 @@ private slots:
 	void InitInstitutionInfo();
 	void InitRulesInfo();
 	void InitLawInfo();
-	void InitCompanyWidget();
+	void InitTextWidget();
 	void InitCompanyInfo();
 	void ModifyText();
 };

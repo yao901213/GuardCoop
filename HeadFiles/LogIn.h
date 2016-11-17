@@ -5,7 +5,7 @@
 #include <QDialog>
 #include <QObject>
 #include "ui_LogInDialog.h"
-#include "RegisterDialog.h"
+#include "Register.h"
 #include "MainWindow.h"
 #include "Connect2DB.h"
 #include "ChangePwd.h"

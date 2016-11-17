@@ -1,4 +1,4 @@
-#include "AddPhoneBook.h"
+#include "PhoneBookEdit.h"
 #include "ErrorProc.h"
 #include "InfoCheck.h"
 #include <QSqlQuery>
@@ -6,18 +6,18 @@
 #include <QSqlRecord>
 #include <QSqlTableModel>
 
-AddPhoneBook::AddPhoneBook(QDialog *parent) :
+PhoneBookEdit::PhoneBookEdit(QDialog *parent) :
 	QDialog(parent)
 {
-	ui = new Ui_DialogAddPhoneBook;
+	ui = new Ui_PhoneBookEdit;
 	ModRowIndex = -1;
 	ui->setupUi(this);	
 	InitDiag();
 }
 
-AddPhoneBook::AddPhoneBook(int index, QSqlTableModel *parentmodel)
+PhoneBookEdit::PhoneBookEdit(int index, QSqlTableModel *parentmodel)
 {
-	ui = new Ui_DialogAddPhoneBook;
+	ui = new Ui_PhoneBookEdit;
 	ModRowIndex = index;
 	model = new QSqlTableModel;
 	model->setTable("HumanResource.PhoneBook");
@@ -28,19 +28,19 @@ AddPhoneBook::AddPhoneBook(int index, QSqlTableModel *parentmodel)
 }
 
 
-AddPhoneBook::~AddPhoneBook()
+PhoneBookEdit::~PhoneBookEdit()
 {
 	delete ui;
 }
 
-void AddPhoneBook::InitDiag()
+void PhoneBookEdit::InitDiag()
 {
 	setModal(true);
 	show();
 }
 
 
-void AddPhoneBook::InitModFunc()
+void PhoneBookEdit::InitModFunc()
 {
 	QObject::connect(ui->pushButtonOk, SIGNAL(clicked()), this, SLOT(ClickSubmitButtonModFunc()));
 
@@ -52,12 +52,12 @@ void AddPhoneBook::InitModFunc()
 	ui->lineEditAddress->setText(model->record(ModRowIndex).value("Address").toString());
 }
 
-void AddPhoneBook::InitAddFunc()
+void PhoneBookEdit::InitAddFunc()
 {
 	QObject::connect(ui->pushButtonOk, SIGNAL(clicked()), this, SLOT(ClickSubmitButtonAddFunc()));
 }
 
-void AddPhoneBook::ClickSubmitButtonAddFunc()
+void PhoneBookEdit::ClickSubmitButtonAddFunc()
 {
 	QSqlQuery query;
 	QString message = QString::fromLocal8Bit("Ìí¼ÓÊý¾Ý´íÎó");
@@ -89,7 +89,7 @@ void AddPhoneBook::ClickSubmitButtonAddFunc()
 	return;
 }
 
-void AddPhoneBook::ClickSubmitButtonModFunc()
+void PhoneBookEdit::ClickSubmitButtonModFunc()
 {
 	QSqlRecord record = model->record(ModRowIndex);
 
@@ -104,7 +104,7 @@ void AddPhoneBook::ClickSubmitButtonModFunc()
 	this->accept();
 }
 
-bool AddPhoneBook::IsInputValid()
+bool PhoneBookEdit::IsInputValid()
 {
 	if (ui->lineEditName->text().isEmpty())
 	{

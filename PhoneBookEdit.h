@@ -1,21 +1,21 @@
 #pragma once
 #ifndef ADD_PHONE_BOOK_H
 #define ADD_PHONE_BOOK_H
-#include "ui_AddPhoneBookDiag.h"
+#include "ui_PhoneBookEditDiag.h"
 #include <QSqlTableModel>
 
-class AddPhoneBook :public QDialog
+class PhoneBookEdit :public QDialog
 {
 	Q_OBJECT
 public:
-	explicit AddPhoneBook(QDialog *parent = 0);
-	~AddPhoneBook();
-	AddPhoneBook(int index, QSqlTableModel *model);
+	explicit PhoneBookEdit(QDialog *parent = 0);
+	~PhoneBookEdit();
+	PhoneBookEdit(int index, QSqlTableModel *model);
 	void InitAddFunc();
 	void InitModFunc();
 	int ModRowIndex;
 private:
-	Ui_DialogAddPhoneBook *ui;
+	Ui_PhoneBookEdit *ui;
 	QSqlTableModel *model;
 	void InitDiag();
 private slots:

@@ -82,7 +82,7 @@ void PhoneBook::InitWidget()
 
 void PhoneBook::ClickAddButton()
 {
-	AddPhoneDiag = new AddPhoneBook;
+	AddPhoneDiag = new PhoneBookEdit;
 	QObject::connect(AddPhoneDiag, SIGNAL(accepted()), this, SLOT(UpdatePhoneBook()));
 	AddPhoneDiag->InitAddFunc();
 }
@@ -137,7 +137,7 @@ void PhoneBook::ClickModButton()
 		return;
 	}
 	QString sss = model->filter();
-	AddPhoneDiag = new AddPhoneBook(ui->tableView->currentIndex().row(), model);
+	AddPhoneDiag = new PhoneBookEdit(ui->tableView->currentIndex().row(), model);
 	AddPhoneDiag->InitModFunc();
 
 	QObject::connect(AddPhoneDiag, SIGNAL(accepted()), this, SLOT(UpdatePhoneBook()));

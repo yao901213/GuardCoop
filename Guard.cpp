@@ -1,4 +1,4 @@
-#include "GuardWidget.h"
+#include "Guard.h"
 #include "ErrorProc.h"
 #include "InfoCheck.h"
 #include <QSqlRecord>
@@ -7,7 +7,7 @@
 GuardWidget::GuardWidget(QWidget *parent) :
 	QWidget(parent)
 {
-	ui = new Ui_GuardWidget;
+	ui = new Ui_TableWidget;
 	model = new QSqlTableModel;
 
 	lineEdit = new QLineEdit(this);

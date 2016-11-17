@@ -1,7 +1,7 @@
-#include "MapWidget.h"
+#include "GuardPosition.h"
 #include <QSqlRecord>
 
-MapWidget::MapWidget(QWidget* parent) :
+GuardPosWidget::GuardPosWidget(QWidget* parent) :
 	QWidget(parent)
 {
 	ui = new Ui_MapWidget;
@@ -16,13 +16,13 @@ MapWidget::MapWidget(QWidget* parent) :
 	UpdateSymbol = false;
 }
 
-MapWidget::~MapWidget()
+GuardPosWidget::~GuardPosWidget()
 {
 	delete ui;
 	delete model;
 }
 
-void MapWidget::InitWidget()
+void GuardPosWidget::InitWidget()
 {
 	QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
 	QString urlStr = "file:///";
@@ -45,7 +45,7 @@ void MapWidget::InitWidget()
 
 //function setLabel(logitude, latitude, label, title)
 
-void MapWidget::AddPoint()
+void GuardPosWidget::AddPoint()
 {
 	QString cmd = QString("setLabel(%1, %2, %3, \"%4\")").
 		arg(Longitude, 0,'g').arg(Latitude, 0, 'g').arg(Index).arg(title);
@@ -53,7 +53,7 @@ void MapWidget::AddPoint()
 	ui->webEngineView->page()->runJavaScript(cmd, [](const QVariant &v) {qDebug() << v.toString(); });
 }
 
-void MapWidget::ShowAllPoints(bool Finished)
+void GuardPosWidget::ShowAllPoints(bool Finished)
 {
 	int i, RowCount;
 	QSqlRecord record;
@@ -86,21 +86,21 @@ void MapWidget::ShowAllPoints(bool Finished)
 	ResetPointIndex();
 }
 
-void MapWidget::ClickAddButton()
+void GuardPosWidget::ClickAddButton()
 {
 	edit = new GuardPositionEditDiag();
 	edit->InitDiagAddFunc();
 	QObject::connect(edit, SIGNAL(accepted()), this, SLOT(ReloadUrl()));
 }
 
-void MapWidget::ReloadUrl()
+void GuardPosWidget::ReloadUrl()
 {
 	ui->webEngineView->load(Url);
 	ui->webEngineView->show();
 	UpdateSymbol = true;
 }
 
-void MapWidget::ResetPointIndex()
+void GuardPosWidget::ResetPointIndex()
 {
 	LoadTime = 0;
 	UpdateSymbol = false;
@@ -108,14 +108,14 @@ void MapWidget::ResetPointIndex()
 }
 
 
-void MapWidget::ClickModButton()
+void GuardPosWidget::ClickModButton()
 {
 	edit = new GuardPositionEditDiag();
 	edit->InitDiagModFunc();
 	QObject::connect(edit, SIGNAL(accepted()), this, SLOT(ReloadUrl()));
 
 }
-void MapWidget::ClickDelButton()
+void GuardPosWidget::ClickDelButton()
 {
 	edit = new GuardPositionEditDiag();
 	edit->InitDiagDelFunc();

@@ -167,8 +167,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>124</width>
-           <height>362</height>
+           <width>122</width>
+           <height>352</height>
           </rect>
          </property>
          <attribute name="label">
@@ -231,8 +231,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>124</width>
-           <height>362</height>
+           <width>122</width>
+           <height>352</height>
           </rect>
          </property>
          <attribute name="label">
@@ -295,8 +295,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>124</width>
-           <height>362</height>
+           <width>122</width>
+           <height>352</height>
           </rect>
          </property>
          <attribute name="label">
@@ -308,8 +308,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>124</width>
-           <height>362</height>
+           <width>122</width>
+           <height>352</height>
           </rect>
          </property>
          <attribute name="label">
@@ -359,6 +359,28 @@
    </property>
    <property name="orientation">
     <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="QLabel" name="labelPosition">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>668</y>
+     <width>271</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>新宋体</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="text">
+    <string/>
    </property>
   </widget>
  </widget>

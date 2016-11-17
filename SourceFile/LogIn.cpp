@@ -1,4 +1,4 @@
-#include "LogInDialog.h"
+#include "LogIn.h"
 #include "ErrorProc.h"
 #include "Connect2DB.h"
 #include <QSqlQuery>

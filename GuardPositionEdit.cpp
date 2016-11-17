@@ -1,4 +1,4 @@
-#include "GuardPositionEditDiag.h"
+#include "GuardPositionEdit.h"
 #include "ErrorProc.h"
 #include <QSqlRecord>
 #include <QSqlError>

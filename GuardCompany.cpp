@@ -1,11 +1,11 @@
-#include "GuardCompanyWidget.h"
+#include "GuardCompany.h"
 #include "ErrorProc.h"
 #include <QSqlRecord>
 
 GuardCompany::GuardCompany(QWidget *parent) :
 	QWidget(parent)
 {
-	ui = new Ui_GuardWidget;
+	ui = new Ui_TableWidget;
 	comboBox = new QComboBox(this);
 	comboBox->setObjectName(QStringLiteral("comboBox"));
 	comboBox->setGeometry(QRect(240, 30, 171, 20));

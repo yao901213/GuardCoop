@@ -1,11 +1,11 @@
 #pragma once
 #ifndef GUARD_WIDGET_H
 #define GUARD_WIDGET_H
-#include "ui_GuardWidget.h"
+#include "ui_TableWidget.h"
 #include <QWidget>
 #include <QSqlTableModel>
-#include "GuardEditDiag.h"
-#include "GuardDetailInfoDiag.h"
+#include "GuardEdit.h"
+#include "GuardDetailInfo.h"
 
 class GuardWidget :public QWidget
 {
@@ -17,7 +17,7 @@ public:
 	void ConstrainGuestAccount();
 private:
 	QLineEdit *lineEdit;
-	Ui_GuardWidget *ui;
+	Ui_TableWidget *ui;
 	QSqlTableModel *model;
 	GuardEditDiag *GuardEdit;
 	GuardDetail *guarddetail;

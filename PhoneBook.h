@@ -5,7 +5,7 @@
 #include "ui_PhoneBook.h"
 #include <QObject>
 #include <QSqlTableModel>
-#include "AddPhoneBook.h"
+#include "PhoneBookEdit.h"
 
 
 class PhoneBook :public QWidget
@@ -20,7 +20,7 @@ private:
 	Ui_PhoneBookWidget *ui;
 	void InitWidget();
 	QSqlTableModel *model;
-	AddPhoneBook *AddPhoneDiag;
+	PhoneBookEdit *AddPhoneDiag;
 	void SetStatusLabel();
 
 private slots:

@@ -3,12 +3,12 @@
 #define MAIN_WINDOW_H
 
 #include "ui_Main.h"
-#include "CompanyWidget.h"
+#include "TextWidget.h"
 #include "PhoneBook.h"
 #include "GlobalVar.h"
-#include "GuardWidget.h"
-#include "GuardCompanyWidget.h"
-#include "MapWidget.h"
+#include "Guard.h"
+#include "GuardCompany.h"
+#include "GuardPosition.h"
 #include "Connect2DB.h"
 
 class MainWindow : public QWidget
@@ -21,11 +21,11 @@ public:
 
 private:
 	Ui_Form *ui;
-	CompanyWidget *CompanyInfo;
+	TextWidget *CompanyInfo;
 	PhoneBook *phonebook;
 	GuardWidget *GuardInfo;
 	GuardCompany *GuardCompanyInfo;
-	MapWidget *GuardPosition;
+	GuardPosWidget *GuardPosition;
 	int CompanyInfoIndex;
 	int PhoneBookIndex;
 	int GuardInfoIndex;
@@ -41,6 +41,10 @@ private slots:
 	void StackWidgetSwitch2GuardInfo();
 	void StackWidgetSwitch2GuardCompany();
 	void StackWidgetSwitch2GuardPosition();
+	void SetLabelPosCompanyInfo();
+	void SetLabelPosInstitution();
+	void SetLabelPosLaw();
+	void SetLabelPosRule();
 public slots:
 	void ConstrainGuestAccount();
 };

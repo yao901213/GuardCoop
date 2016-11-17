@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>DialogAddPhoneBook</class>
- <widget class="QDialog" name="DialogAddPhoneBook">
+ <class>PhoneBookEdit</class>
+ <widget class="QDialog" name="PhoneBookEdit">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -26,7 +26,7 @@
     <string>确定</string>
    </property>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>270</x>
@@ -507,7 +507,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>120</x>
@@ -534,7 +534,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>31</x>

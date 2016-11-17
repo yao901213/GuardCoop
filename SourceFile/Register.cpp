@@ -1,4 +1,4 @@
-#include "RegisterDialog.h"
+#include "Register.h"
 #include "ErrorProc.h"
 #include "InfoCheck.h"
 #include <QSqlQuery>

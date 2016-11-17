@@ -5,6 +5,8 @@
 
 bool g_IsAdminAccount = false;
 #define TOP_PIC_PATH "Resource/TopPic.jpg"
+const QString strPos = QString::fromLocal8Bit("当前位置：");
+
 
 MainWindow::MainWindow(QWidget *parent):
 	QWidget(parent)
@@ -34,11 +36,11 @@ void MainWindow::InitForm()
 
 void MainWindow::InitStackedWidget()
 {
-	CompanyInfo = new CompanyWidget();
+	CompanyInfo = new TextWidget();
 	phonebook = new PhoneBook();
 	GuardInfo = new GuardWidget();
 	GuardCompanyInfo = new GuardCompany();
-	GuardPosition = new MapWidget();
+	GuardPosition = new GuardPosWidget();
 
 	CompanyInfoIndex = ui->stackedWidget->addWidget(CompanyInfo);
 	PhoneBookIndex = ui->stackedWidget->addWidget(phonebook);
@@ -70,7 +72,14 @@ void MainWindow::InitConnection()
 	QObject::connect(ui->pushButtonLaw, SIGNAL(clicked()), CompanyInfo, SLOT(InitLawInfo()));
 	QObject::connect(ui->pushButtonRules, SIGNAL(clicked()), CompanyInfo, SLOT(InitRulesInfo()));
 
+	//文本页面的当前位置Label的文本设置
+	QObject::connect(ui->pushButtonCompany, SIGNAL(clicked()), this, SLOT(SetLabelPosCompanyInfo()));
+	QObject::connect(ui->pushButtonInstitution, SIGNAL(clicked()), this, SLOT(SetLabelPosInstitution()));
+	QObject::connect(ui->pushButtonLaw, SIGNAL(clicked()), this, SLOT(SetLabelPosLaw()));
+	QObject::connect(ui->pushButtonRules, SIGNAL(clicked()), this, SLOT(SetLabelPosRule()));
+
 }
+
 void MainWindow::InitTopPic()
 {
 	QFile file(TOP_PIC_PATH);
@@ -89,18 +98,22 @@ void MainWindow::InitTopPic()
 void MainWindow::StackWidgetSwitch2CompanyInfo()
 {
 	ui->stackedWidget->setCurrentIndex(CompanyInfoIndex);
-	GuardCompanyInfo->ShowDbData();
-	GuardCompanyInfo->ResetComboBox();
 }
 
 void MainWindow::StackWidgetSwitch2PhoneBook()
 {
+	QString str = QString::fromLocal8Bit("公司相关->通讯录");
+	ui->labelPosition->setText(strPos + str);
+
 	ui->stackedWidget->setCurrentIndex(PhoneBookIndex);
 	phonebook->ShowPhoneBook();
 }
 
 void MainWindow::StackWidgetSwitch2GuardInfo()
 {
+	QString str = QString::fromLocal8Bit("保安服务->人员信息");
+	ui->labelPosition->setText(strPos + str);
+
 	ui->stackedWidget->setCurrentIndex(GuardInfoIndex);
 	GuardInfo->ShowDbData();
 	GuardInfo->ClearLineEdit();
@@ -108,6 +121,9 @@ void MainWindow::StackWidgetSwitch2GuardInfo()
 
 void MainWindow::StackWidgetSwitch2GuardCompany()
 {
+	QString str = QString::fromLocal8Bit("保安服务->客户单位");
+	ui->labelPosition->setText(strPos + str);
+
 	ui->stackedWidget->setCurrentIndex(GuardCompanyIndex);
 	GuardCompanyInfo->ShowDbData();
 	GuardCompanyInfo->ResetComboBox();
@@ -115,6 +131,9 @@ void MainWindow::StackWidgetSwitch2GuardCompany()
 
 void MainWindow::StackWidgetSwitch2GuardPosition()
 {
+	QString str = QString::fromLocal8Bit("保安服务->岗点分布");
+    ui->labelPosition->setText(strPos + str);
+
 	ui->stackedWidget->setCurrentIndex(GuardPositionIndex);
 }
 
@@ -128,4 +147,28 @@ void MainWindow::ConstrainGuestAccount()
 	phonebook->ConstrainGuestAccount();
 	GuardInfo->ConstrainGuestAccount();
 	GuardCompanyInfo->ConstrainGuestAccount();
+}
+
+void MainWindow::SetLabelPosCompanyInfo()
+{
+	QString str = QString::fromLocal8Bit("公司相关->公司简介");
+	ui->labelPosition->setText(strPos + str);
+}
+
+void MainWindow::SetLabelPosInstitution()
+{
+	QString str = QString::fromLocal8Bit("公司相关->机构设置");
+	ui->labelPosition->setText(strPos + str);
+}
+
+void MainWindow::SetLabelPosLaw()
+{
+	QString str = QString::fromLocal8Bit("公司相关->法律法规");
+	ui->labelPosition->setText(strPos + str);
+}
+
+void MainWindow::SetLabelPosRule()
+{
+	QString str = QString::fromLocal8Bit("公司相关->规章制度");
+	ui->labelPosition->setText(strPos + str);
 }
