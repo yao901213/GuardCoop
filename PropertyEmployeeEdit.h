@@ -18,6 +18,22 @@ private:
 	QSqlTableModel *model;
 	Ui_PropertyEdit *ui;
 	int index;
+	void GetBirthAndGenderFromID();
+	bool IsIDValid();
+	bool IsInputValid();
+protected:
+	bool eventFilter(QObject *obj, QEvent *ev);
+
+private slots:
+	void ClickSubmitButtonMod();
+	void ClickSubmitButtonAdd();
+	void ClickBrowseButton();
+	void ClickPreviewButton();
 };
+
+const QString strCleaner = QString::fromLocal8Bit("保洁");
+const QString strPlumElec = QString::fromLocal8Bit("水电");
+const QString strGarden = QString::fromLocal8Bit("保洁");
+
 
 #endif

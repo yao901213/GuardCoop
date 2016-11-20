@@ -1,10 +1,6 @@
 #include "PropertyEmployee.h"
 #include "InfoCheck.h"
 
-const QString strCleaner = QString::fromLocal8Bit("保洁");
-const QString strPlumElec = QString::fromLocal8Bit("水电");
-const QString strGarden = QString::fromLocal8Bit("保洁");
-
 PropertyEmployee::PropertyEmployee(QWidget *parent):
 	QWidget(parent)
 {
@@ -60,6 +56,7 @@ void PropertyEmployee::TableViewInit()
 	ui->tableView->setModel(model);
 	ui->tableView->setColumnHidden(3, true);
 	ui->tableView->setColumnHidden(4, true);
+	ui->tableView->setColumnHidden(8, true);
 	ui->tableView->resizeColumnToContents(2);
 	
 	ui->tableView->show();
@@ -100,12 +97,15 @@ void PropertyEmployee::ClickAddButton()
 	edit = new PropertyEmployeeEdit(model, 0);
 	edit->InitAddFunc();
 
+	QObject::connect(edit, SIGNAL(accepted()), this, SLOT(UpdateTable()));
 }
 
 void PropertyEmployee::ClickModButton()
 {
 	edit = new PropertyEmployeeEdit(model, ui->tableView->currentIndex().row());
 	edit->InitModFunc();
+
+	QObject::connect(edit, SIGNAL(accepted()), this, SLOT(UpdateTable()));
 }
 
 void PropertyEmployee::ClickDelButton()

@@ -4,7 +4,7 @@
 #include <QDebug>
 
 bool StaticCheck = true;
-char IDCardCoef[] = {7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2};
+char IDCardCoef[] = { 7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2 };
 char IDCardCheckSum[] = { 1, 0, 'x', 9, 8, 7 , 6, 5, 4, 3 ,2 };
 
 bool InfoCheck::IsDigitStr(QString *str)
@@ -65,7 +65,7 @@ bool InfoCheck::IsChineseStr(QString *str)
 	for (int i = 0; i < Count; i++)
 	{
 		QChar cha = str->at(i);
-		if (IsChineseChar(&cha))
+		if (IsChineseChar(&cha) || cha == '.' || cha == ' ')
 		{
 			//这个字符是中文
 			continue;
@@ -148,7 +148,7 @@ bool InfoCheck::IsEmployeeIdCardNumValid(QString *IDCardNum)
 
 		return false;
 	}
-	
+
 	switch (IDCardNum->length())
 	{
 	case FIX_OLD_ID_CARD_NUM_LEN:
@@ -200,7 +200,7 @@ bool InfoCheck::IsNewIDCardNumValid(QString *NewIdCardNum)
 		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("身份证号中只能是数字或者\"x\""), 2);
 		return false;
 	}
-	 
+
 	if (!IsNewIDCardBirthCodeValid(NewIdCardNum))
 	{
 		return false;
@@ -212,7 +212,7 @@ bool InfoCheck::IsNewIDCardNumValid(QString *NewIdCardNum)
 
 bool InfoCheck::IsNewIDCardBirthCodeValid(QString *IdCardNum)
 {
-	QString Year = IdCardNum->mid(6,4);
+	QString Year = IdCardNum->mid(6, 4);
 	QString Month;
 	QString Date;
 
@@ -272,7 +272,7 @@ bool InfoCheck::IsNewIDCardCheckSumValid(QString *IdCardNum)
 	int i = 0;
 	int sum = 0;
 	int residue = 0;
-	
+
 	for (i = 0; i < FIX_NEW_ID_CARD_NUM_LEN - 1; i++)
 	{
 		sum += IdCardNum->mid(i, 1).toInt() * IDCardCoef[i];
@@ -333,4 +333,23 @@ void InfoCheck::GetBirthAndGenderFromID(QString &ID, QDateEdit &dateedit, QStrin
 	{
 		gender = QString::fromLocal8Bit("女");
 	}
+}
+
+bool InfoCheck::IsPicPathValid(QString &path)
+{
+	QFileInfo fileinfo(path);
+
+	if (!fileinfo.exists())
+	{
+		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("文件不存在，路径输入有误"), 2);
+		return false;
+	}
+
+	if ("jpg" != fileinfo.suffix())
+	{
+		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("文件格式不正确，只支持jpg格式的图片"), 2);
+		return false;
+	}
+
+	return true;
 }

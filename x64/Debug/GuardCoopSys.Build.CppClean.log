@@ -1,6 +1,4 @@
 d:\projects\git\guardcoop\x64\debug\vc140.pdb
-d:\projects\git\guardcoop\x64\debug\moc_textwidget.obj
-d:\projects\git\guardcoop\x64\debug\moc_phonebookedit.obj
 d:\projects\git\guardcoop\x64\debug\moc_phonebook.obj
 d:\projects\git\guardcoop\x64\debug\moc_modtextinfo.obj
 d:\projects\git\guardcoop\x64\debug\moc_mainwindow.obj
@@ -8,8 +6,10 @@ d:\projects\git\guardcoop\x64\debug\moc_guardposition.obj
 d:\projects\git\guardcoop\x64\debug\moc_changepwd.obj
 d:\projects\git\guardcoop\x64\debug\connect2db.obj
 d:\projects\git\guardcoop\x64\debug\textwidget.obj
+d:\projects\git\guardcoop\x64\debug\propertyemployeeedit.obj
 d:\projects\git\guardcoop\x64\debug\propertyemployee.obj
 d:\projects\git\guardcoop\x64\debug\moc_register.obj
+d:\projects\git\guardcoop\x64\debug\moc_propertyemployeeedit.obj
 d:\projects\git\guardcoop\x64\debug\moc_propertyemployee.obj
 d:\projects\git\guardcoop\x64\debug\moc_login.obj
 d:\projects\git\guardcoop\x64\debug\moc_guardpositionedit.obj
@@ -35,9 +35,10 @@ d:\projects\git\guardcoop\x64\debug\guarddetailinfo.obj
 d:\projects\git\guardcoop\x64\debug\guardcompany.obj
 d:\projects\git\guardcoop\x64\debug\guardcompanyedit.obj
 d:\projects\git\guardcoop\x64\debug\moc_ui_registerdialog.obj
-d:\projects\git\guardcoop\x64\debug\propertyemployeeedit.obj
-d:\projects\git\guardcoop\x64\debug\moc_propertyemployeeedit.obj
+d:\projects\git\guardcoop\x64\debug\moc_textwidget.obj
+d:\projects\git\guardcoop\x64\debug\moc_phonebookedit.obj
 d:\projects\git\guardcoop\generatedfiles\ui_logindialog.h
+d:\projects\git\guardcoop\generatedfiles\debug\moc_propertyemployee.cpp
 d:\projects\git\guardcoop\generatedfiles\debug\moc_phonebookedit.cpp
 d:\projects\git\guardcoop\generatedfiles\debug\moc_guardposition.cpp
 d:\projects\git\guardcoop\generatedfiles\debug\moc_phonebook.cpp
@@ -69,7 +70,6 @@ d:\projects\git\guardcoop\generatedfiles\ui_guardpositiondiag.h
 d:\projects\git\guardcoop\generatedfiles\ui_changepwddiag.h
 d:\projects\git\guardcoop\generatedfiles\ui_propertyedit.h
 d:\projects\git\guardcoop\generatedfiles\debug\moc_propertyemployeeedit.cpp
-d:\projects\git\guardcoop\generatedfiles\debug\moc_propertyemployee.cpp
 d:\projects\git\guardcoop\debug\guardcoopsys.ilk
 d:\projects\git\guardcoop\debug\guardcoopsys.exe
 d:\projects\git\guardcoop\debug\guardcoopsys.pdb

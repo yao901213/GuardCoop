@@ -4,6 +4,7 @@
 
 #include <QString>
 #include <QDateEdit>
+#include <QDir>
 
 #define ACCOUNT_MAX_LEN 20
 #define PWD_MAX_LEN 20
@@ -34,6 +35,7 @@ public:
 	static bool IsOldIDCardBirthCodeValid(QString *IdCardNum);
 	static bool IsNewIDCardCheckSumValid(QString *IdCardNum);
 	static void GetBirthAndGenderFromID(QString &ID, QDateEdit &dateedit, QString &gender);
+	static bool IsPicPathValid(QString &path);
 };
 
 

@@ -175,7 +175,7 @@ void GuardEditDiag::ClickSubmitButtonModFunc()
 
 	if (!ui->lineEditPhoto->text().isEmpty())
 	{
-		if (!IsPicPathValid())
+		if (!InfoCheck::IsPicPathValid(ui->lineEditPhoto->text()))
 			return;
 		QFile file(ui->lineEditPhoto->text());
 		file.open(QIODevice::ReadOnly);
@@ -231,7 +231,7 @@ void GuardEditDiag::ClickSubmitButtonAddFunc()
 
 	if (!ui->lineEditPhoto->text().isEmpty())
 	{
-		if (!IsPicPathValid())
+		if (!InfoCheck::IsPicPathValid(ui->lineEditPhoto->text()))
 			return;
 		QFile file(ui->lineEditPhoto->text());
 		file.open(QIODevice::ReadOnly);
@@ -292,7 +292,6 @@ void GuardEditDiag::ClickPreviewButton()
 	file.open(QIODevice::ReadOnly);
 	data = file.readAll();
 	file.close();
-	//QVariant var(data);
 	QPixmap photo;
 	photo.loadFromData(data, "JPG");
 	ui->labelPic->setPixmap(photo);
@@ -370,25 +369,4 @@ void GuardEditDiag::ClearPhoto()
 	ui->lineEditPhoto->clear();
 }
 
-
-bool GuardEditDiag::IsPicPathValid()
-{
-	QFileInfo fileinfo(ui->lineEditPhoto->text());
-
-	if (!fileinfo.exists())
-	{
-		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("文件不存在，路径输入有误"), 2);
-		ui->lineEditPhoto->clear();
-		return false;
-	}
-
-	if ("jpg" != fileinfo.suffix())
-	{
-		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("文件格式不正确，只支持jpg格式的图片"), 2);
-		ui->lineEditPhoto->clear();
-		return false;
-	}
-
-	return true;
-}
 
