@@ -3,6 +3,7 @@
 #define PROPERTY_EMPLOYEE_EDIT
 #include "ui_PropertyEdit.h"
 #include <QSqlTableModel>
+#include <QSqlQuery>
 
 class PropertyEmployeeEdit : public QDialog
 {
@@ -18,6 +19,7 @@ private:
 	QSqlTableModel *model;
 	Ui_PropertyEdit *ui;
 	int index;
+	int CurID;
 	void GetBirthAndGenderFromID();
 	bool IsIDValid();
 	bool IsInputValid();
@@ -29,11 +31,14 @@ private slots:
 	void ClickSubmitButtonAdd();
 	void ClickBrowseButton();
 	void ClickPreviewButton();
+	void ClickDelPicButton();
+	void ClearPicLabel();
+	void ClickLoanDetailButton();
 };
 
 const QString strCleaner = QString::fromLocal8Bit("保洁");
 const QString strPlumElec = QString::fromLocal8Bit("水电");
-const QString strGarden = QString::fromLocal8Bit("保洁");
+const QString strGarden = QString::fromLocal8Bit("绿化");
 
 
 #endif

@@ -3,7 +3,6 @@
 #include "ErrorProc.h"
 #include "GlobalVar.h"
 #include <QSqlRecord>
-#include <QSqlQuery>
 #include <QSqlError>
 #include <QFileDialog>
 #include <QDebug>
@@ -37,11 +36,6 @@ void PropertyEmployeeEdit::InitDiag()
 	ui->comboBoxGender->addItem(QString::fromLocal8Bit("男"));
 	ui->comboBoxGender->addItem(QString::fromLocal8Bit("女"));
 
-	ui->comboBox->addItem(QString::fromLocal8Bit("否"));
-	ui->comboBox->addItem(QString::fromLocal8Bit("是"));
-
-	ui->comboBox->setCurrentText(QString::fromLocal8Bit("否"));
-
 	ui->lineEditIDCardNum->installEventFilter(this);
 	this->setModal(true);
 	ui->pushButtonOk->setShortcut(Qt::Key_Enter);
@@ -56,8 +50,11 @@ void PropertyEmployeeEdit::InitDiag()
 void PropertyEmployeeEdit::InitAddFunc()
 {
 	ui->pushButtonLoanDetail->setHidden(true);
-	QObject::connect(ui->pushButtonOk, SIGNAL(clicked()), this, SLOT(ClickSubmitButtonAdd()));
 	ui->dateEdit_Employ->setDate(QDate::currentDate());
+	ui->labelLoan->setText(QString::fromLocal8Bit("否"));
+	QObject::connect(ui->pushButtonOk, SIGNAL(clicked()), this, SLOT(ClickSubmitButtonAdd()));
+	QObject::connect(ui->pushButtonDelPic, SIGNAL(clicked()), this, SLOT(ClearPicLabel()));
+	ui->pushButtonLoanDetail->setHidden(true);
 }
 
 void PropertyEmployeeEdit::InitModFunc()
@@ -72,13 +69,20 @@ void PropertyEmployeeEdit::InitModFunc()
 	ui->lineEditName->setText(record.value("Name").toString());
 	ui->comboBoxGender->setCurrentText(record.value("Gender").toString());
 	ui->comboBoxType->setCurrentText(record.value("Type").toString());
-	ui->comboBox->setCurrentText(record.value("Loan").toString());
-	ui->dateEdit->setDate(record.value("DateofBirth").toDate());
+	ui->dateEditBirth->setDate(record.value("DateofBirth").toDate());
 	ui->dateEdit_Employ->setDate(record.value("DateofEmploy").toDate());
+	ui->labelLoan->setText(record.value("Loan").toString());
+
+	QPixmap photo;
+	photo.loadFromData(record.value("Photo").toByteArray(), "JPG");
+	ui->labelPic->setPixmap(photo);
+	ui->labelPic->setScaledContents(true);
 
 	ui->lineEditID->setEnabled(false);
 
 	QObject::connect(ui->pushButtonOk, SIGNAL(clicked()), this, SLOT(ClickSubmitButtonMod()));
+	QObject::connect(ui->pushButtonDelPic, SIGNAL(clicked()), this, SLOT(ClickDelPicButton()));
+	QObject::connect(ui->pushButtonLoanDetail, SIGNAL(clicked()), this, SLOT(ClickLoanDetailButton()));
 }
 
 void PropertyEmployeeEdit::ClickSubmitButtonMod()
@@ -88,7 +92,53 @@ void PropertyEmployeeEdit::ClickSubmitButtonMod()
 		return;
 	}
 
+	if (0 == ui->comboBoxType->currentIndex())
+	{
+		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("请选择员工类型"), 2);
+		return;
+	}
+	
+	model->select();
+	QSqlRecord record = model->record(index);
+	QByteArray data = record.value("Photo").toByteArray();
+	CurID = record.value("ID").toInt();
+	QSqlQuery query;
+	query.prepare(tr("UPDATE HumanResource.Property SET Photo = NULL WHERE ID = %1").arg(CurID));
+	if (!query.exec())
+		qDebug() << query.lastError().text();
 
+	model->select();
+	record = model->record(index);
+	record.setValue("Name", ui->lineEditName->text());
+	record.setValue("IDCard", ui->lineEditIDCardNum->text());
+	record.setValue("DateofBirth", ui->dateEditBirth->text());
+	record.setValue("Gender", ui->comboBoxGender->currentText());
+	record.setValue("DateofEmploy", ui->dateEdit_Employ->text());
+	record.setValue("Type", ui->comboBoxType->currentText());
+
+	if (!ui->lineEditPhoto->text().isEmpty())
+	{
+		if (!InfoCheck::IsPicPathValid(ui->lineEditPhoto->text()))
+			return;
+		QFile file(ui->lineEditPhoto->text());
+		file.open(QIODevice::ReadOnly);
+		data = file.readAll();
+	}
+
+	QVariant var(data);
+	record.setValue("Photo", var);
+	model->setRecord(index, record);
+	if (!model->submitAll())
+	{
+		QString str = QString::fromLocal8Bit("数据库错误") + model->lastError().text();
+		ErrorProc::PopMessageBox(&str, 2);
+		qDebug() << model->lastError().text();
+	}
+	else
+	{
+		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("修改成功"), 0);
+		this->accept();
+	}
 }
 
 void PropertyEmployeeEdit::ClickSubmitButtonAdd()
@@ -104,6 +154,12 @@ void PropertyEmployeeEdit::ClickSubmitButtonAdd()
 		return;
 	}
 
+	if (0 == ui->comboBoxType->currentIndex())
+	{
+		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("请选择员工类型"), 2);
+		return;
+	}
+
 	model->setFilter("");
 	model->select();
 	QSqlRecord  record = model->record();
@@ -111,10 +167,10 @@ void PropertyEmployeeEdit::ClickSubmitButtonAdd()
 	record.setValue("Name", ui->lineEditName->text());
 	record.setValue("IDCard", ui->lineEditIDCardNum->text());
 	record.setValue("Gender", ui->comboBoxGender->currentText());
-	record.setValue("DateofBirth", ui->dateEdit->text());
+	record.setValue("DateofBirth", ui->dateEditBirth->text());
 	record.setValue("DateofEmploy", ui->dateEdit_Employ->text());
 	record.setValue("Type", ui->comboBoxType->currentText());
-	record.setValue("Loan", ui->comboBox->currentText());
+	record.setValue("Loan", QString::fromLocal8Bit("否"));
 
 	if (!ui->lineEditPhoto->text().isEmpty())
 	{
@@ -135,7 +191,11 @@ void PropertyEmployeeEdit::ClickSubmitButtonAdd()
 
 		return;
 	}
-	this->accept();
+	else
+	{
+		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("添加数据库成功"), 0);
+		this->accept();
+	}
 }
 
 bool PropertyEmployeeEdit::eventFilter(QObject *obj, QEvent *ev)
@@ -170,7 +230,7 @@ bool PropertyEmployeeEdit::eventFilter(QObject *obj, QEvent *ev)
 void PropertyEmployeeEdit::GetBirthAndGenderFromID()
 {
 	QString gender;
-	InfoCheck::GetBirthAndGenderFromID(ui->lineEditIDCardNum->text(), *ui->dateEdit, gender);
+	InfoCheck::GetBirthAndGenderFromID(ui->lineEditIDCardNum->text(), *ui->dateEditBirth, gender);
 	ui->comboBoxGender->setCurrentText(gender);
 }
 
@@ -233,4 +293,34 @@ void PropertyEmployeeEdit::ClickPreviewButton()
 	photo.loadFromData(data, "JPG");
 	ui->labelPic->setPixmap(photo);
 	ui->labelPic->setScaledContents(true);
+}
+
+void PropertyEmployeeEdit::ClickDelPicButton()
+{
+	ClearPicLabel();
+
+	QSqlQuery query;
+	QString prepare = tr("UPDATE HumanResource.Property SET Photo = NULL WHERE ID = %1").
+		arg(ui->lineEditID->text());
+	query.prepare(prepare);
+	if (!query.exec())
+	{
+		QString str = QString::fromLocal8Bit("数据库错误") + query.lastError().text();
+		ErrorProc::PopMessageBox(&str, 2);
+	}
+	else
+	{
+		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("删除照片成功"), 0);
+	}
+}
+
+void PropertyEmployeeEdit::ClearPicLabel()
+{
+	ui->labelPic->clear();
+	ui->lineEditPhoto->clear();
+}
+
+void PropertyEmployeeEdit::ClickLoanDetailButton()
+{
+
 }

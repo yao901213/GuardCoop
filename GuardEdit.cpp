@@ -124,7 +124,6 @@ void GuardEditDiag::ClickSubmitButtonModFunc()
 {
 	model->select();
 	QSqlRecord record = model->record(CurRowIndex);
-	int ID = record.value("EmployeeID").toInt();
 
 	if (!InfoCheck::IsEmployeeIdCardNumValid(&ui->lineEditIDCardNum->text()))
 	{
@@ -138,48 +137,39 @@ void GuardEditDiag::ClickSubmitButtonModFunc()
 		ui->lineEditName->setText(record.value("Name").toString());
 		return;
 	}
+	QByteArray data = record.value("Photo").toByteArray();
 
-	record.setValue("EmployeeID", ui->lineEditID->text());
-
-	//varbinary在读取之后重新通过model存入库中，出现数据格式不一致的问题，使用query单独插入数据，规避问题
 	QSqlQuery query;
-	QString queryStr = tr("UPDATE HumanResource.Guard SET Name = '%1'"
-		"WHERE EmployeeID = %2").arg(ui->lineEditName->text()).arg(ID);
+	QString queryStr = tr("UPDATE HumanResource.Guard SET Photo = NULL WHERE EmployeeID = %1").
+		arg(ui->lineEditID->text().toInt());
 	query.prepare(queryStr);
 	query.exec();
 
-	queryStr = tr("UPDATE HumanResource.Guard SET WorkPosition = '%1'"
-		"WHERE EmployeeID = %2").arg(ui->comboBox->currentText()).arg(ID);
-	query.prepare(queryStr);
-	query.exec();
-
-	queryStr = tr("UPDATE HumanResource.Guard SET IDCardNum = '%1'"
-		"WHERE EmployeeID = %2").arg(ui->lineEditIDCardNum->text()).arg(ID);
-	query.prepare(queryStr);
-	query.exec();
-
-	queryStr = tr("UPDATE HumanResource.Guard SET DateofBirth = '%1'"
-		"WHERE EmployeeID = %2").arg(ui->dateEdit->text()).arg(ID);
-	query.prepare(queryStr);
-	query.exec();
-
-	queryStr = tr("UPDATE HumanResource.Guard SET Gender = '%1'"
-		"WHERE EmployeeID = %2").arg(ui->comboBoxGender->currentText()).arg(ID);
-	query.prepare(queryStr);
-	query.exec();
-
-	queryStr = tr("UPDATE HumanResource.Guard SET DateofEmploy = '%1'"
-		"WHERE EmployeeID = %2").arg(ui->dateEdit_Employ->text()).arg(ID);
-	query.prepare(queryStr);
-	query.exec();
+	model->select();
+	record = model->record(CurRowIndex);
+	record.setValue("Name", ui->lineEditName->text());
+	record.setValue("WorkPosition", ui->comboBox->currentText());
+	record.setValue("IDCardNum", ui->lineEditIDCardNum->text());
+	record.setValue("Gender", ui->comboBoxGender->currentText());
+	record.setValue("DateofEmploy", ui->dateEdit_Employ->text());
+	record.setValue("DateofBirth", ui->dateEdit->text());
 
 	if (!ui->lineEditPhoto->text().isEmpty())
 	{
 		if (!InfoCheck::IsPicPathValid(ui->lineEditPhoto->text()))
 			return;
+
 		QFile file(ui->lineEditPhoto->text());
 		file.open(QIODevice::ReadOnly);
-		QByteArray data = file.readAll();
+		data = file.readAll();
+		QVariant var(data);
+
+		record.setValue("Photo", var);
+		model->setRecord(CurRowIndex, record);
+		model->submitAll();
+	}
+	else
+	{
 		QVariant var(data);
 		record.setValue("Photo", var);
 		model->setRecord(CurRowIndex, record);

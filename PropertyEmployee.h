@@ -7,6 +7,7 @@
 #include <QComboBox>
 #include "ui_TableWidget.h"
 #include "PropertyEmployeeEdit.h"
+#include "PropertyDetail.h"
 
 class PropertyEmployee : public QWidget
 {
@@ -19,6 +20,7 @@ private:
 	QSqlTableModel *model;
 	QLineEdit *lineEdit;
 	QComboBox *ComboBox;
+	PropertyDetail *detail;
 	void InitWidget();
 	void InitCombobox();
 	PropertyEmployeeEdit *edit;
@@ -32,6 +34,7 @@ private slots:
 	void ClickAddButton();
 	void ClickModButton();
 	void ClickDelButton();
+	void DoubleClickTable();
 };
 
 

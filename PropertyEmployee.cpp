@@ -69,6 +69,8 @@ void PropertyEmployee::InitConnect()
 	QObject::connect(ui->pushButtonMod, SIGNAL(clicked()), this, SLOT(ClickModButton()));
 	QObject::connect(ui->pushButtonSearch, SIGNAL(clicked()), this, SLOT(ClickSearchButton()));
 	QObject::connect(ui->pushButtonShowAll, SIGNAL(clicked()), this, SLOT(UpdateTable()));
+	QObject::connect(ui->tableView, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(DoubleClickTable()));
+
 }
 
 
@@ -111,4 +113,9 @@ void PropertyEmployee::ClickModButton()
 void PropertyEmployee::ClickDelButton()
 {
 
+}
+
+void PropertyEmployee::DoubleClickTable()
+{
+	detail = new PropertyDetail(model, ui->tableView->currentIndex().row());
 }
