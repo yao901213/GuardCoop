@@ -91,7 +91,24 @@ void PropertyEmployee::InitCombobox()
 
 void PropertyEmployee::ClickSearchButton()
 {
-	
+	if (lineEdit->text().isEmpty())
+	{
+		if (0 == ComboBox->currentIndex())
+		{
+			strSearchFilter = "";
+		}
+		else
+		{
+			strSearchFilter = tr("Type = '%1'").arg(ComboBox->currentText());
+		}
+	}
+	else
+	{
+		strSearchFilter = tr("Name = '%1' ").arg(lineEdit->text());
+		SetFilterByType();
+	}
+	model->setFilter(strSearchFilter);
+	model->select();
 }
 
 void PropertyEmployee::ClickAddButton()
@@ -118,4 +135,14 @@ void PropertyEmployee::ClickDelButton()
 void PropertyEmployee::DoubleClickTable()
 {
 	detail = new PropertyDetail(model, ui->tableView->currentIndex().row());
+}
+
+void PropertyEmployee::SetFilterByType()
+{
+	if (ComboBox->currentIndex() == 0)
+	{
+		return;
+	}
+
+	strSearchFilter += tr("AND Type = '%1'").arg(ComboBox->currentText());
 }

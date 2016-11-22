@@ -27,6 +27,8 @@ private:
 	void InitConnect();
 	void SetModelHeader();
 	void TableViewInit();
+	QString strSearchFilter;
+	void SetFilterByType();
 public slots:
 	void UpdateTable();
 private slots:
