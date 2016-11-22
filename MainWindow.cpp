@@ -42,6 +42,7 @@ void MainWindow::InitStackedWidget()
 	GuardCompanyInfo = new GuardCompany();
 	GuardPosition = new GuardPosWidget();
 	propertyEmployee = new PropertyEmployee();
+	propertyTool = new PropertyTool();
 
 	CompanyInfoIndex = ui->stackedWidget->addWidget(CompanyInfo);
 	PhoneBookIndex = ui->stackedWidget->addWidget(phonebook);
@@ -49,6 +50,7 @@ void MainWindow::InitStackedWidget()
 	GuardCompanyIndex = ui->stackedWidget->addWidget(GuardCompanyInfo);
 	GuardPositionIndex = ui->stackedWidget->addWidget(GuardPosition);
 	PropertyEmployeeIndex = ui->stackedWidget->addWidget(propertyEmployee);
+	PropertyToolIndex = ui->stackedWidget->addWidget(propertyTool);
 }
 
 //should be called after InitStackedWidget
@@ -67,6 +69,7 @@ void MainWindow::InitConnection()
 	QObject::connect(ui->pushButtonGuardCompanyInfo, SIGNAL(clicked()), this, SLOT(StackWidgetSwitch2GuardCompany()));
 	QObject::connect(ui->pushButtonGuardPosition, SIGNAL(clicked()), this, SLOT(StackWidgetSwitch2GuardPosition()));
 	QObject::connect(ui->pushButtonPropertyEmployee, SIGNAL(clicked()), this, SLOT(StackWidgetSwitch2PropertyEmployee()));
+	QObject::connect(ui->pushButtonPropertyTool, SIGNAL(clicked()), this, SLOT(StackWidgetSwitch2PropertyTool()));
 
 	//对几个文本页面的初始化
 	QObject::connect(ui->pushButtonCompany, SIGNAL(clicked()), CompanyInfo, SLOT(InitCompanyInfo()));
@@ -137,6 +140,13 @@ void MainWindow::StackWidgetSwitch2GuardPosition()
     ui->labelPosition->setText(strPos + str);
 
 	ui->stackedWidget->setCurrentIndex(GuardPositionIndex);
+}
+
+void MainWindow::StackWidgetSwitch2PropertyTool()
+{
+	QString str = QString::fromLocal8Bit("保安服务->工具统计");
+	ui->labelPosition->setText(strPos + str);
+	ui->stackedWidget->setCurrentIndex(PropertyToolIndex);
 }
 
 void MainWindow::ConstrainGuestAccount()

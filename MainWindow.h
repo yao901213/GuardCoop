@@ -11,6 +11,7 @@
 #include "GuardPosition.h"
 #include "Connect2DB.h"
 #include "PropertyEmployee.h"
+#include "PropertyTool.h"
 
 class MainWindow : public QWidget
 {
@@ -28,12 +29,14 @@ private:
 	GuardCompany *GuardCompanyInfo;
 	GuardPosWidget *GuardPosition;
 	PropertyEmployee *propertyEmployee;
+	PropertyTool *propertyTool;
 	int CompanyInfoIndex;
 	int PhoneBookIndex;
 	int GuardInfoIndex;
 	int GuardCompanyIndex;
 	int GuardPositionIndex;
 	int PropertyEmployeeIndex;
+	int PropertyToolIndex;
 	DB connectDB;
 	void InitTopPic();
 	void InitStackedWidget();
@@ -45,6 +48,7 @@ private slots:
 	void StackWidgetSwitch2GuardCompany();
 	void StackWidgetSwitch2GuardPosition();
 	void StackWidgetSwitch2PropertyEmployee();
+	void StackWidgetSwitch2PropertyTool();
 	void SetLabelPosCompanyInfo();
 	void SetLabelPosInstitution();
 	void SetLabelPosLaw();
