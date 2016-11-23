@@ -144,7 +144,7 @@ void MainWindow::StackWidgetSwitch2GuardPosition()
 
 void MainWindow::StackWidgetSwitch2PropertyTool()
 {
-	QString str = QString::fromLocal8Bit("保安服务->工具统计");
+	QString str = QString::fromLocal8Bit("保安服务->物资管理");
 	ui->labelPosition->setText(strPos + str);
 	ui->stackedWidget->setCurrentIndex(PropertyToolIndex);
 }

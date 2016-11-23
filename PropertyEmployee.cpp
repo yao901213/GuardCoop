@@ -1,5 +1,8 @@
 #include "PropertyEmployee.h"
 #include "InfoCheck.h"
+#include <QMessageBox>
+#include "ErrorProc.h"
+#include <QSqlRecord>
 
 PropertyEmployee::PropertyEmployee(QWidget *parent):
 	QWidget(parent)
@@ -121,7 +124,13 @@ void PropertyEmployee::ClickAddButton()
 
 void PropertyEmployee::ClickModButton()
 {
-	edit = new PropertyEmployeeEdit(model, ui->tableView->currentIndex().row());
+	int index = ui->tableView->currentIndex().row();
+	if (-1 == index)
+	{
+		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("请选择需要修改的数据"), 2);
+		return;
+	}
+	edit = new PropertyEmployeeEdit(model, index);
 	edit->InitModFunc();
 
 	QObject::connect(edit, SIGNAL(accepted()), this, SLOT(UpdateTable()));
@@ -129,7 +138,29 @@ void PropertyEmployee::ClickModButton()
 
 void PropertyEmployee::ClickDelButton()
 {
-
+	int index = ui->tableView->currentIndex().row();
+	if (-1 == index)
+	{
+		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("请选择需要修改的数据"), 2);
+		return;
+	}
+	model->select();
+	QSqlRecord record = model->record(index);
+	QMessageBox	box;
+	box.setWindowTitle(QString::fromLocal8Bit("警告"));
+	box.setIcon(QMessageBox::Warning);
+	box.setText(QString::fromLocal8Bit("将要删除数据：姓名：%1，身份证号：%2").
+		arg(record.value("Name").toString()).arg(record.value("IDCard").toString()));
+	box.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+	box.setButtonText(QMessageBox::Ok, QString::fromLocal8Bit("确认"));
+	box.setButtonText(QMessageBox::Cancel, QString::fromLocal8Bit("取消"));
+	if (QMessageBox::Ok == box.exec())
+	{
+		model->removeRow(index);
+		model->submitAll();
+		UpdateTable();
+	}
+	
 }
 
 void PropertyEmployee::DoubleClickTable()

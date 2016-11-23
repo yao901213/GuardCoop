@@ -147,6 +147,18 @@
     <CustomBuild Include="PropertyTool.h">
       <Filter>HeadFiles</Filter>
     </CustomBuild>
+    <CustomBuild Include="ToolEdit.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="PropertyToolEdit.h">
+      <Filter>HeadFiles</Filter>
+    </CustomBuild>
+    <CustomBuild Include="PropertyToolDetail.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="PropertyToolDetail.h">
+      <Filter>HeadFiles</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SourceFile\ErrorProc.cpp">
@@ -335,6 +347,24 @@
     <ClCompile Include="GeneratedFiles\Release\moc_PropertyTool.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="PropertyToolEdit.cpp">
+      <Filter>SourceFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_PropertyToolEdit.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_PropertyToolEdit.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="PropertyToolDetail.cpp">
+      <Filter>SourceFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_PropertyToolDetail.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_PropertyToolDetail.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HeadFiles\Connect2DB.h">
@@ -389,6 +419,12 @@
       <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_PropertyDetailInfo.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_ToolEdit.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_PropertyToolDetail.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
