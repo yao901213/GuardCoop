@@ -31,6 +31,15 @@ void ToolEdit::ClickOkButtonAddFunc()
 	{
 		return;
 	}
+	
+	model->setFilter(tr("Name = '%1'").arg(ui->lineEditName->text()));
+	model->select();
+
+	if (0 != model->rowCount())
+	{
+		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("该名称已经存在"), 2);
+		return;
+	}
 
 	QSqlQuery query;
 	QString prepare = "INSERT INTO HumanResource.PropertyTool(ID, Name, Discribe, Type, Number, NumberLeft)"
@@ -65,6 +74,24 @@ void ToolEdit::ClickOkButtonModFunc()
 	QSqlRecord record = model->record(Index);
 	int totalold = record.value("Number").toInt();
 	int leftold = record.value("NumberLeft").toInt();
+	if (totalold != leftold)
+	{
+		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("该物品有借出，不允许修改"), 2);
+		return;
+	}
+
+	QSqlTableModel modeltemp;
+	modeltemp.setTable("HumanResource.PropertyTool");
+	modeltemp.setFilter(tr("Name = '%1'").arg(ui->lineEditName->text()));
+	modeltemp.select();
+	modeltemp.submitAll();
+	int i = modeltemp.rowCount();
+	if (0 != modeltemp.rowCount() && record.value("Name").toString() != ui->lineEditName->text())
+	{
+		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("修改的名称已经存在，不允许修改"), 2);
+		return;
+	}
+
 	int totalnum = ui->spinBoxNum->value();
 	if (totalnum < totalold - leftold)
 	{
