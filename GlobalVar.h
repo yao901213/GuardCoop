@@ -4,5 +4,6 @@
 
 extern bool g_IsAdminAccount;
 extern bool StaticCheck;
+extern QString AdminAccount;
 
 #endif

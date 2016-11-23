@@ -20,6 +20,8 @@ PropertyEmployee::~PropertyEmployee()
 {
 	delete ui;
 	delete model;
+	delete lineEdit;
+	delete ComboBox;
 }
 
 void PropertyEmployee::InitWidget()

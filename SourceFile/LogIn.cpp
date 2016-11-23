@@ -4,6 +4,7 @@
 #include <QSqlQuery>
 #include <QSqlTableModel>
 
+QString AdminAccount = "";
 
 LogInDialog::LogInDialog(QWidget *parent):
 	QDialog(parent)
@@ -80,6 +81,7 @@ void LogInDialog::ClickLoginButton()
 	{
 		//处理管理员账号
 		model.setTable("HumanResource.AdminAccount");
+		AdminAccount = ui->lineEdit->text();
 		g_IsAdminAccount = true;
 	}
 	else

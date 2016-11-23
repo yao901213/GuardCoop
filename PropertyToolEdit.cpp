@@ -85,7 +85,6 @@ void ToolEdit::ClickOkButtonModFunc()
 	modeltemp.setFilter(tr("Name = '%1'").arg(ui->lineEditName->text()));
 	modeltemp.select();
 	modeltemp.submitAll();
-	int i = modeltemp.rowCount();
 	if (0 != modeltemp.rowCount() && record.value("Name").toString() != ui->lineEditName->text())
 	{
 		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("修改的名称已经存在，不允许修改"), 2);
