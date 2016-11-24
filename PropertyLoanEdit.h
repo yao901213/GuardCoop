@@ -3,6 +3,7 @@
 #define PROPERTY_LOAN_EDIT_H
 
 #include "ui_PropertyLoanEdit.h"
+#include "PropertyEmployeeSelect.h"
 #include <QSqlTableModel>
 
 class PropertyLoanEdit : public QDialog
@@ -12,6 +13,7 @@ public:
 	PropertyLoanEdit(QString &filter, int index);
 	~PropertyLoanEdit();
 	void InitDiagAddfunc();
+	int EmploeeID;
 
 protected:
 	bool eventFilter(QObject *ob, QEvent *ev);
@@ -22,8 +24,13 @@ private:
 	QSqlTableModel *modelTool;
 	int Index;
 	void InitDiag();
-	private slots:
+	void LineEditBorrowerIDFilter(QEvent *ev);
+	void LineEditLoanStaffFilter(QEvent *ev);
+	PropertyEmployeeSelect *choice;
+private slots:
 	void ClickOkButtonAddFunc();
+	void ClickCheckButton();
+	void SetBorrowerLineEdit(int);
 };
 
 
