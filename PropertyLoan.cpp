@@ -1,4 +1,5 @@
 #include "PropertyLoan.h"
+#include "ErrorProc.h"
 
 PropertyLoan::PropertyLoan(QWidget *parent):
 	QWidget(parent)
@@ -73,12 +74,19 @@ void PropertyLoan::ClickAddButton()
 {
 	edit = new PropertyLoanEdit(QString(""), 0);
 	edit->InitDiagAddfunc();
+	QObject::connect(edit, SIGNAL(accepted()), this, SLOT(UpdateTable()));
 }
 
 void PropertyLoan::ClickModButton()
 {
-
-
+	if (-1 == ui->tableView->currentIndex().row())
+	{
+		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("请选择要修改的数据"), 2);
+		return;
+	}
+	edit = new PropertyLoanEdit(model->filter(), ui->tableView->currentIndex().row());
+	edit->InitDiagModFunc();
+	QObject::connect(edit, SIGNAL(accepted()), this, SLOT(UpdateTable()));
 }
 
 void PropertyLoan::ClickDelButton()

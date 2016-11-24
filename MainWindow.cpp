@@ -150,6 +150,7 @@ void MainWindow::StackWidgetSwitch2PropertyTool()
 	QString str = QString::fromLocal8Bit("保安服务->物资管理");
 	ui->labelPosition->setText(strPos + str);
 	ui->stackedWidget->setCurrentIndex(PropertyToolIndex);
+	propertyTool->UpdateTable();
 }
 
 void MainWindow::ConstrainGuestAccount()
@@ -194,6 +195,7 @@ void MainWindow::StackWidgetSwitch2PropertyEmployee()
 	ui->labelPosition->setText(strPos + str);
 
 	ui->stackedWidget->setCurrentIndex(PropertyEmployeeIndex);
+	propertyEmployee->UpdateTable();
 }
 
 void MainWindow::StackWidgetSwitch2PropertyLoan()
@@ -202,4 +204,5 @@ void MainWindow::StackWidgetSwitch2PropertyLoan()
 	ui->labelPosition->setText(strPos + str);
 
 	ui->stackedWidget->setCurrentIndex(PropertyLoanIndex);
+	propertyLoan->UpdateTable();
 }

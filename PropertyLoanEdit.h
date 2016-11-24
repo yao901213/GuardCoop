@@ -13,6 +13,7 @@ public:
 	PropertyLoanEdit(QString &filter, int index);
 	~PropertyLoanEdit();
 	void InitDiagAddfunc();
+	void InitDiagModFunc();
 	int EmploeeID;
 
 protected:
@@ -27,8 +28,13 @@ private:
 	void LineEditBorrowerIDFilter(QEvent *ev);
 	void LineEditLoanStaffFilter(QEvent *ev);
 	PropertyEmployeeSelect *choice;
+	bool IsInputValid();
+	bool IsInputEmpty();
+	void ChangeEmployeeTable();
+	void ChangeToolTable();
 private slots:
 	void ClickOkButtonAddFunc();
+	void ClickOkButtonModFunc();
 	void ClickCheckButton();
 	void SetBorrowerLineEdit(int);
 };

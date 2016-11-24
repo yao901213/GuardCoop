@@ -53,4 +53,5 @@ void PropertyEmployeeSelect::ClickOkButton()
 	}
 
 	emit ChoiceID(index);
+	this->accept();
 }

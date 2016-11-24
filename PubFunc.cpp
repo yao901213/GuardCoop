@@ -1,11 +1,11 @@
 #include "pubfunc.h"
 
-void UiEmbellish::GreenText(QLineEdit &lineedit)
+void UiEmbellish::GreenText(QLabel *label)
 {
-	lineedit.setStyleSheet(QStringLiteral("color: rgb(144, 238, 144);"));
+	label->setStyleSheet(QStringLiteral("color: rgb(144, 238, 144);"));
 }
 
-void UiEmbellish::RedText(QLineEdit &lineedit)
+void UiEmbellish::RedText(QLabel *label)
 {
-	lineedit.setStyleSheet(QStringLiteral("color: rgb(255, 0, 0);"));
+	label->setStyleSheet(QStringLiteral("color: rgb(255, 0, 0);"));
 }

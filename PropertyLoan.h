@@ -21,10 +21,11 @@ private:
 	void InitTable();
 	void InitButtons();
 	void InitConnect();
+public slots:
+	void UpdateTable();
 private slots:
 	void ClickAddButton();
 	void ClickModButton();
-	void UpdateTable();
 	void ClickDelButton();
 	void ClickSearckButton();
 };

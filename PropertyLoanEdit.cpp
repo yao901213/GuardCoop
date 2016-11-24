@@ -4,6 +4,8 @@
 #include <QSqlRecord>
 #include "ErrorProc.h"
 #include "PubFunc.h"
+#include <QSqlQuery>
+#include <QSqlError>
 
 PropertyLoanEdit::PropertyLoanEdit(QString &filter, int index)
 {
@@ -11,7 +13,7 @@ PropertyLoanEdit::PropertyLoanEdit(QString &filter, int index)
 	modelEmployee = new QSqlTableModel;
 	modelTool = new QSqlTableModel;
 
-	
+
 	ui = new Ui_PropertyLoanEdit;
 
 	model->setTable("HumanResource.PropertyLoan");
@@ -25,7 +27,6 @@ PropertyLoanEdit::PropertyLoanEdit(QString &filter, int index)
 	Index = index;
 	ui->setupUi(this);
 	InitDiag();
-	InitDiagAddfunc();
 }
 
 PropertyLoanEdit::~PropertyLoanEdit()
@@ -49,6 +50,27 @@ void PropertyLoanEdit::InitDiagAddfunc()
 	ui->labelLeft->setText(0);
 }
 
+void PropertyLoanEdit::InitDiagModFunc()
+{
+	QObject::connect(ui->pushButtonOk, SIGNAL(clicked()), this, SLOT(ClickOkButtonModFunc()));
+	model->select();
+	QSqlRecord record = model->record(Index);
+	ui->lineEditID->setText(record.value("ID").toString());
+	ui->lineEditBorrower->setText(record.value("Borrower").toString());
+	ui->lineEditBorrowerID->setText(record.value("BorrowerID").toString());
+	ui->lineEditLoanStaff->setText(record.value("LoanStaff").toString());
+	ui->dateEditBorrow->setDate(record.value("DateofBorrow").toDate());
+	ui->spinBoxNumber->setValue(record.value("Number").toInt());
+	ui->textEditRemark->setPlainText(record.value("Remark").toString());
+	ui->lineEditAdmin->setText(record.value("Admin").toString());
+	ui->lineEditID->setDisabled(true);
+	ui->lineEditLoanStaff->setDisabled(true);
+	ui->spinBoxNumber->setDisabled(true);
+	ui->dateEditBorrow->setDisabled(true);
+	ui->dateEditReturn->setDisabled(true);
+	ui->lineEditAdmin->setDisabled(true);
+	ui->comboBoxIntact->setDisabled(true);
+}
 
 void PropertyLoanEdit::InitDiag()
 {
@@ -59,7 +81,7 @@ void PropertyLoanEdit::InitDiag()
 
 	QObject::connect(ui->pushButtonCancel, SIGNAL(clicked()), this, SLOT(reject()));
 	QObject::connect(ui->pushButtonCheckBorrower, SIGNAL(clicked()), this, SLOT(ClickCheckButton()));
-	
+
 
 	ui->lineEditBorrowerID->installEventFilter(this);
 	ui->lineEditLoanStaff->installEventFilter(this);
@@ -67,9 +89,74 @@ void PropertyLoanEdit::InitDiag()
 
 void PropertyLoanEdit::ClickOkButtonAddFunc()
 {
+	if (!IsInputValid())
+	{
+		return;
+	}
+
+	QSqlQuery query;
+	query.prepare("INSERT INTO HumanResource.PropertyLoan(ID, Borrower, BorrowerID, LoanStaff, StaffNumber, Admin, DateofBorrow, ReturnFlag, Remark)"
+		"VALUES(NEXT VALUE FOR HumanResource.PropertyLoanSeq, :Borrower, :BorrowerID, :LoanStaff, :StaffNumber, :Admin, :DateofBorrow, :ReturnFlag, :Remark)");
+	query.bindValue(":Borrower", ui->lineEditBorrower->text());
+	query.bindValue(":BorrowerID", ui->lineEditBorrowerID->text());
+	query.bindValue(":LoanStaff", ui->lineEditLoanStaff->text());
+	query.bindValue(":StaffNumber", ui->spinBoxNumber->value());
+	query.bindValue(":Admin", ui->lineEditAdmin->text());
+	query.bindValue(":DateofBorrow", ui->dateEditBorrow->text());
+	query.bindValue(":ReturnFlag", QString::fromLocal8Bit("否"));
+	query.bindValue(":Remark", ui->textEditRemark->toPlainText());
+
+	if (!query.exec())
+	{
+		QString str = QString::fromLocal8Bit("添加数据库错误") + query.lastError().text();
+		ErrorProc::PopMessageBox(&str, 2);
+	}
+	else
+	{
+		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("添加数据库成功"), 0);
+		ChangeToolTable();
+		ChangeEmployeeTable();
+		this->accept();
+	}
+}
+
+
+void PropertyLoanEdit::ClickOkButtonModFunc()
+{
 
 
 }
+
+
+void PropertyLoanEdit::ChangeEmployeeTable()
+{
+	QSqlQuery query;
+	QString prepare = tr("UPDATE HumanResource.Property SET Loan = '%1' WHERE ID = %2").
+		arg(QString::fromLocal8Bit("是")).arg(ui->lineEditBorrowerID->text());
+	query.prepare(prepare);
+	if (!query.exec())
+	{
+		QString str = QString::fromLocal8Bit("修改员工信息表错误") + query.lastError().text();
+		ErrorProc::PopMessageBox(&str, 2);
+	}
+}
+
+void PropertyLoanEdit::ChangeToolTable()
+{
+	modelTool->setFilter(tr("Name = '%1'").arg(ui->lineEditLoanStaff->text()));
+	modelTool->select();
+	QSqlRecord record = modelTool->record(0);
+	QSqlQuery query;
+	QString prepare = tr("UPDATE HumanResource.PropertyTool SET NumberLeft = %1 WHERE Name = '%2'").
+		arg(record.value("NumberLeft").toInt() - ui->spinBoxNumber->value()).arg(ui->lineEditLoanStaff->text());
+	query.prepare(prepare);
+	if (!query.exec())
+	{
+		QString str = QString::fromLocal8Bit("修改工具表错误") + query.lastError().text();
+		ErrorProc::PopMessageBox(&str, 2);
+	}
+}
+
 
 void PropertyLoanEdit::ClickCheckButton()
 {
@@ -107,14 +194,14 @@ void PropertyLoanEdit::LineEditBorrowerIDFilter(QEvent *ev)
 		modelEmployee->select();
 		if (1 != modelEmployee->rowCount())
 		{
-			ui->labelBorrowerIDNote->setStyleSheet(QStringLiteral("color: rgb(255, 0, 0);"));
+			UiEmbellish::RedText(ui->labelBorrowerIDNote);
 			ui->labelBorrowerIDNote->setText(QString::fromLocal8Bit("没有该工号"));
 		}
 		else
 		{
 			QString str = modelEmployee->record(0).value("Name").toString();
 			ui->lineEditBorrower->setText(str);
-			ui->labelBorrowerIDNote->setStyleSheet(QStringLiteral("color: rgb(144, 238, 144);"));
+			UiEmbellish::GreenText(ui->labelBorrowerIDNote);
 			ui->labelBorrowerIDNote->setText(QString::fromLocal8Bit("查找成功"));
 		}
 	}
@@ -132,13 +219,13 @@ void PropertyLoanEdit::LineEditLoanStaffFilter(QEvent *ev)
 		modelTool->select();
 		if (1 != modelTool->rowCount())
 		{
-			ui->labelLoanStaffNote->setStyleSheet(QStringLiteral("color: rgb(255, 0, 0);"));
+			UiEmbellish::RedText(ui->labelLoanStaffNote);
 			ui->labelLoanStaffNote->setText(QString::fromLocal8Bit("没有该工具名称"));
 		}
 		else
 		{
 			QString str = modelTool->record(0).value("NumberLeft").toString();
-			ui->labelLoanStaffNote->setStyleSheet(QStringLiteral("color: rgb(144, 238, 144);"));
+			UiEmbellish::GreenText(ui->labelLoanStaffNote);
 			ui->labelLoanStaffNote->setText(QString::fromLocal8Bit("查找成功"));
 			ui->labelLeft->setText(str);
 		}
@@ -157,6 +244,80 @@ void PropertyLoanEdit::SetBorrowerLineEdit(int value)
 	QSqlRecord record = modelEmployee->record(value);
 	QString str = record.value("ID").toString();
 	ui->lineEditBorrowerID->setText(str);
-	ui->lineEditBorrowerID->setText(QString::fromLocal8Bit("查找成功"));
+	ui->labelBorrowerIDNote->setText(QString::fromLocal8Bit("查找成功"));
+	UiEmbellish::GreenText(ui->labelBorrowerIDNote);
+}
 
+bool PropertyLoanEdit::IsInputEmpty()
+{
+	if (ui->lineEditBorrowerID->text().isEmpty())
+	{
+		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("请输入借用人工号"), 2);
+		return false;
+	}
+
+	if (ui->lineEditBorrower->text().isEmpty())
+	{
+		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("请输入借用人姓名"), 2);
+		return false;
+	}
+
+	if (0 == ui->spinBoxNumber->value())
+	{
+		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("借用物品数量不能为0"), 2);
+		return false;
+	}
+
+	if (ui->lineEditLoanStaff->text().isEmpty())
+	{
+		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("请输入借用物品名称"), 2);
+		return false;
+	}
+
+	if (ui->lineEditAdmin->text().isEmpty())
+	{
+		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("请输入管理员账号"), 2);
+		return false;
+	}
+	return true;
+}
+
+
+bool PropertyLoanEdit::IsInputValid()
+{
+	if (!IsInputEmpty())
+	{
+		return false;
+	}
+	modelEmployee->setFilter(tr("ID = %1").arg(ui->lineEditBorrowerID->text()));
+	modelEmployee->select();
+	if (0 == modelEmployee->rowCount())
+	{
+		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("借用人工号输入错误"), 2);
+		return false;
+	}
+
+	modelEmployee->setFilter(tr("Name = '%1'").arg(ui->lineEditBorrower->text()));
+	modelEmployee->select();
+	if (0 == modelEmployee->rowCount())
+	{
+		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("借用人姓名输入错误"), 2);
+		return false;
+	}
+
+	modelTool->setFilter(tr("Name = '%1'").arg(ui->lineEditLoanStaff->text()));
+	modelTool->select();
+	if (0 == modelTool->rowCount())
+	{
+		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("借用人姓名输入错误"), 2);
+		return false;
+	}
+	QSqlRecord record = modelTool->record(0);
+	if (ui->spinBoxNumber->value() > record.value("NumberLeft").toInt())
+	{
+		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("借用物品余量不足"), 2);
+		return false;
+	}
+
+	return true;
 }

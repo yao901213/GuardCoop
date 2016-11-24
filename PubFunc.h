@@ -2,12 +2,13 @@
 #ifndef PUB_FUNC_H
 #define PUB_FUNC_H
 
-#include <QLineEdit>
+#include <QLabel>
 
 class UiEmbellish
 {
-	static void GreenText(QLineEdit &lineedit);
-	static void RedText(QLineEdit &lineedit);
+public:
+	static void GreenText(QLabel *label);
+	static void RedText(QLabel *label);
 };
 
 #endif
