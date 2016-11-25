@@ -24,11 +24,24 @@ void PropertyLoan::InitWidget()
 {
 	lineEdit = new QLineEdit(this);
 	lineEdit->setObjectName(QStringLiteral("lineEdit"));
-	lineEdit->setGeometry(QRect(240, 30, 171, 23));
+	lineEdit->setGeometry(QRect(280, 30, 131, 23));
+
+	comboBox = new QComboBox(this);
+	comboBox->setObjectName(QStringLiteral("comboBox"));
+	comboBox->setGeometry(QRect(188, 30, 81, 22));
 
 	InitButtons();
 	InitTable();
 	InitConnect();
+	InitComboBox;
+}
+
+void PropertyLoan::InitComboBox()
+{
+	comboBox->addItem(QString::fromLocal8Bit("序列号"));
+	comboBox->addItem(QString::fromLocal8Bit("借用人姓名"));
+	comboBox->addItem(QString::fromLocal8Bit("借用人工号"));
+	comboBox->addItem(QString::fromLocal8Bit("工具名称"));
 }
 
 void PropertyLoan::InitTable()
@@ -66,8 +79,7 @@ void PropertyLoan::InitConnect()
 	QObject::connect(ui->pushButtonDel, SIGNAL(clicked()), this, SLOT(ClickDelButton()));
 	QObject::connect(ui->pushButtonMod, SIGNAL(clicked()), this, SLOT(ClickModButton()));
 	QObject::connect(ui->pushButtonSearch, SIGNAL(clicked()), this, SLOT(ClickSearckButton()));
-	QObject::connect(ui->pushButtonShowAll, SIGNAL(clicked()), this, SLOT(UpdateTable()));
-
+	QObject::connect(ui->pushButtonShowAll, SIGNAL(clicked()), this, SLOT(ShowAll()));
 }
 
 void PropertyLoan::ClickAddButton()
@@ -91,14 +103,29 @@ void PropertyLoan::ClickModButton()
 
 void PropertyLoan::ClickDelButton()
 {
+	if (-1 == ui->tableView->currentIndex().row())
+	{
+		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("请选择要修改的数据"), 2);
+		return;
+	}
+	edit = new PropertyLoanEdit(model->filter(), ui->tableView->currentIndex().row());
+	edit->InitDiagDelFunc();
 
+	QObject::connect(edit, SIGNAL(accepted()), this, SLOT(UpdateTable()));
 }
-void PropertyLoan::ClickSearckButton()
+
+void PropertyLoan::ClickSearchButton()
 {
 
 }
 
 void PropertyLoan::UpdateTable()
+{
+	model->setFilter(tr("ReturnFlag = '%1'").arg(QString::fromLocal8Bit("否")));
+	model->select();
+}
+
+void PropertyLoan::ShowAll()
 {
 	model->setFilter("");
 	model->select();

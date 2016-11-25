@@ -14,6 +14,7 @@ public:
 	~PropertyLoanEdit();
 	void InitDiagAddfunc();
 	void InitDiagModFunc();
+	void InitDiagDelFunc();
 	int EmploeeID;
 
 protected:
@@ -30,11 +31,13 @@ private:
 	PropertyEmployeeSelect *choice;
 	bool IsInputValid();
 	bool IsInputEmpty();
+	bool IsInputValidDelFunc();
 	void ChangeEmployeeTable();
 	void ChangeToolTable();
 private slots:
 	void ClickOkButtonAddFunc();
 	void ClickOkButtonModFunc();
+	void ClickOkButtonDelFunc();
 	void ClickCheckButton();
 	void SetBorrowerLineEdit(int);
 };
