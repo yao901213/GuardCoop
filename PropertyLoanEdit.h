@@ -15,6 +15,7 @@ public:
 	void InitDiagAddfunc();
 	void InitDiagModFunc();
 	void InitDiagDelFunc();
+	void InitDiagDetailFunc();
 	int EmploeeID;
 
 protected:

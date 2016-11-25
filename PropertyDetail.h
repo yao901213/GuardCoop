@@ -3,6 +3,7 @@
 #define PROPERTY_DETAIL_H
 #include "ui_PropertyDetailInfo.h"
 #include <QSqlTableModel>
+#include "PropertyEmployeeLoanDetail.h"
 
 class PropertyDetail : public QDialog
 {
@@ -13,7 +14,7 @@ public:
 private:
 	QSqlTableModel *model;
 	void InitDiag();
-
+	PropertyEmployeeLoanDetail *loandetail;
 	int index;
 	Ui_PropertyDetail *ui;
 private slots:

@@ -127,6 +127,7 @@ void ToolEdit::InitDiag()
 	ui->spinBoxNum->setMinimum(0);
 	ui->lineEditID->setDisabled(true);
 
+	this->setModal(true);
 	this->show();
 }
 

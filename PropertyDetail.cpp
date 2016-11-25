@@ -40,10 +40,17 @@ void PropertyDetail::InitDiag()
 
 	QObject::connect(ui->pushButtonDetail, SIGNAL(clicked()), this, SLOT(ClickDetailButton()));
 
-	show();
+	if (QString::fromLocal8Bit("ÊÇ") != ui->labelLoan->text())
+	{
+		ui->pushButtonDetail->setDisabled(true);
+	}
+
+	this->setModal(true);
+	this->show();
 }
 
 void PropertyDetail::ClickDetailButton()
 {
-
+	QString filter = tr("BorrowerID = %1").arg(ui->labelID->text());
+	loandetail = new PropertyEmployeeLoanDetail(filter);
 }

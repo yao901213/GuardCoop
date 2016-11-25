@@ -39,7 +39,7 @@ void PropertyEmployeeSelect::InitDiag()
 
 	this->setModal(true);
 	QObject::connect(ui->pushButtonOK, SIGNAL(clicked()), this, SLOT(ClickOkButton()));
-	show();
+	this->show();
 }
 
 

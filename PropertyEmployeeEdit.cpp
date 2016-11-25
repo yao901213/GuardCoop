@@ -37,13 +37,13 @@ void PropertyEmployeeEdit::InitDiag()
 	ui->comboBoxGender->addItem(QString::fromLocal8Bit("女"));
 
 	ui->lineEditIDCardNum->installEventFilter(this);
-	this->setModal(true);
 	ui->pushButtonOk->setShortcut(Qt::Key_Enter);
 	ui->pushButtonOk->setShortcut(Qt::Key_Return);
-	
+
 	QObject::connect(ui->pushButtonBrowse, SIGNAL(clicked()), this, SLOT(ClickBrowseButton()));
 	QObject::connect(ui->pushButtonPreview, SIGNAL(clicked()), this, SLOT(ClickPreviewButton()));
 
+	this->setModal(true);
 	this->show();
 }
 
@@ -83,6 +83,11 @@ void PropertyEmployeeEdit::InitModFunc()
 	QObject::connect(ui->pushButtonOk, SIGNAL(clicked()), this, SLOT(ClickSubmitButtonMod()));
 	QObject::connect(ui->pushButtonDelPic, SIGNAL(clicked()), this, SLOT(ClickDelPicButton()));
 	QObject::connect(ui->pushButtonLoanDetail, SIGNAL(clicked()), this, SLOT(ClickLoanDetailButton()));
+
+	if (record.value("Loan").toString() != QString::fromLocal8Bit("是"))
+	{
+		ui->pushButtonLoanDetail->setDisabled(true);
+	}
 }
 
 void PropertyEmployeeEdit::ClickSubmitButtonMod()
@@ -97,7 +102,7 @@ void PropertyEmployeeEdit::ClickSubmitButtonMod()
 		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("请选择员工类型"), 2);
 		return;
 	}
-	
+
 	model->select();
 	QSqlRecord record = model->record(index);
 	QByteArray data = record.value("Photo").toByteArray();
@@ -109,6 +114,20 @@ void PropertyEmployeeEdit::ClickSubmitButtonMod()
 
 	model->select();
 	record = model->record(index);
+
+	if (record.value("Loan").toString() == QString::fromLocal8Bit("是") && 
+		record.value("Name").toString() != ui->lineEditName->text())
+	{
+		QSqlQuery query;
+		QString str = tr("UPDATE HumanResource.PropertyLoan SET Borrower = '%1' WHERE BorrowerID = %2").
+			arg(ui->lineEditName->text()).arg(ui->lineEditID->text());
+		if (!query.exec(str))
+		{
+			QString str = QString::fromLocal8Bit("数据库错误") + model->lastError().text();
+			ErrorProc::PopMessageBox(&str, 2);
+		}
+	}
+	
 	record.setValue("Name", ui->lineEditName->text());
 	record.setValue("IDCard", ui->lineEditIDCardNum->text());
 	record.setValue("DateofBirth", ui->dateEditBirth->text());
@@ -240,7 +259,7 @@ bool PropertyEmployeeEdit::IsIDValid()
 	model->select();
 	if (0 != model->rowCount())
 	{
-		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("ID已经存在"), 2);  
+		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("ID已经存在"), 2);
 		return false;
 	}
 	return true;
@@ -322,5 +341,7 @@ void PropertyEmployeeEdit::ClearPicLabel()
 
 void PropertyEmployeeEdit::ClickLoanDetailButton()
 {
+	QString filter = tr("BorrowerID = %1").arg(ui->lineEditID->text());
+	loandetail = new PropertyEmployeeLoanDetail(filter);
 
 }

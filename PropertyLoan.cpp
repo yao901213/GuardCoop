@@ -1,7 +1,7 @@
 #include "PropertyLoan.h"
 #include "ErrorProc.h"
 
-PropertyLoan::PropertyLoan(QWidget *parent):
+PropertyLoan::PropertyLoan(QWidget *parent) :
 	QWidget(parent)
 {
 	ui = new Ui_TableWidget;
@@ -28,12 +28,12 @@ void PropertyLoan::InitWidget()
 
 	comboBox = new QComboBox(this);
 	comboBox->setObjectName(QStringLiteral("comboBox"));
-	comboBox->setGeometry(QRect(188, 30, 81, 22));
+	comboBox->setGeometry(QRect(185, 30, 83, 22));
 
 	InitButtons();
 	InitTable();
 	InitConnect();
-	InitComboBox;
+	InitComboBox();
 }
 
 void PropertyLoan::InitComboBox()
@@ -78,8 +78,9 @@ void PropertyLoan::InitConnect()
 	QObject::connect(ui->pushButtonAdd, SIGNAL(clicked()), this, SLOT(ClickAddButton()));
 	QObject::connect(ui->pushButtonDel, SIGNAL(clicked()), this, SLOT(ClickDelButton()));
 	QObject::connect(ui->pushButtonMod, SIGNAL(clicked()), this, SLOT(ClickModButton()));
-	QObject::connect(ui->pushButtonSearch, SIGNAL(clicked()), this, SLOT(ClickSearckButton()));
+	QObject::connect(ui->pushButtonSearch, SIGNAL(clicked()), this, SLOT(ClickSearchButton()));
 	QObject::connect(ui->pushButtonShowAll, SIGNAL(clicked()), this, SLOT(ShowAll()));
+	QObject::connect(ui->tableView, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(DoubleClickRow()));
 }
 
 void PropertyLoan::ClickAddButton()
@@ -116,8 +117,35 @@ void PropertyLoan::ClickDelButton()
 
 void PropertyLoan::ClickSearchButton()
 {
+	if (lineEdit->text().isEmpty())
+	{
+		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("请输入要查询的内容"), 2);
+		return;
+	}
 
+	if (comboBox->currentText() == QString::fromLocal8Bit("序列号"))
+	{
+		model->setFilter(tr("ID = %1").arg(lineEdit->text()));
+	}
+
+	if (comboBox->currentText() == QString::fromLocal8Bit("借用人姓名"))
+	{
+		model->setFilter(tr("Borrower = '%1'").arg(lineEdit->text()));
+	}
+
+	if (comboBox->currentText() == QString::fromLocal8Bit("借用人工号"))
+	{
+		model->setFilter(tr("BorrowerID = %1").arg(lineEdit->text()));
+	}
+
+	if (comboBox->currentText() == QString::fromLocal8Bit("工具名称"))
+	{
+		model->setFilter(tr("LoanStaff = '%1'").arg(lineEdit->text()));
+	}
+
+	model->select();
 }
+
 
 void PropertyLoan::UpdateTable()
 {
@@ -129,4 +157,10 @@ void PropertyLoan::ShowAll()
 {
 	model->setFilter("");
 	model->select();
+}
+
+void PropertyLoan::DoubleClickRow()
+{
+	edit = new PropertyLoanEdit(model->filter(), ui->tableView->currentIndex().row());
+	edit->InitDiagDetailFunc();
 }

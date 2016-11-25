@@ -103,10 +103,14 @@ void PropertyLoanEdit::InitDiagDelFunc()
 
 void PropertyLoanEdit::InitDiag()
 {
+	this->setModal(true);
 	this->show();
 	ui->lineEditID->setDisabled(true);
+	ui->comboBoxIntact->addItem("");
 	ui->comboBoxIntact->addItem(QString::fromLocal8Bit("是"));
 	ui->comboBoxIntact->addItem(QString::fromLocal8Bit("否"));
+	ui->comboBoxIntact->setCurrentText("");
+
 
 	QObject::connect(ui->pushButtonCancel, SIGNAL(clicked()), this, SLOT(reject()));
 	QObject::connect(ui->pushButtonCheckBorrower, SIGNAL(clicked()), this, SLOT(ClickCheckButton()));
@@ -447,5 +451,40 @@ bool PropertyLoanEdit::IsInputValidDelFunc()
 		return false;
 	}
 
+	if (ui->comboBoxIntact->currentText() == "")
+	{
+		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("请选择是否完好"), 2);
+		return false;
+	}
+
 	return true;
+}
+
+void PropertyLoanEdit::InitDiagDetailFunc()
+{
+	model->select();
+	QSqlRecord record = model->record(Index);
+
+	ui->lineEditID->setText(record.value("ID").toString());
+	ui->lineEditBorrower->setText(record.value("Borrower").toString());
+	ui->lineEditBorrowerID->setText(record.value("BorrowerID").toString());
+	ui->lineEditLoanStaff->setText(record.value("LoanStaff").toString());
+	ui->dateEditBorrow->setDate(record.value("DateofBorrow").toDate());
+	ui->spinBoxNumber->setValue(record.value("StaffNumber").toInt());
+	ui->textEditRemark->setPlainText(record.value("Remark").toString());
+	ui->lineEditAdmin->setText(record.value("Admin").toString());
+
+	ui->lineEditID->setDisabled(true);
+	ui->lineEditLoanStaff->setDisabled(true);
+	ui->spinBoxNumber->setDisabled(true);
+	ui->dateEditBorrow->setDisabled(true);
+	ui->lineEditAdmin->setDisabled(true);
+	ui->lineEditBorrower->setDisabled(true);
+	ui->lineEditBorrowerID->setDisabled(true);
+	ui->dateEditReturn->setDate(record.value("DateofReturn").toDate());
+	ui->dateEditReturn->setDisabled(true);
+	ui->textEditRemark->setDisabled(true);
+	ui->pushButtonCheckBorrower->setDisabled(true);
+	ui->comboBoxIntact->setDisabled(true);
+	QObject::connect(ui->pushButtonOk, SIGNAL(clicked()), this, SLOT(reject()));
 }

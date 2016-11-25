@@ -4,6 +4,7 @@
 #include "ui_PropertyEdit.h"
 #include <QSqlTableModel>
 #include <QSqlQuery>
+#include "propertyemployeeloandetail.h"
 
 class PropertyEmployeeEdit : public QDialog
 {
@@ -23,6 +24,7 @@ private:
 	void GetBirthAndGenderFromID();
 	bool IsIDValid();
 	bool IsInputValid();
+	PropertyEmployeeLoanDetail *loandetail;
 protected:
 	bool eventFilter(QObject *obj, QEvent *ev);
 

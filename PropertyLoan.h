@@ -31,6 +31,7 @@ private slots:
 	void ClickModButton();
 	void ClickDelButton();
 	void ClickSearchButton();
+	void DoubleClickRow();
 	void ShowAll();
 };
 
