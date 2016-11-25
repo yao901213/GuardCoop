@@ -177,6 +177,18 @@
     <CustomBuild Include="PropertyEmployeeLoanDetail.h">
       <Filter>HeadFiles</Filter>
     </CustomBuild>
+    <CustomBuild Include="Car.h">
+      <Filter>HeadFiles</Filter>
+    </CustomBuild>
+    <CustomBuild Include="CarTable.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="CarEdit.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="CarEdit.h">
+      <Filter>HeadFiles</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SourceFile\ErrorProc.cpp">
@@ -419,6 +431,24 @@
     <ClCompile Include="GeneratedFiles\Release\moc_PropertyEmployeeLoanDetail.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="Car.cpp">
+      <Filter>SourceFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_Car.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_Car.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_CarEdit.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_CarEdit.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="CarEdit.cpp">
+      <Filter>SourceFiles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HeadFiles\Connect2DB.h">
@@ -489,6 +519,12 @@
     </ClInclude>
     <ClInclude Include="PubFunc.h">
       <Filter>HeadFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_CarTable.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_CarEdit.h">
+      <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

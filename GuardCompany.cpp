@@ -59,6 +59,8 @@ void GuardCompany::ShowDbData()
 	ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
 	ui->tableView->setSelectionMode(QAbstractItemView::SingleSelection);
 	ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+	ui->tableView->setSortingEnabled(true);
+	ui->tableView->horizontalHeader()->setHighlightSections(false);
 
 	ui->tableView->show();
 }

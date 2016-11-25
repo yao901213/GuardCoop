@@ -63,7 +63,8 @@ void PropertyEmployee::TableViewInit()
 	ui->tableView->setColumnHidden(4, true);
 	ui->tableView->setColumnHidden(8, true);
 	ui->tableView->resizeColumnToContents(2);
-	
+	ui->tableView->setSortingEnabled(true);
+	ui->tableView->horizontalHeader()->setHighlightSections(false);
 	ui->tableView->show();
 }
 

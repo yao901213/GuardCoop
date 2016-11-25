@@ -13,6 +13,7 @@
 #include "PropertyEmployee.h"
 #include "PropertyTool.h"
 #include "PropertyLoan.h"
+#include "Car.h"
 
 class MainWindow : public QWidget
 {
@@ -32,6 +33,7 @@ private:
 	PropertyEmployee *propertyEmployee;
 	PropertyTool *propertyTool;
 	PropertyLoan *propertyLoan;
+	Car *car;
 	int CompanyInfoIndex;
 	int PhoneBookIndex;
 	int GuardInfoIndex;
@@ -40,6 +42,7 @@ private:
 	int PropertyEmployeeIndex;
 	int PropertyToolIndex;
 	int PropertyLoanIndex;
+	int CarIndex;
 	DB connectDB;
 	void InitTopPic();
 	void InitStackedWidget();
@@ -53,6 +56,7 @@ private slots:
 	void StackWidgetSwitch2PropertyEmployee();
 	void StackWidgetSwitch2PropertyTool();
 	void StackWidgetSwitch2PropertyLoan();	
+	void StackWidgetSwitch2Car();
 	void SetLabelPosCompanyInfo();
 	void SetLabelPosInstitution();
 	void SetLabelPosLaw();

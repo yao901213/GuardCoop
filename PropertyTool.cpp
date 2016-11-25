@@ -38,7 +38,8 @@ void PropertyTool::InitTable()
 	model->setHeaderData(4, Qt::Horizontal, QString::fromLocal8Bit("Ê£Óà"), Qt::DisplayRole);
 	model->setHeaderData(5, Qt::Horizontal, QString::fromLocal8Bit("ÀàÐÍ"), Qt::DisplayRole);
 
-	model->select();
+	model->select();	
+	ui->tableView->setSortingEnabled(true);
 	ui->tableView->setModel(model);
 	ui->tableView->setColumnHidden(0, true);
 	ui->tableView->setColumnHidden(2, true);
@@ -46,6 +47,7 @@ void PropertyTool::InitTable()
 	ui->tableView->setSelectionMode(QAbstractItemView::SingleSelection);
 	ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
 	ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+	ui->tableView->horizontalHeader()->setHighlightSections(false);
 }
 
 void PropertyTool::InitConnect()

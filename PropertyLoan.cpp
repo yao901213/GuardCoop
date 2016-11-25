@@ -63,6 +63,8 @@ void PropertyLoan::InitTable()
 	ui->tableView->setSelectionMode(QAbstractItemView::SingleSelection);
 	ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
 	ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+	ui->tableView->horizontalHeader()->setHighlightSections(false);
+	ui->tableView->setSortingEnabled(true);
 	ui->tableView->show();
 }
 

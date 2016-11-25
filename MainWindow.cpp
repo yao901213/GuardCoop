@@ -44,6 +44,7 @@ void MainWindow::InitStackedWidget()
 	propertyEmployee = new PropertyEmployee();
 	propertyTool = new PropertyTool();
 	propertyLoan = new PropertyLoan();
+	car = new Car();
 
 	CompanyInfoIndex = ui->stackedWidget->addWidget(CompanyInfo);
 	PhoneBookIndex = ui->stackedWidget->addWidget(phonebook);
@@ -53,6 +54,7 @@ void MainWindow::InitStackedWidget()
 	PropertyEmployeeIndex = ui->stackedWidget->addWidget(propertyEmployee);
 	PropertyToolIndex = ui->stackedWidget->addWidget(propertyTool);
 	PropertyLoanIndex = ui->stackedWidget->addWidget(propertyLoan);
+	CarIndex = ui->stackedWidget->addWidget(car);
 }
 
 //should be called after InitStackedWidget
@@ -73,6 +75,7 @@ void MainWindow::InitConnection()
 	QObject::connect(ui->pushButtonPropertyEmployee, SIGNAL(clicked()), this, SLOT(StackWidgetSwitch2PropertyEmployee()));
 	QObject::connect(ui->pushButtonPropertyTool, SIGNAL(clicked()), this, SLOT(StackWidgetSwitch2PropertyTool()));
 	QObject::connect(ui->pushButtonPropertyUse, SIGNAL(clicked()), this, SLOT(StackWidgetSwitch2PropertyLoan()));
+	QObject::connect(ui->pushButtonCar, SIGNAL(clicked()), this, SLOT(StackWidgetSwitch2Car()));
 
 	//对几个文本页面的初始化
 	QObject::connect(ui->pushButtonCompany, SIGNAL(clicked()), CompanyInfo, SLOT(InitCompanyInfo()));
@@ -205,4 +208,13 @@ void MainWindow::StackWidgetSwitch2PropertyLoan()
 
 	ui->stackedWidget->setCurrentIndex(PropertyLoanIndex);
 	propertyLoan->UpdateTable();
+}
+
+void MainWindow::StackWidgetSwitch2Car()
+{
+	QString str = QString::fromLocal8Bit("财务管理->车辆信息");
+	ui->labelPosition->setText(strPos + str);
+
+	ui->stackedWidget->setCurrentIndex(CarIndex);
+	car->UpdateTable();
 }

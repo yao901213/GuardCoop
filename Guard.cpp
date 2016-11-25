@@ -48,7 +48,8 @@ void GuardWidget::InitWidget()
 	ui->tableView->setColumnHidden(4, true);
 	ui->tableView->setColumnHidden(5, true);
 	ui->tableView->setColumnHidden(7, true);
-
+	ui->tableView->setSortingEnabled(true);
+	ui->tableView->horizontalHeader()->setHighlightSections(false);
 	ui->tableView->resizeColumnToContents(3);
 
 	QObject::connect(ui->pushButtonAdd, SIGNAL(clicked()), this, SLOT(ClickAddButton()));
