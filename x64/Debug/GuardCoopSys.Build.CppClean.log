@@ -58,10 +58,10 @@ d:\projects\git\guardcoop\x64\debug\guardcompanyedit.obj
 d:\projects\git\guardcoop\x64\debug\moc_ui_registerdialog.obj
 d:\projects\git\guardcoop\x64\debug\moc_textwidget.obj
 d:\projects\git\guardcoop\x64\debug\moc_phonebookedit.obj
+d:\projects\git\guardcoop\x64\debug\carmaintain.obj
+d:\projects\git\guardcoop\x64\debug\carinsure.obj
 d:\projects\git\guardcoop\generatedfiles\ui_logindialog.h
 d:\projects\git\guardcoop\generatedfiles\debug\moc_propertyemployeeloandetail.cpp
-d:\projects\git\guardcoop\generatedfiles\debug\moc_car.cpp
-d:\projects\git\guardcoop\generatedfiles\debug\moc_caredit.cpp
 d:\projects\git\guardcoop\generatedfiles\debug\moc_propertyemployeeselect.cpp
 d:\projects\git\guardcoop\generatedfiles\debug\moc_propertyloanedit.cpp
 d:\projects\git\guardcoop\generatedfiles\debug\moc_propertyloan.cpp
@@ -108,6 +108,10 @@ d:\projects\git\guardcoop\generatedfiles\ui_propertyloanedit.h
 d:\projects\git\guardcoop\generatedfiles\ui_smalltable.h
 d:\projects\git\guardcoop\generatedfiles\ui_cartable.h
 d:\projects\git\guardcoop\generatedfiles\ui_caredit.h
+d:\projects\git\guardcoop\generatedfiles\debug\moc_caredit.cpp
+d:\projects\git\guardcoop\generatedfiles\ui_carinsure.h
+d:\projects\git\guardcoop\generatedfiles\ui_carmaintain.h
+d:\projects\git\guardcoop\generatedfiles\debug\moc_car.cpp
 d:\projects\git\guardcoop\debug\guardcoopsys.ilk
 d:\projects\git\guardcoop\debug\guardcoopsys.exe
 d:\projects\git\guardcoop\debug\guardcoopsys.pdb

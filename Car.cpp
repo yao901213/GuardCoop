@@ -1,3 +1,4 @@
+#include "ErrorProc.h"
 #include "Car.h"
 
 Car::Car(QWidget *parent):
@@ -44,6 +45,8 @@ void Car::InitWidget()
 	QObject::connect(ui->pushButtonMaintain, SIGNAL(clicked()), this, SLOT(ClickMaintainButton()));
 	QObject::connect(ui->pushButtonInsure, SIGNAL(clicked()), this, SLOT(ClickInsureButton()));
 	QObject::connect(ui->tableView, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(DoubleClickRow()));
+	QObject::connect(ui->pushButtonSearch, SIGNAL(clicked()), this, SLOT(ClickSearchButton()));
+	QObject::connect(ui->pushButtonShowAll, SIGNAL(clicked()), this, SLOT(UpdateTable()));
 }
 
 void Car::UpdateTable()
@@ -62,12 +65,20 @@ void Car::ClickAddButton()
 
 void Car::ClickModButton()
 {
+	if (-1 == ui->tableView->currentIndex().row())
+	{
+		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("请选择要修改的数据"), 2);
+		return;
+	}
+	edit = new CarEdit(model->filter(), ui->tableView->currentIndex().row());
+	edit->InitDiagModFunc();
 
-
+	QObject::connect(edit, SIGNAL(accepted()), this, SLOT(UpdateTable()));
 }
 
 void Car::ClickInsureButton()
 {
+	insure = new CarInsure(model->filter(), ui->tableView->currentIndex().row());
 
 }
 
@@ -80,4 +91,17 @@ void Car::DoubleClickRow()
 {
 
 
+}
+
+
+void Car::ClickSearchButton()
+{
+	if (ui->lineEdit->text().isEmpty())
+	{
+		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("请输入搜索内容"), 2);
+		return;
+	}
+
+	model->setFilter(tr("ID = '%1'").arg(ui->lineEdit->text()));
+	model->select();
 }

@@ -3,6 +3,7 @@
 #include <QSqlQuery>
 #include <QSqlError>
 #include "InfoCheck.h"
+#include <QSqlRecord>
 
 CarEdit::CarEdit(QString &filter, int index)
 {
@@ -52,8 +53,23 @@ void CarEdit::InitDiagAddFunc()
 
 void CarEdit::InitDiagModFunc()
 {
+	QObject::connect(ui->pushButtonOk, SIGNAL(clicked()), this, SLOT(ClickOkButtonModFunc()));
 
+	model->select();
+	QSqlRecord record = model->record(Index);
+	ui->lineEditID->setText(record.value("ID").toString());
+	ui->lineEditBrand->setText(record.value("Brand").toString());
+	ui->lineEditKeeper->setText(record.value("Keeper").toString());
+	ui->comboBoxType->setCurrentText(record.value("Type").toString());
+	ui->comboBoxPerform->setCurrentText(record.value("Perform").toString());
+	ui->comboBoxCondition->setCurrentText(record.value("Condition").toString());
+	ui->dateEdit->setDate(record.value("DateofBuy").toDate());
+	ui->textEdit->setText(record.value("Remark").toString());
 
+	ui->lineEditID->setDisabled(true);
+	ui->lineEditBrand->setDisabled(true);
+	ui->comboBoxType->setDisabled(true);
+	ui->dateEdit->setDisabled(true);
 }
 
 void CarEdit::ClickOkButtonAddFunc()
@@ -94,6 +110,30 @@ void CarEdit::ClickOkButtonAddFunc()
 	}
 	else
 	{
+		this->accept();
+	}
+}
+
+void CarEdit::ClickOkButtonModFunc()
+{
+	model->select();
+	QSqlRecord record = model->record(Index);
+
+	record.setValue("Keeper", ui->lineEditKeeper->text());
+	record.setValue("Condition", ui->comboBoxCondition->currentText());
+	record.setValue("Perform", ui->comboBoxPerform->currentText());
+	record.setValue("Remark", ui->textEdit->toPlainText());
+
+	model->setRecord(Index, record);
+	if (!model->submitAll())
+	{
+		QString str = QString::fromLocal8Bit("修改数据库错误") + model->lastError().text();
+		ErrorProc::PopMessageBox(&str, 2);
+		return;
+	}
+	else
+	{
+		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("修改数据库成功"), 0);
 		this->accept();
 	}
 }

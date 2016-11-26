@@ -8,6 +8,7 @@
 #include <QComboBox>
 #include <QPushButton>
 #include "CarEdit.h"
+#include "CarInsure.h"
 
 class Car : public QWidget
 {
@@ -23,6 +24,7 @@ private:
 	QSqlTableModel *model;
 	void InitWidget();
 	CarEdit *edit;
+	CarInsure *insure;
 public slots:
 	void UpdateTable();
 private slots:
@@ -31,6 +33,7 @@ private slots:
 	void ClickInsureButton();
 	void ClickMaintainButton();
 	void DoubleClickRow();
+	void ClickSearchButton();
 };
 
 

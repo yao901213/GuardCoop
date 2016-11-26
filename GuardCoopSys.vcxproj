@@ -97,7 +97,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>.;D:\Qt\Qt5.7.0\5.7\msvc2015_64\include;D:\Qt\Qt5.7.0\5.7\msvc2015_64\include\QtWidgets;D:\Qt\Qt5.7.0\5.7\msvc2015_64\include\QtGui;D:\Qt\Qt5.7.0\5.7\msvc2015_64\include\QtANGLE;D:\Qt\Qt5.7.0\5.7\msvc2015_64\include\QtSql;D:\Qt\Qt5.7.0\5.7\msvc2015_64\include\QtCore;debug;D:\Qt\Qt5.7.0\5.7\msvc2015_64;.\GeneratedFiles;HeadFiles;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;D:\Program Files\Qt\5.7\msvc2015_64\include;D:\Program Files\Qt\5.7\msvc2015_64\include\QtWidgets;D:\Program Files\Qt\5.7\msvc2015_64\include\QtGui;D:\Program Files\Qt\5.7\msvc2015_64\include\QtANGLE;D:\Program Files\Qt\5.7\msvc2015_64\include\QtSql;D:\Program Files\Qt\5.7\msvc2015_64\include\QtCore;debug;D:\Qt\Qt5.7.0\5.7\msvc2015_64;.\GeneratedFiles;HeadFiles;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-w34100 -w34189 -w44996 %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>debug\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
@@ -179,7 +179,11 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_CORE_LIB -DNDEBUG "-I." "-I.\..\..\..\Program Files\Qt\5.7\msvc2015_64\include" "-I.\..\..\..\Program Files\Qt\5.7\msvc2015_64\include\QtWidgets" "-I.\..\..\..\Program Files\Qt\5.7\msvc2015_64\include\QtGui" "-I.\..\..\..\Program Files\Qt\5.7\msvc2015_64\include\QtANGLE" "-I.\..\..\..\Program Files\Qt\5.7\msvc2015_64\include\QtSql" "-I.\..\..\..\Program Files\Qt\5.7\msvc2015_64\include\QtCore" "-I.\release" "-I.\..\..\..\Program Files\Qt\5.7\msvc2015_64\mkspecs\win32-msvc2010" "-I.\GeneratedFiles"</Command>
     </CustomBuild>
+    <ClInclude Include="CarInsure.h" />
+    <ClInclude Include="CarMaintain.h" />
     <ClInclude Include="GeneratedFiles\ui_CarEdit.h" />
+    <ClInclude Include="GeneratedFiles\ui_CarInsure.h" />
+    <ClInclude Include="GeneratedFiles\ui_CarMaintain.h" />
     <ClInclude Include="GeneratedFiles\ui_CarTable.h" />
     <ClInclude Include="PubFunc.h" />
     <CustomBuild Include="PropertyEmployeeSelect.h">
@@ -454,6 +458,8 @@
   <ItemGroup>
     <ClCompile Include="Car.cpp" />
     <ClCompile Include="CarEdit.cpp" />
+    <ClCompile Include="CarInsure.cpp" />
+    <ClCompile Include="CarMaintain.cpp" />
     <ClCompile Include="ChangePwd.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_Car.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
@@ -885,6 +891,30 @@
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="CarEdit.ui">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="CarInsure.ui">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="CarMaintain.ui">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Uic%27ing %(Identity)...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>

@@ -21,6 +21,7 @@ private:
 	bool IsInputValid();
 private slots:
 	void ClickOkButtonAddFunc();
+	void ClickOkButtonModFunc();
 
 };
 
