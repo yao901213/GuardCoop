@@ -353,3 +353,22 @@ bool InfoCheck::IsPicPathValid(QString &path)
 
 	return true;
 }
+
+bool InfoCheck::IsCarIDValid(QString &ID)
+{
+	QChar cha = ID.at(0);
+	int lo = ID.length();
+	if  (!IsChineseChar(&cha))
+	{
+		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("车牌号第一位不为汉字，请重新输入"), 2);
+		return false;
+	}
+
+	if (7 != lo)
+	{
+		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("车牌号长度不正确"), 2);
+		return false;
+	}
+
+	return true;
+}

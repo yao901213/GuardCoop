@@ -2,6 +2,7 @@
 #include "CarEdit.h"
 #include <QSqlQuery>
 #include <QSqlError>
+#include "InfoCheck.h"
 
 CarEdit::CarEdit(QString &filter, int index)
 {
@@ -65,6 +66,11 @@ void CarEdit::ClickOkButtonAddFunc()
 	if (IsCarIDExist())
 	{
 		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("当前车牌号已经存在"), 2);
+		return;
+	}
+
+	if (!InfoCheck::IsCarIDValid(ui->lineEditID->text()))
+	{
 		return;
 	}
 

@@ -36,6 +36,7 @@ public:
 	static bool IsNewIDCardCheckSumValid(QString *IdCardNum);
 	static void GetBirthAndGenderFromID(QString &ID, QDateEdit &dateedit, QString &gender);
 	static bool IsPicPathValid(QString &path);
+	static bool IsCarIDValid(QString &ID);
 };
 
 
