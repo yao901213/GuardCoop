@@ -28,7 +28,7 @@ void Car::InitWidget()
 	model->setHeaderData(4, Qt::Horizontal, QString::fromLocal8Bit("购买日期"), Qt::DisplayRole);
 	model->setHeaderData(5, Qt::Horizontal, QString::fromLocal8Bit("使用状态"), Qt::DisplayRole);
 	model->setHeaderData(6, Qt::Horizontal, QString::fromLocal8Bit("车况"), Qt::DisplayRole);
-	model->setHeaderData(7, Qt::Horizontal, QString::fromLocal8Bit("备注"), Qt::DisplayRole);
+	//model->setHeaderData(7, Qt::Horizontal, QString::fromLocal8Bit("备注"), Qt::DisplayRole);
 
 	ui->tableView->setModel(model);
 	ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -36,6 +36,7 @@ void Car::InitWidget()
 	ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
 	ui->tableView->setSortingEnabled(true);
 	ui->tableView->horizontalHeader()->setHighlightSections(false);
+	ui->tableView->setColumnHidden(7, true);
 	ui->tableView->show();
 
 	QObject::connect(ui->pushButtonAdd, SIGNAL(clicked()), this, SLOT(ClickAddButton()));
