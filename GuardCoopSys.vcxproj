@@ -179,8 +179,24 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_CORE_LIB -DNDEBUG "-I." "-I.\..\..\..\Program Files\Qt\5.7\msvc2015_64\include" "-I.\..\..\..\Program Files\Qt\5.7\msvc2015_64\include\QtWidgets" "-I.\..\..\..\Program Files\Qt\5.7\msvc2015_64\include\QtGui" "-I.\..\..\..\Program Files\Qt\5.7\msvc2015_64\include\QtANGLE" "-I.\..\..\..\Program Files\Qt\5.7\msvc2015_64\include\QtSql" "-I.\..\..\..\Program Files\Qt\5.7\msvc2015_64\include\QtCore" "-I.\release" "-I.\..\..\..\Program Files\Qt\5.7\msvc2015_64\mkspecs\win32-msvc2010" "-I.\GeneratedFiles"</Command>
     </CustomBuild>
-    <ClInclude Include="CarInsure.h" />
+    <CustomBuild Include="CarInsure.h">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_CORE_LIB "-I." "-ID:\Program Files\Qt\5.7\msvc2015_64\include" "-ID:\Program Files\Qt\5.7\msvc2015_64\include\QtWidgets" "-ID:\Program Files\Qt\5.7\msvc2015_64\include\QtGui" "-ID:\Program Files\Qt\5.7\msvc2015_64\include\QtANGLE" "-ID:\Program Files\Qt\5.7\msvc2015_64\include\QtSql" "-ID:\Program Files\Qt\5.7\msvc2015_64\include\QtCore" "-I.\debug" "-ID:\Qt\Qt5.7.0\5.7\msvc2015_64" "-I.\GeneratedFiles" "-I.\HeadFiles"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing CarInsure.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+    </CustomBuild>
+    <CustomBuild Include="CarDetail.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing CarDetail.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_CORE_LIB "-I." "-ID:\Program Files\Qt\5.7\msvc2015_64\include" "-ID:\Program Files\Qt\5.7\msvc2015_64\include\QtWidgets" "-ID:\Program Files\Qt\5.7\msvc2015_64\include\QtGui" "-ID:\Program Files\Qt\5.7\msvc2015_64\include\QtANGLE" "-ID:\Program Files\Qt\5.7\msvc2015_64\include\QtSql" "-ID:\Program Files\Qt\5.7\msvc2015_64\include\QtCore" "-I.\debug" "-ID:\Qt\Qt5.7.0\5.7\msvc2015_64" "-I.\GeneratedFiles" "-I.\HeadFiles"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing CarDetail.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_CORE_LIB -DNDEBUG "-I." "-I.\..\..\..\Program Files\Qt\5.7\msvc2015_64\include" "-I.\..\..\..\Program Files\Qt\5.7\msvc2015_64\include\QtWidgets" "-I.\..\..\..\Program Files\Qt\5.7\msvc2015_64\include\QtGui" "-I.\..\..\..\Program Files\Qt\5.7\msvc2015_64\include\QtANGLE" "-I.\..\..\..\Program Files\Qt\5.7\msvc2015_64\include\QtSql" "-I.\..\..\..\Program Files\Qt\5.7\msvc2015_64\include\QtCore" "-I.\release" "-I.\..\..\..\Program Files\Qt\5.7\msvc2015_64\mkspecs\win32-msvc2010" "-I.\GeneratedFiles"</Command>
+    </CustomBuild>
     <ClInclude Include="CarMaintain.h" />
+    <ClInclude Include="GeneratedFiles\ui_CarDetail.h" />
     <ClInclude Include="GeneratedFiles\ui_CarEdit.h" />
     <ClInclude Include="GeneratedFiles\ui_CarInsure.h" />
     <ClInclude Include="GeneratedFiles\ui_CarMaintain.h" />
@@ -457,6 +473,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Car.cpp" />
+    <ClCompile Include="CarDetail.cpp" />
     <ClCompile Include="CarEdit.cpp" />
     <ClCompile Include="CarInsure.cpp" />
     <ClCompile Include="CarMaintain.cpp" />
@@ -464,9 +481,13 @@
     <ClCompile Include="GeneratedFiles\Debug\moc_Car.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_CarDetail.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_CarEdit.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_CarInsure.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_Guard.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
@@ -520,6 +541,9 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_Car.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_CarDetail.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_CarEdit.cpp">
@@ -915,6 +939,18 @@
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="CarMaintain.ui">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="CarDetail.ui">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Uic%27ing %(Identity)...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>

@@ -8,7 +8,7 @@ class CarEdit : public QDialog
 {
 	Q_OBJECT
 public:
-	CarEdit(QString &filter, int index);
+	CarEdit(QString &filter, int index, int sort);
 	~CarEdit();
 	void InitDiagAddFunc();
 	void InitDiagModFunc();

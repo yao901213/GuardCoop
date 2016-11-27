@@ -4,12 +4,19 @@
 
 class CarInsure : public QDialog
 {
+	Q_OBJECT
 public :
-	CarInsure(QString &filter, int index);
+	CarInsure(QString &filter, int index, int sort);
 	~CarInsure();
+
 private:
 	QSqlTableModel *model;
+	QString Filter;
 	int Index;
+	int Sort;
 	Ui_CarInsure *ui;
 	void InitDiag();
+	void InitComboBoxs();
+	private slots:
+	void ClickOkButton();
 };

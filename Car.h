@@ -9,6 +9,7 @@
 #include <QPushButton>
 #include "CarEdit.h"
 #include "CarInsure.h"
+#include "CarDetail.h"
 
 class Car : public QWidget
 {
@@ -25,6 +26,8 @@ private:
 	void InitWidget();
 	CarEdit *edit;
 	CarInsure *insure;
+	int ColumnSort;
+	CarDetail *detail;
 public slots:
 	void UpdateTable();
 private slots:
@@ -34,6 +37,7 @@ private slots:
 	void ClickMaintainButton();
 	void DoubleClickRow();
 	void ClickSearchButton();
+	void ClickTableHeader(int);
 };
 
 

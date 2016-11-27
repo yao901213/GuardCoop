@@ -5,7 +5,7 @@
 #include "InfoCheck.h"
 #include <QSqlRecord>
 
-CarEdit::CarEdit(QString &filter, int index)
+CarEdit::CarEdit(QString &filter, int index, int sort)
 {
 	ui = new Ui_CarEdit;
 	ui->setupUi(this);
@@ -13,6 +13,10 @@ CarEdit::CarEdit(QString &filter, int index)
 	model = new QSqlTableModel;
 	model->setTable("HumanResource.Car");
 	model->setFilter(filter);
+	if (-1 != sort)
+	{
+		model->setSort(sort, Qt::AscendingOrder);
+	}
 	model->select();
 	InitDiag();
 }

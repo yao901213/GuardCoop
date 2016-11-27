@@ -6,7 +6,7 @@ Car::Car(QWidget *parent):
 {
 	ui = new Ui_CarTable;
 	ui->setupUi(this);
-
+	ColumnSort = -1;
 	model = new QSqlTableModel;
 	model->setTable("HumanResource.Car");
 	model->setFilter("");
@@ -35,7 +35,6 @@ void Car::InitWidget()
 	ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
 	ui->tableView->setSelectionMode(QAbstractItemView::SingleSelection);
 	ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
-	ui->tableView->setSortingEnabled(true);
 	ui->tableView->horizontalHeader()->setHighlightSections(false);
 	ui->tableView->setColumnHidden(7, true);
 	ui->tableView->show();
@@ -47,6 +46,14 @@ void Car::InitWidget()
 	QObject::connect(ui->tableView, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(DoubleClickRow()));
 	QObject::connect(ui->pushButtonSearch, SIGNAL(clicked()), this, SLOT(ClickSearchButton()));
 	QObject::connect(ui->pushButtonShowAll, SIGNAL(clicked()), this, SLOT(UpdateTable()));
+	QObject::connect(ui->tableView->horizontalHeader(), SIGNAL(sectionClicked(int)), this, SLOT(ClickTableHeader(int)));
+}
+
+void Car::ClickTableHeader(int column)
+{
+	ColumnSort = column;
+	model->setSort(column, Qt::AscendingOrder);
+	model->select();
 }
 
 void Car::UpdateTable()
@@ -57,7 +64,7 @@ void Car::UpdateTable()
 
 void Car::ClickAddButton()
 {
-	edit = new CarEdit(QString(""), 0);
+	edit = new CarEdit(QString(""), 0, ColumnSort);
 	edit->InitDiagAddFunc();
 
 	QObject::connect(edit, SIGNAL(accepted()), this, SLOT(UpdateTable()));
@@ -70,7 +77,7 @@ void Car::ClickModButton()
 		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("请选择要修改的数据"), 2);
 		return;
 	}
-	edit = new CarEdit(model->filter(), ui->tableView->currentIndex().row());
+	edit = new CarEdit(model->filter(), ui->tableView->currentIndex().row(), ColumnSort);
 	edit->InitDiagModFunc();
 
 	QObject::connect(edit, SIGNAL(accepted()), this, SLOT(UpdateTable()));
@@ -78,8 +85,7 @@ void Car::ClickModButton()
 
 void Car::ClickInsureButton()
 {
-	insure = new CarInsure(model->filter(), ui->tableView->currentIndex().row());
-
+	insure = new CarInsure(model->filter(), ui->tableView->currentIndex().row(), ColumnSort);
 }
 
 void Car::ClickMaintainButton()
@@ -89,7 +95,7 @@ void Car::ClickMaintainButton()
 
 void Car::DoubleClickRow()
 {
-
+	detail = new CarDetail(model->filter(), ui->tableView->currentIndex().row(), ColumnSort);
 
 }
 
