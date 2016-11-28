@@ -55,11 +55,9 @@ void CarInsure::InitAddFunc()
 
 void CarInsure::InitDetailFunc()
 {
-	QSqlTableModel modelCar;
-	modelCar.setTable("HumanResource.Car");
-	modelCar.setFilter(Filter);
-	modelCar.select();
-	QSqlRecord record = modelCar.record(Index);
+	model->setFilter(tr("CarID = '%1'").arg(ui->lineEditCarID->text()));
+	model->select();
+	QSqlRecord record = model->record(0);
 	ui->lineEditID->setText(record.value("ID").toString());
 	ui->lineEditID->setDisabled(true);
 	ui->lineEditCarID->setDisabled(true);
@@ -67,6 +65,16 @@ void CarInsure::InitDetailFunc()
 	ui->lineEditInCharge->setDisabled(true);
 	ui->lineEditPrice->setText(record.value("Price").toString());
 	ui->lineEditPrice->setDisabled(true);
+	ui->comboBoxCompany->setCurrentText(record.value("InsureCompany").toString());
+	ui->comboBoxCompany->setDisabled(true);
+	ui->comboBoxType->setCurrentText(record.value("Type").toString());
+	ui->comboBoxType->setDisabled(true);
+	ui->dateEditEnd->setDate(record.value("DateofEnd").toDate());
+	ui->dateEditEnd->setDisabled(true);
+	ui->dateEditStart->setDate(record.value("DateofStart").toDate());
+	ui->dateEditStart->setDisabled(true);
+	ui->textEdit->setText(record.value("Remark").toString());
+	ui->textEdit->setDisabled(true);
 }
 
 
