@@ -1,12 +1,16 @@
 #include "GuardDetailInfo.h"
 #include <QSqlRecord>
 
-GuardDetail::GuardDetail(int SelectIndex, QSqlTableModel *parentmodel)
+GuardDetail::GuardDetail(int SelectIndex, QSqlTableModel *parentmodel, int sort)
 {
 	ui = new Ui_GuardDetailInfoDialog; 
 	model = new QSqlTableModel;
 	model->setTable("HumanResource.Guard");
 	model->setFilter(parentmodel->filter());
+	if (-1 != sort)
+	{
+		model->setSort(sort, Qt::AscendingOrder);
+	}
 	ui->setupUi(this);
 	index = SelectIndex;
 

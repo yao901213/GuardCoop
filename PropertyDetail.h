@@ -9,7 +9,7 @@ class PropertyDetail : public QDialog
 {
 	Q_OBJECT
 public:
-	explicit PropertyDetail(QSqlTableModel *parentmodel, int parentindex);
+	explicit PropertyDetail(QSqlTableModel *parentmodel, int parentindex, int sort);
 	~PropertyDetail();
 private:
 	QSqlTableModel *model;

@@ -7,7 +7,7 @@
 #include <QFileDialog>
 #include <QDebug>
 
-PropertyEmployeeEdit::PropertyEmployeeEdit(QSqlTableModel *parentmodel, int CurRow)
+PropertyEmployeeEdit::PropertyEmployeeEdit(QSqlTableModel *parentmodel, int CurRow, int sort)
 {
 	model = new QSqlTableModel;
 	ui = new Ui_PropertyEdit;
@@ -15,6 +15,10 @@ PropertyEmployeeEdit::PropertyEmployeeEdit(QSqlTableModel *parentmodel, int CurR
 	index = CurRow;
 	model->setTable("HumanResource.Property");
 	model->setFilter(parentmodel->filter());
+	if (-1 != sort)
+	{
+		model->setSort(sort, Qt::AscendingOrder);
+	}
 
 	InitDiag();
 }

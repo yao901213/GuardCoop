@@ -54,7 +54,7 @@
    <property name="title">
     <string/>
    </property>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -133,13 +133,19 @@
      <height>23</height>
     </rect>
    </property>
+   <property name="placeholderText">
+    <string>请输入车牌号进行查询</string>
+   </property>
   </widget>
  </widget>
  <tabstops>
+  <tabstop>lineEdit</tabstop>
   <tabstop>pushButtonSearch</tabstop>
+  <tabstop>pushButtonShowAll</tabstop>
   <tabstop>pushButtonAdd</tabstop>
   <tabstop>pushButtonMod</tabstop>
   <tabstop>pushButtonInsure</tabstop>
+  <tabstop>pushButtonMaintain</tabstop>
   <tabstop>tableView</tabstop>
  </tabstops>
  <resources/>

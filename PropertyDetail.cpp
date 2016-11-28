@@ -2,13 +2,17 @@
 #include <QSqlRecord>
 #include <QPixmap>
 
-PropertyDetail::PropertyDetail(QSqlTableModel *parentmodel, int parentindex)
+PropertyDetail::PropertyDetail(QSqlTableModel *parentmodel, int parentindex, int sort)
 {
 	ui = new Ui_PropertyDetail;
 	ui->setupUi(this);
 	model = new QSqlTableModel;
 	model->setTable("HumanResource.Property");
 	model->setFilter(parentmodel->filter());
+	if (-1 != sort)
+	{
+		model->setSort(sort, Qt::AscendingOrder);
+	}
 	index = parentindex;
 
 	InitDiag();

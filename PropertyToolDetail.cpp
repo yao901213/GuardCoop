@@ -1,12 +1,16 @@
 #include "PropertyToolDetail.h"
 #include <QSqlRecord>
 
-PropertyToolDetail::PropertyToolDetail(QString &filter, int index)
+PropertyToolDetail::PropertyToolDetail(QString &filter, int index, int sort)
 {
 	model = new QSqlTableModel;
 	model->setTable("HumanResource.PropertyTool"); 
 	model->setFilter(filter);
-	
+	if (-1 != sort)
+	{
+		model->setSort(sort, Qt::AscendingOrder);
+	}
+
 	ui = new Ui_PropertyToolDetail;
 	ui->setupUi(this);
 	Index = index;

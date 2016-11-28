@@ -12,6 +12,7 @@ PropertyEmployee::PropertyEmployee(QWidget *parent):
 	model = new QSqlTableModel;
 	model->setTable("HumanResource.Property");
 	model->setFilter("");
+	ColumnIndex = -1;
 
 	InitWidget();
 }
@@ -63,7 +64,6 @@ void PropertyEmployee::TableViewInit()
 	ui->tableView->setColumnHidden(4, true);
 	ui->tableView->setColumnHidden(8, true);
 	ui->tableView->resizeColumnToContents(2);
-	ui->tableView->setSortingEnabled(true);
 	ui->tableView->horizontalHeader()->setHighlightSections(false);
 	ui->tableView->show();
 }
@@ -76,7 +76,7 @@ void PropertyEmployee::InitConnect()
 	QObject::connect(ui->pushButtonSearch, SIGNAL(clicked()), this, SLOT(ClickSearchButton()));
 	QObject::connect(ui->pushButtonShowAll, SIGNAL(clicked()), this, SLOT(UpdateTable()));
 	QObject::connect(ui->tableView, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(DoubleClickTable()));
-
+	QObject::connect(ui->tableView->horizontalHeader(), SIGNAL(sectionClicked(int)), this, SLOT(ClickTableHeader(int)));
 }
 
 
@@ -119,7 +119,7 @@ void PropertyEmployee::ClickSearchButton()
 
 void PropertyEmployee::ClickAddButton()
 {
-	edit = new PropertyEmployeeEdit(model, 0);
+	edit = new PropertyEmployeeEdit(model, 0, ColumnIndex);
 	edit->InitAddFunc();
 
 	QObject::connect(edit, SIGNAL(accepted()), this, SLOT(UpdateTable()));
@@ -133,7 +133,7 @@ void PropertyEmployee::ClickModButton()
 		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("请选择需要修改的数据"), 2);
 		return;
 	}
-	edit = new PropertyEmployeeEdit(model, index);
+	edit = new PropertyEmployeeEdit(model, index, ColumnIndex);
 	edit->InitModFunc();
 
 	QObject::connect(edit, SIGNAL(accepted()), this, SLOT(UpdateTable()));
@@ -168,7 +168,7 @@ void PropertyEmployee::ClickDelButton()
 
 void PropertyEmployee::DoubleClickTable()
 {
-	detail = new PropertyDetail(model, ui->tableView->currentIndex().row());
+	detail = new PropertyDetail(model, ui->tableView->currentIndex().row(), ColumnIndex);
 }
 
 void PropertyEmployee::SetFilterByType()
@@ -179,4 +179,11 @@ void PropertyEmployee::SetFilterByType()
 	}
 
 	strSearchFilter += tr("AND Type = '%1'").arg(ComboBox->currentText());
+}
+
+void PropertyEmployee:: ClickTableHeader(int num)
+{
+	ColumnIndex = num;
+	model->setSort(num, Qt::AscendingOrder);
+	model->select();
 }

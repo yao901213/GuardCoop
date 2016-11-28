@@ -8,7 +8,7 @@ PropertyTool::PropertyTool(QWidget *parent) :
 {
 	ui = new Ui_PhoneBookWidget;
 	ui->setupUi(this);
-
+	ColumnIndex = -1;
 	model = new QSqlTableModel;
 	model->setTable("HumanResource.PropertyTool");
 	model->setFilter("");
@@ -39,7 +39,6 @@ void PropertyTool::InitTable()
 	model->setHeaderData(5, Qt::Horizontal, QString::fromLocal8Bit("类型"), Qt::DisplayRole);
 
 	model->select();	
-	ui->tableView->setSortingEnabled(true);
 	ui->tableView->setModel(model);
 	ui->tableView->setColumnHidden(0, true);
 	ui->tableView->setColumnHidden(2, true);
@@ -58,11 +57,12 @@ void PropertyTool::InitConnect()
 	QObject::connect(ui->pushButtonSearch, SIGNAL(clicked()), this, SLOT(ClickSearchButton()));
 	QObject::connect(ui->pushButtonShowAll, SIGNAL(clicked()), this, SLOT(UpdateTable()));
 	QObject::connect(ui->tableView, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(DoubleClickRow()));
+	QObject::connect(ui->tableView->horizontalHeader(), SIGNAL(sectionClicked(int)), this, SLOT(ClickTableHeader(int)));
 }
 
 void PropertyTool::ClickAddButton()
 {
-	edit = new ToolEdit(model->filter(), 0);
+	edit = new ToolEdit(model->filter(), 0, -1);
 	edit->InitAddFunc();
 	QObject::connect(edit, SIGNAL(accepted()), this, SLOT(UpdateTable()));
 }
@@ -74,7 +74,7 @@ void PropertyTool::ClickModButton()
 		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("请选择要修改的数据"), 2);
 		return;
 	}
-	edit = new ToolEdit(model->filter(), ui->tableView->currentIndex().row());
+	edit = new ToolEdit(model->filter(), ui->tableView->currentIndex().row(), ColumnIndex);
 	edit->InitModFunc();
 	QObject::connect(edit, SIGNAL(accepted()), this, SLOT(UpdateTable()));
 }
@@ -139,5 +139,12 @@ void PropertyTool::UpdateTable()
 
 void PropertyTool::DoubleClickRow()
 {
-	detail = new PropertyToolDetail(model->filter(), ui->tableView->currentIndex().row());
+	detail = new PropertyToolDetail(model->filter(), ui->tableView->currentIndex().row(), ColumnIndex);
+}
+
+void PropertyTool::ClickTableHeader(int num)
+{
+	ColumnIndex = num;
+	model->setSort(num, Qt::AscendingOrder);
+	model->select();
 }

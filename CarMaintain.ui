@@ -305,6 +305,19 @@
    </property>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>lineEditID</tabstop>
+  <tabstop>lineEditCarID</tabstop>
+  <tabstop>dateEdit</tabstop>
+  <tabstop>lineEditStation</tabstop>
+  <tabstop>lineEditPrice</tabstop>
+  <tabstop>lineEditType</tabstop>
+  <tabstop>lineEditDistance</tabstop>
+  <tabstop>lineEditInCharge</tabstop>
+  <tabstop>textEdit</tabstop>
+  <tabstop>pushButtonOK</tabstop>
+  <tabstop>pushButtonCancel</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

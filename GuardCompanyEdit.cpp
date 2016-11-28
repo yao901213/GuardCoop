@@ -5,7 +5,7 @@
 #include <QDebug>
 #include <QSqlQuery>
 
-GuardCompanyEditDiag::GuardCompanyEditDiag(int index, QSqlTableModel *parentmodel)
+GuardCompanyEditDiag::GuardCompanyEditDiag(int index, QSqlTableModel *parentmodel, int sort)
 {
 	model = new QSqlTableModel;
 	modelGuard = new QSqlTableModel;
@@ -15,6 +15,10 @@ GuardCompanyEditDiag::GuardCompanyEditDiag(int index, QSqlTableModel *parentmode
 	modelGuard->setTable("HumanResource.Guard");
 	model->setTable("HumanResource.GuardCompany");
 	model->setFilter(parentmodel->filter());
+	if (-1 != sort)
+	{
+		model->setSort(sort, Qt::AscendingOrder);
+	}
 
 	ui = new  Ui_DialogEditGuardCompany;
 	ui->setupUi(this);

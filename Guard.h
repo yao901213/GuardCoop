@@ -23,6 +23,7 @@ private:
 	GuardDetail *guarddetail;
 	void InitWidget();
 	void InitStatusLabel();
+	int ColumnIndex;
 private slots:
 	void ClickAddButton();
 	void ClickModButton();
@@ -30,6 +31,7 @@ private slots:
 	void ClickSearchButton();
 	void DouleClickRow();
 	void UpdateCompanyTable();
+	void ClickTableHeader(int);
 public slots:
 	void ShowDbData();
 

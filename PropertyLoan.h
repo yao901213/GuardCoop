@@ -14,6 +14,7 @@ public:
 	PropertyLoan(QWidget *parent = 0);
 	~PropertyLoan();
 private:
+	int ColumnIndex;
 	void InitWidget();
 	QSqlTableModel *model;
 	PropertyLoanEdit *edit;
@@ -33,6 +34,7 @@ private slots:
 	void ClickSearchButton();
 	void DoubleClickRow();
 	void ShowAll();
+	void ClickTableHeader(int);
 };
 
 

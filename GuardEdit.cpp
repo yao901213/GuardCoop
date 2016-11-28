@@ -16,7 +16,7 @@ GuardEditDiag::GuardEditDiag(QDialog *parent) :
 	ui->setupUi(this);
 }
 
-GuardEditDiag::GuardEditDiag(int index, QSqlTableModel *parentmodel)
+GuardEditDiag::GuardEditDiag(int index, QSqlTableModel *parentmodel, int sort)
 {
 	ui = new Ui_GuardEditDialog;
 	model = new QSqlTableModel;
@@ -26,6 +26,11 @@ GuardEditDiag::GuardEditDiag(int index, QSqlTableModel *parentmodel)
 	modelCompany->setFilter("");
 	model->setTable("HumanResource.Guard");
 	model->setFilter(parentmodel->filter());
+	if (-1 != sort)
+	{
+		model->setSort(sort, Qt::AscendingOrder);
+	}
+	
 	CurRowIndex = index;
 	ui->setupUi(this);
 	QObject::connect(ui->pushButtonBrowse, SIGNAL(clicked()), this, SLOT(ClickBrowseButton()));

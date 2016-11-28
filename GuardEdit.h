@@ -10,7 +10,7 @@ class GuardEditDiag :public QDialog
 	Q_OBJECT
 public:
 	explicit GuardEditDiag(QDialog *parent = 0);
-	GuardEditDiag(int index, QSqlTableModel *parentmodel);
+	GuardEditDiag(int index, QSqlTableModel *parentmodel, int sort);
 	~GuardEditDiag();
 	void InitAddFunc();
 	void InitModFunc();

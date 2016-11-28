@@ -13,7 +13,7 @@ GuardWidget::GuardWidget(QWidget *parent) :
 	lineEdit = new QLineEdit(this);
 	lineEdit->setObjectName(QStringLiteral("lineEdit"));
 	lineEdit->setGeometry(QRect(240, 30, 171, 20));
-
+	ColumnIndex = -1;
 	ui->setupUi(this);
 	InitWidget();
 }
@@ -48,7 +48,6 @@ void GuardWidget::InitWidget()
 	ui->tableView->setColumnHidden(4, true);
 	ui->tableView->setColumnHidden(5, true);
 	ui->tableView->setColumnHidden(7, true);
-	ui->tableView->setSortingEnabled(true);
 	ui->tableView->horizontalHeader()->setHighlightSections(false);
 	ui->tableView->resizeColumnToContents(3);
 
@@ -58,6 +57,7 @@ void GuardWidget::InitWidget()
 	QObject::connect(ui->pushButtonSearch, SIGNAL(clicked()), this, SLOT(ClickSearchButton()));
 	QObject::connect(ui->tableView, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(DouleClickRow()));
 	QObject::connect(ui->pushButtonShowAll, SIGNAL(clicked()), this, SLOT(ShowDbData()));
+	QObject::connect(ui->tableView->horizontalHeader(), SIGNAL(sectionClicked(int)), this, SLOT(ClickTableHeader(int)));
 
 	ui->pushButtonSearch->setFocus();
 	ui->pushButtonSearch->setShortcut(Qt::Key_Enter);
@@ -85,7 +85,7 @@ void GuardWidget::ClickAddButton()
 	{
 		CurRowIndex = model->rowCount();
 	}
-	GuardEdit = new GuardEditDiag(CurRowIndex, model);
+	GuardEdit = new GuardEditDiag(CurRowIndex, model, ColumnIndex);
 	QObject::connect(GuardEdit, SIGNAL(rejected()), this, SLOT(ShowDbData()));
 	QObject::connect(GuardEdit, SIGNAL(accepted()), this, SLOT(UpdateCompanyTable()));
 	QObject::connect(GuardEdit, SIGNAL(accepted()), this, SLOT(ShowDbData()));
@@ -103,7 +103,7 @@ void GuardWidget::ClickModButton()
 		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("请选择需要修改的数据"), 2);
 		return;
 	}
-	GuardEdit = new GuardEditDiag(CurRowIndex, model);
+	GuardEdit = new GuardEditDiag(CurRowIndex, model, ColumnIndex);
 	QObject::connect(GuardEdit, SIGNAL(accepted()), this, SLOT(UpdateCompanyTable()));
 	QObject::connect(GuardEdit, SIGNAL(accepted()), this, SLOT(ShowDbData()));
 	QObject::connect(GuardEdit, SIGNAL(rejected()), this, SLOT(ShowDbData()));
@@ -191,7 +191,7 @@ void GuardWidget::InitStatusLabel()
 
 void GuardWidget::DouleClickRow()
 {
-	guarddetail = new GuardDetail(ui->tableView->currentIndex().row(), model);
+	guarddetail = new GuardDetail(ui->tableView->currentIndex().row(), model, ColumnIndex);
 }
 
 void GuardWidget::UpdateCompanyTable()
@@ -219,4 +219,11 @@ void GuardWidget::UpdateCompanyTable()
 		modelCompany.setRecord(i, CompanyRecord);
 	}
 	modelCompany.submitAll();
+}
+
+void GuardWidget::ClickTableHeader(int num)
+{
+	ColumnIndex = num;
+	model->setSort(num, Qt::AscendingOrder);
+	model->select();
 }

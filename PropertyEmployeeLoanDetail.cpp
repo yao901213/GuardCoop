@@ -51,6 +51,6 @@ void PropertyEmployeeLoanDetail::InitDiag()
 
 void PropertyEmployeeLoanDetail::DoubleClickRow()
 {
-	detail = new PropertyLoanEdit(model->filter(), ui->tableView->currentIndex().row());
+	detail = new PropertyLoanEdit(model->filter(), ui->tableView->currentIndex().row(), -1);
 	detail->InitDiagDetailFunc();
 }

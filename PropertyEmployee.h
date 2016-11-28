@@ -29,6 +29,7 @@ private:
 	void TableViewInit();
 	QString strSearchFilter;
 	void SetFilterByType();
+	int ColumnIndex;
 public slots:
 	void UpdateTable();
 private slots:
@@ -37,6 +38,7 @@ private slots:
 	void ClickModButton();
 	void ClickDelButton();
 	void DoubleClickTable();
+	void ClickTableHeader(int);
 };
 
 

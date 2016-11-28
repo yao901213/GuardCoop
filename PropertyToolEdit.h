@@ -8,7 +8,7 @@ class ToolEdit : public QDialog
 {
 	Q_OBJECT
 public:
-	ToolEdit(QString &filter, int index);
+	ToolEdit(QString &filter, int index, int sort);
 	~ToolEdit();
 	void InitAddFunc();
 	void InitModFunc();

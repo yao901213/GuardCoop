@@ -9,7 +9,7 @@ GuardCompany::GuardCompany(QWidget *parent) :
 	comboBox = new QComboBox(this);
 	comboBox->setObjectName(QStringLiteral("comboBox"));
 	comboBox->setGeometry(QRect(240, 30, 171, 20));
-
+	ColumnIndex = -1;
 	ui->setupUi(this);
 	model = new QSqlTableModel;
 	model->setTable("HumanResource.GuardCompany");
@@ -39,7 +39,7 @@ void GuardCompany::InitGuardCompanyInfo()
 	QObject::connect(ui->pushButtonMod, SIGNAL(clicked()), this, SLOT(ClickModButton()));
 	QObject::connect(ui->pushButtonSearch, SIGNAL(clicked()), this, SLOT(ClickSearchButton()));
 	QObject::connect(ui->pushButtonShowAll, SIGNAL(clicked()), this, SLOT(UpdateTable()));
-
+	QObject::connect(ui->tableView->horizontalHeader(), SIGNAL(sectionClicked(int)), SLOT(ClickTableHeader(int)));
 }
 
 void GuardCompany::ShowDbData()
@@ -48,7 +48,7 @@ void GuardCompany::ShowDbData()
 
 	model->setFilter(tr("Name != '%1'").arg(strtemp));
 	model->select();
-	
+
 	ui->tableView->setModel(model);
 	model->setHeaderData(0, Qt::Horizontal, QString::fromLocal8Bit("公司名"));
 	model->setHeaderData(1, Qt::Horizontal, QString::fromLocal8Bit("地址"));
@@ -59,7 +59,6 @@ void GuardCompany::ShowDbData()
 	ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
 	ui->tableView->setSelectionMode(QAbstractItemView::SingleSelection);
 	ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
-	ui->tableView->setSortingEnabled(true);
 	ui->tableView->horizontalHeader()->setHighlightSections(false);
 
 	ui->tableView->show();
@@ -67,7 +66,7 @@ void GuardCompany::ShowDbData()
 
 void GuardCompany::ClickAddButton()
 {
-	edit = new GuardCompanyEditDiag(ui->tableView->currentIndex().row(), model);
+	edit = new GuardCompanyEditDiag(ui->tableView->currentIndex().row(), model, ColumnIndex);
 	edit->InitDiagAddFunc();
 	QObject::connect(edit, SIGNAL(accepted()), this, SLOT(UpdateTable()));
 }
@@ -87,7 +86,7 @@ void GuardCompany::ClickSearchButton()
 
 void GuardCompany::ClickModButton()
 {
-	edit = new GuardCompanyEditDiag(ui->tableView->currentIndex().row(), model);
+	edit = new GuardCompanyEditDiag(ui->tableView->currentIndex().row(), model, ColumnIndex);
 	edit->InitDiagModFunc();
 	QObject::connect(edit, SIGNAL(accepted()), this, SLOT(UpdateTable()));
 }
@@ -120,9 +119,6 @@ void GuardCompany::ClickDelButton()
 	{
 		model->removeRow(CurRow);
 		ShowDbData();
-	}
-	else
-	{
 	}
 
 	return;
@@ -186,3 +182,9 @@ void GuardCompany::InitComboBox()
 	comboBox->setCurrentIndex(0);
 }
 
+void GuardCompany::ClickTableHeader(int num)
+{
+	ColumnIndex = num;
+	model->setSort(num, Qt::AscendingOrder);
+	model->select();
+}

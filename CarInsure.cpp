@@ -42,18 +42,42 @@ void CarInsure::InitDiag()
 	ui->lineEditID->setDisabled(true);
 
 	QObject::connect(ui->pushButtonCancel, SIGNAL(clicked()), this, SLOT(reject()));
-	QObject::connect(ui->pushButtonOK, SIGNAL(clicked()), this, SLOT(ClickOkButton()));
 	InitComboBoxs();
 	this->setModal(true);
 	this->show();
 }
 
+void CarInsure::InitAddFunc()
+{
+	QObject::connect(ui->pushButtonOK, SIGNAL(clicked()), this, SLOT(ClickOkButton()));
+
+}
+
+void CarInsure::InitDetailFunc()
+{
+	QSqlTableModel modelCar;
+	modelCar.setTable("HumanResource.Car");
+	modelCar.setFilter(Filter);
+	modelCar.select();
+	QSqlRecord record = modelCar.record(Index);
+	ui->lineEditID->setText(record.value("ID").toString());
+	ui->lineEditID->setDisabled(true);
+	ui->lineEditCarID->setDisabled(true);
+	ui->lineEditInCharge->setText(record.value("InCharge").toString());
+	ui->lineEditInCharge->setDisabled(true);
+	ui->lineEditPrice->setText(record.value("Price").toString());
+	ui->lineEditPrice->setDisabled(true);
+}
+
+
 void CarInsure::InitComboBoxs()
 {
+	ui->comboBoxCompany->addItem("");
 	ui->comboBoxCompany->addItem(QString::fromLocal8Bit("中国人寿"));
 	ui->comboBoxCompany->addItem(QString::fromLocal8Bit("太平洋"));
 	ui->comboBoxCompany->addItem(QString::fromLocal8Bit("平安保险"));
 
+	ui->comboBoxType->addItem("");
 	ui->comboBoxType->addItem(QString::fromLocal8Bit("交强险"));
 	ui->comboBoxType->addItem(QString::fromLocal8Bit("第三方责任险"));
 	ui->comboBoxType->addItem(QString::fromLocal8Bit("意外险"));
@@ -66,7 +90,7 @@ void CarInsure::ClickOkButton()
 {
 	QSqlQuery query;
 	query.prepare("INSERT INTO HumanResource.CarInsure(ID, CarID, Type, Price, InsureCompany, DateofStart, DateofEnd, InCharge, Remark)"
-		"VALUES(NEXT VALUE FOR HumanResource.CarInsrueSeq, :CarID, :Type, :Price, :InsureCompany, :DateofStart, :DateofEnd, :InCharge, :Remark)");
+		"VALUES(NEXT VALUE FOR HumanResource.CarInsureSeq, :CarID, :Type, :Price, :InsureCompany, :DateofStart, :DateofEnd, :InCharge, :Remark)");
 	query.bindValue(":CarID", ui->lineEditCarID->text());
 	query.bindValue(":Type", ui->comboBoxType->currentText());
 	query.bindValue(":Price", ui->lineEditPrice->text());

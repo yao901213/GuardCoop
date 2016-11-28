@@ -10,7 +10,7 @@ class PropertyLoanEdit : public QDialog
 {
 	Q_OBJECT
 public:
-	PropertyLoanEdit(QString &filter, int index);
+	PropertyLoanEdit(QString &filter, int index, int sort);
 	~PropertyLoanEdit();
 	void InitDiagAddfunc();
 	void InitDiagModFunc();

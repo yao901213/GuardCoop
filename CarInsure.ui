@@ -308,6 +308,19 @@
    </property>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>lineEditID</tabstop>
+  <tabstop>lineEditCarID</tabstop>
+  <tabstop>comboBoxType</tabstop>
+  <tabstop>comboBoxCompany</tabstop>
+  <tabstop>lineEditInCharge</tabstop>
+  <tabstop>lineEditPrice</tabstop>
+  <tabstop>dateEditStart</tabstop>
+  <tabstop>dateEditEnd</tabstop>
+  <tabstop>textEdit</tabstop>
+  <tabstop>pushButtonOK</tabstop>
+  <tabstop>pushButtonCancel</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

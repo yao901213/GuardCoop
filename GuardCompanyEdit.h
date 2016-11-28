@@ -9,7 +9,7 @@ class GuardCompanyEditDiag : public QDialog
 {
 	Q_OBJECT
 public:
-	GuardCompanyEditDiag(int index, QSqlTableModel *model);
+	GuardCompanyEditDiag(int index, QSqlTableModel *model, int sort);
 	~GuardCompanyEditDiag();
 	void InitDiagAddFunc();
 	void InitDiagModFunc();

@@ -7,17 +7,20 @@
 #include <QSqlQuery>
 #include <QSqlError>
 
-PropertyLoanEdit::PropertyLoanEdit(QString &filter, int index)
+PropertyLoanEdit::PropertyLoanEdit(QString &filter, int index, int sort)
 {
 	model = new QSqlTableModel;
 	modelEmployee = new QSqlTableModel;
 	modelTool = new QSqlTableModel;
 
-
 	ui = new Ui_PropertyLoanEdit;
 
 	model->setTable("HumanResource.PropertyLoan");
 	model->setFilter(filter);
+	if (-1 != sort)
+	{
+		model->setSort(sort, Qt::AscendingOrder);
+	}
 
 	modelEmployee->setTable("HumanResource.Property");
 	modelEmployee->setFilter("");

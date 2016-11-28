@@ -204,6 +204,9 @@
     <CustomBuild Include="CarDetail.h">
       <Filter>HeadFiles</Filter>
     </CustomBuild>
+    <CustomBuild Include="CarMaintain.h">
+      <Filter>HeadFiles</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SourceFile\ErrorProc.cpp">
@@ -482,6 +485,12 @@
     <ClCompile Include="GeneratedFiles\Release\moc_CarDetail.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_CarMaintain.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_CarMaintain.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HeadFiles\Connect2DB.h">
@@ -564,9 +573,6 @@
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_CarMaintain.h">
       <Filter>Generated Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CarMaintain.h">
-      <Filter>HeadFiles</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_CarDetail.h">
       <Filter>Generated Files</Filter>

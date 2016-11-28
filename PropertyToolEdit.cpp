@@ -5,7 +5,7 @@
 #include <QSqlQuery>
 #include "ErrorProc.h"
 
-ToolEdit::ToolEdit(QString &filter, int index)
+ToolEdit::ToolEdit(QString &filter, int index, int sort)
 {
 	ui = new Ui_DialogToolEdit;
 	ui->setupUi(this);
@@ -13,6 +13,10 @@ ToolEdit::ToolEdit(QString &filter, int index)
 	model = new QSqlTableModel;
 	model->setTable("HumanResource.PropertyTool");
 	model->setFilter(filter);
+	if (-1 != sort)
+	{
+		model->setSort(sort, Qt::AscendingOrder);
+	}
 	model->select();
 	Index = index;
 	InitDiag();

@@ -10,7 +10,7 @@ class PropertyEmployeeEdit : public QDialog
 {
 	Q_OBJECT
 public:
-	PropertyEmployeeEdit(QSqlTableModel *parentmodel, int CurRow);
+	PropertyEmployeeEdit(QSqlTableModel *parentmodel, int CurRow, int sort);
 	~PropertyEmployeeEdit();
 	void InitModFunc();
 	void InitAddFunc();

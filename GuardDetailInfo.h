@@ -10,7 +10,7 @@ class GuardDetail :QDialog
 {
 	Q_OBJECT
 public:
-	explicit GuardDetail(int SelectIndex, QSqlTableModel *parentModel);
+	explicit GuardDetail(int SelectIndex, QSqlTableModel *parentModel, int sort);
 	~GuardDetail();
 private:
 	QSqlTableModel *model;

@@ -4,6 +4,8 @@
 
 #include "ui_CarDetail.h"
 #include <QSqlTableModel>
+#include "CarInsure.h"
+#include "CarMaintain.h"
 
 class CarDetail : public QDialog
 {
@@ -15,10 +17,16 @@ private:
 	Ui_CarDetail *ui;
 	QSqlTableModel *modelInsure;
 	QSqlTableModel *modelCar;
+	QSqlTableModel *modelMaintain;
+	CarInsure *insure;
+	CarMaintain *maintain;
 	void InitDiag();
 	int Index;
 	void InitInsureTable();
 	void InitMaintainTable();
+	private slots:
+	void DoubleClickInsureTable();
+	void DoubleClickMaintainTable();
 };
 
 

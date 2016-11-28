@@ -86,11 +86,12 @@ void Car::ClickModButton()
 void Car::ClickInsureButton()
 {
 	insure = new CarInsure(model->filter(), ui->tableView->currentIndex().row(), ColumnSort);
+	insure->InitAddFunc();
 }
 
 void Car::ClickMaintainButton()
 {
-
+	maintain = new CarMaintain(model->filter(), ui->tableView->currentIndex().row(), ColumnSort);
 }
 
 void Car::DoubleClickRow()

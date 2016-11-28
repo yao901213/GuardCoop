@@ -29,6 +29,8 @@ void PropertyLoan::InitWidget()
 	comboBox = new QComboBox(this);
 	comboBox->setObjectName(QStringLiteral("comboBox"));
 	comboBox->setGeometry(QRect(185, 30, 83, 22));
+	
+	ColumnIndex = -1;
 
 	InitButtons();
 	InitTable();
@@ -64,7 +66,6 @@ void PropertyLoan::InitTable()
 	ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
 	ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
 	ui->tableView->horizontalHeader()->setHighlightSections(false);
-	ui->tableView->setSortingEnabled(true);
 	ui->tableView->show();
 }
 
@@ -83,11 +84,12 @@ void PropertyLoan::InitConnect()
 	QObject::connect(ui->pushButtonSearch, SIGNAL(clicked()), this, SLOT(ClickSearchButton()));
 	QObject::connect(ui->pushButtonShowAll, SIGNAL(clicked()), this, SLOT(ShowAll()));
 	QObject::connect(ui->tableView, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(DoubleClickRow()));
+	QObject::connect(ui->tableView->horizontalHeader(), SIGNAL(sectionClicked(int)), this, SLOT(ClickTableHeader(int)));
 }
 
 void PropertyLoan::ClickAddButton()
 {
-	edit = new PropertyLoanEdit(QString(""), 0);
+	edit = new PropertyLoanEdit(QString(""), 0, -1);
 	edit->InitDiagAddfunc();
 	QObject::connect(edit, SIGNAL(accepted()), this, SLOT(UpdateTable()));
 }
@@ -99,7 +101,7 @@ void PropertyLoan::ClickModButton()
 		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("请选择要修改的数据"), 2);
 		return;
 	}
-	edit = new PropertyLoanEdit(model->filter(), ui->tableView->currentIndex().row());
+	edit = new PropertyLoanEdit(model->filter(), ui->tableView->currentIndex().row(), ColumnIndex);
 	edit->InitDiagModFunc();
 	QObject::connect(edit, SIGNAL(accepted()), this, SLOT(UpdateTable()));
 }
@@ -111,7 +113,7 @@ void PropertyLoan::ClickDelButton()
 		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("请选择要修改的数据"), 2);
 		return;
 	}
-	edit = new PropertyLoanEdit(model->filter(), ui->tableView->currentIndex().row());
+	edit = new PropertyLoanEdit(model->filter(), ui->tableView->currentIndex().row(), ColumnIndex);
 	edit->InitDiagDelFunc();
 
 	QObject::connect(edit, SIGNAL(accepted()), this, SLOT(UpdateTable()));
@@ -163,6 +165,13 @@ void PropertyLoan::ShowAll()
 
 void PropertyLoan::DoubleClickRow()
 {
-	edit = new PropertyLoanEdit(model->filter(), ui->tableView->currentIndex().row());
+	edit = new PropertyLoanEdit(model->filter(), ui->tableView->currentIndex().row(), ColumnIndex);
 	edit->InitDiagDetailFunc();
+}
+
+void PropertyLoan::ClickTableHeader(int columnindex)
+{
+	ColumnIndex = columnindex;
+	model->setSort(columnindex, Qt::AscendingOrder);
+	model->select();
 }

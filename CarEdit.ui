@@ -251,6 +251,18 @@
    </layout>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>lineEditID</tabstop>
+  <tabstop>comboBoxType</tabstop>
+  <tabstop>lineEditBrand</tabstop>
+  <tabstop>dateEdit</tabstop>
+  <tabstop>lineEditKeeper</tabstop>
+  <tabstop>comboBoxCondition</tabstop>
+  <tabstop>comboBoxPerform</tabstop>
+  <tabstop>textEdit</tabstop>
+  <tabstop>pushButtonOk</tabstop>
+  <tabstop>pushButtonCancel</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

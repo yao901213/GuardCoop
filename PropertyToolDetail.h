@@ -9,7 +9,7 @@ class PropertyToolDetail : public QDialog
 {
 	Q_OBJECT
 public:
-	PropertyToolDetail(QString &filter, int index);
+	PropertyToolDetail(QString &filter, int index, int sort);
 	~PropertyToolDetail();
 private:
 	void InitDiag();

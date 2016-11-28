@@ -10,6 +10,7 @@
 #include "CarEdit.h"
 #include "CarInsure.h"
 #include "CarDetail.h"
+#include "CarMaintain.h"
 
 class Car : public QWidget
 {
@@ -28,6 +29,7 @@ private:
 	CarInsure *insure;
 	int ColumnSort;
 	CarDetail *detail;
+	CarMaintain *maintain;
 public slots:
 	void UpdateTable();
 private slots:

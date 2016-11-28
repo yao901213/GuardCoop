@@ -20,14 +20,16 @@ private:
 	void InitWidget();
 	void InitTable();
 	void InitConnect();
+	int ColumnIndex;
 public slots:
-void UpdateTable();
+	void UpdateTable();
 private slots:
 void ClickAddButton();
 void ClickModButton();
 void ClickDelButton();
 void ClickSearchButton();
 void DoubleClickRow();
+void ClickTableHeader(int);
 };
 
 

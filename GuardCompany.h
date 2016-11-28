@@ -24,13 +24,14 @@ private:
 	void InitGuardCompanyInfo();
 	bool IsCompanyHasGuard();
 	void InitComboBox();
-
+	int ColumnIndex;
 private slots:
 	void ClickAddButton();
 	void ClickSearchButton();
 	void ClickModButton();
 	void ClickDelButton();
 	void UpdateTable();
+	void ClickTableHeader(int);
 };
 
 
