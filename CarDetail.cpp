@@ -1,6 +1,8 @@
 #include "CarDetail.h"
 #include <QSqlRecord>
 #include <QSqlError>
+#include "ErrorProc.h"
+#include <QMessageBox>
 
 CarDetail::CarDetail(QString &filter, int index, int sort)
 {
@@ -43,6 +45,11 @@ void CarDetail::InitDiag()
 	ui->labelDateofBuy->setText(record.value("DateofBuy").toString());
 	ui->labelCondition->setText(record.value("Condition").toString());
 	ui->textBrowser->setText(record.value("Remark").toString());
+
+	QObject::connect(ui->pushButtonAddInsure, SIGNAL(clicked()), this, SLOT(ClickInsureAddButton()));
+	QObject::connect(ui->pushButtonDelInsure, SIGNAL(clicked()), this, SLOT(ClickInsureDelButton()));
+	QObject::connect(ui->pushButtonAddMaintain, SIGNAL(clicked()), this, SLOT(ClickMaintainAddButton()));
+	QObject::connect(ui->pushButtonDelMaintain, SIGNAL(clicked()), this, SLOT(ClickMaintainDelButton()));
 
 	InitInsureTable();
 	InitMaintainTable();
@@ -99,10 +106,109 @@ void CarDetail::InitMaintainTable()
 void CarDetail::DoubleClickInsureTable()
 {
 	insure = new CarInsure(modelCar->filter(), ui->tableViewInsure->currentIndex().row(), -1);
-	insure->InitDetailFunc();
+	insure->InitDetailFunc(ui->labelID->text());
 }
 
 void CarDetail::DoubleClickMaintainTable()
 {
 	maintain = new CarMaintain(modelCar->filter(), ui->tableViewMaintain->currentIndex().row(), - 1);
+	maintain->InitDetailFunc(ui->labelID->text());
+}
+
+void CarDetail::ClickInsureAddButton()
+{
+	insure = new CarInsure(modelInsure->filter(), 0, -1);
+	insure->InitAddFromDetail(ui->labelID->text());
+
+	QObject::connect(insure, SIGNAL(accepted()), this, SLOT(UpdateInsureTable()));
+}
+
+void CarDetail::ClickInsureDelButton()
+{
+	int CurRow = ui->tableViewInsure->currentIndex().row();
+	if (-1 == CurRow)
+	{
+		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("请选择要删除的数据"), 2);
+		return;
+	}
+	modelInsure->setFilter(tr("CarID = '%1'").arg(ui->labelID->text()));
+	modelInsure->select();
+	
+	QMessageBox box;
+	box.setWindowTitle(QString::fromLocal8Bit("警告"));
+	box.setIcon(QMessageBox::Warning);
+	box.setText(QString::fromLocal8Bit("请确认是否删除数据？"));
+	box.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+	box.setButtonText(QMessageBox::Ok, QString::fromLocal8Bit("确认"));
+	box.setButtonText(QMessageBox::Cancel, QString::fromLocal8Bit("取消"));
+	
+	if (QMessageBox::Ok == box.exec())
+	{
+		if (!modelInsure->removeRow(CurRow))
+		{
+			QString str = QString::fromLocal8Bit("删除数据库错误") + modelInsure->lastError().text();
+			ErrorProc::PopMessageBox(&str, 2);
+		}
+		else
+		{
+			ErrorProc::PopMessageBox(&QString::fromLocal8Bit("删除成功"), 0);
+			UpdateInsureTable();
+		}
+	}
+}
+
+void CarDetail::ClickMaintainAddButton()
+{
+	maintain = new CarMaintain(modelMaintain->filter(), 0, -1);
+	maintain->InitAddFromDetail(ui->labelID->text());
+
+	QObject::connect(maintain, SIGNAL(accepted()), this, SLOT(UpdateMaintainTable()));
+}
+
+void CarDetail::ClickMaintainDelButton()
+{
+	int CurRow = ui->tableViewMaintain->currentIndex().row();
+	if (-1 == CurRow)
+	{
+		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("请选择要删除的数据"), 2);
+		return;
+	}
+
+	modelMaintain->setFilter(tr("CarID = '%1'").arg(ui->labelID->text()));
+	modelMaintain->select();
+
+	QMessageBox box;
+	box.setWindowTitle(QString::fromLocal8Bit("警告"));
+	box.setIcon(QMessageBox::Warning);
+	box.setText(QString::fromLocal8Bit("请确认是否删除数据？"));
+	box.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+	box.setButtonText(QMessageBox::Ok, QString::fromLocal8Bit("确认"));
+	box.setButtonText(QMessageBox::Cancel, QString::fromLocal8Bit("取消"));
+
+	if (QMessageBox::Ok == box.exec())
+	{
+		if (!modelMaintain->removeRow(CurRow))
+		{
+			QString str = QString::fromLocal8Bit("删除数据库错误") + modelMaintain->lastError().text();
+			ErrorProc::PopMessageBox(&str, 2);
+		}
+		else
+		{
+			ErrorProc::PopMessageBox(&QString::fromLocal8Bit("删除成功"), 0);
+			UpdateMaintainTable();
+		}
+	}
+
+}
+
+void CarDetail::UpdateInsureTable()
+{
+	modelInsure->setFilter(tr("CarID = '%1'").arg(ui->labelID->text()));
+	modelInsure->select();
+}
+
+void CarDetail::UpdateMaintainTable()
+{
+	modelMaintain->setFilter(tr("CarID = '%1'").arg(ui->labelID->text()));
+	modelMaintain->select();
 }

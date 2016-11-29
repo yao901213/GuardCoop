@@ -9,7 +9,8 @@ public :
 	CarInsure(QString &filter, int index, int sort);
 	~CarInsure();
 	void InitAddFunc();
-	void InitDetailFunc();
+	void InitDetailFunc(QString &Carid);
+	void InitAddFromDetail(QString &carid);
 private:
 	QSqlTableModel *model;
 	QString Filter;

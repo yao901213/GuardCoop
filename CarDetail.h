@@ -27,6 +27,12 @@ private:
 	private slots:
 	void DoubleClickInsureTable();
 	void DoubleClickMaintainTable();
+	void ClickInsureAddButton();
+	void ClickInsureDelButton();
+	void ClickMaintainAddButton();
+	void ClickMaintainDelButton();
+	void UpdateInsureTable();
+	void UpdateMaintainTable();
 };
 
 

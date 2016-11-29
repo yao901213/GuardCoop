@@ -10,7 +10,6 @@ CarMaintain::CarMaintain(QString &filter, int index, int sort)
 	ui->setupUi(this);
 
 	Index = index;
-
 	model = new QSqlTableModel;
 	model->setTable("HumanResource.CarMaintain");
 
@@ -33,6 +32,14 @@ CarMaintain::~CarMaintain()
 
 void CarMaintain::InitDiag()
 {
+	QObject::connect(ui->pushButtonCancel, SIGNAL(clicked()), this, SLOT(reject()));
+	ui->lineEditID->setDisabled(true);
+	this->setModal(true);
+	this->show();
+}
+
+void CarMaintain::InitAddFunc()
+{
 	modelCar->select();
 	QSqlRecord record;
 	if (-1 != Index)
@@ -40,12 +47,35 @@ void CarMaintain::InitDiag()
 		record = modelCar->record(Index);
 		ui->lineEditCarID->setText(record.value("ID").toString());
 	}
-	
-	QObject::connect(ui->pushButtonCancel, SIGNAL(clicked()), this, SLOT(reject()));
 	QObject::connect(ui->pushButtonOK, SIGNAL(clicked()), this, SLOT(ClickOkButton()));
+
+}
+
+void CarMaintain::InitDetailFunc(QString &carid)
+{
+	QObject::connect(ui->pushButtonOK, SIGNAL(clicked()), this, SLOT(reject()));
+
+	model->setFilter(tr("CarID = '%1'").arg(carid));
+	model->select();
+	QSqlRecord record = model->record(Index);
+	ui->lineEditCarID->setText(carid);
+	ui->lineEditCarID->setDisabled(true);
+	ui->lineEditID->setText(record.value("ID").toString());
 	ui->lineEditID->setDisabled(true);
-	this->setModal(true);
-	this->show();
+	ui->lineEditType->setText(record.value("Type").toString());
+	ui->lineEditType->setDisabled(true);
+	ui->lineEditStation->setText(record.value("Station").toString());
+	ui->lineEditStation->setDisabled(true);
+	ui->lineEditPrice->setText(record.value("Price").toString());
+	ui->lineEditPrice->setDisabled(true);
+	ui->lineEditDistance->setText(record.value("Distance").toString());
+	ui->lineEditDistance->setDisabled(true);
+	ui->lineEditInCharge->setText(record.value("InCharge").toString());
+	ui->lineEditInCharge->setDisabled(true);
+	ui->dateEdit->setDate(record.value("Date").toDate());
+	ui->dateEdit->setDisabled(true);
+	ui->textEdit->setText(record.value("Remark").toString());
+	ui->textEdit->setDisabled(true);
 }
 
 void CarMaintain::ClickOkButton()
@@ -129,4 +159,11 @@ bool CarMaintain::IsCarIDExist()
 	}
 
 	return true;
+}
+
+void CarMaintain::InitAddFromDetail(QString &carid)
+{
+	ui->lineEditCarID->setText(carid);
+	ui->lineEditCarID->setDisabled(true);
+	QObject::connect(ui->pushButtonOK, SIGNAL(clicked()), this, SLOT(ClickOkButton()));
 }

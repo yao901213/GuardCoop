@@ -54,7 +54,7 @@
      <string>备注</string>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -264,6 +264,58 @@
    </property>
    <property name="text">
     <string>关闭</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButtonAddInsure">
+   <property name="geometry">
+    <rect>
+     <x>570</x>
+     <y>330</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>新增</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButtonDelInsure">
+   <property name="geometry">
+    <rect>
+     <x>660</x>
+     <y>330</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>删除</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButtonAddMaintain">
+   <property name="geometry">
+    <rect>
+     <x>570</x>
+     <y>530</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>新增</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButtonDelMaintain">
+   <property name="geometry">
+    <rect>
+     <x>660</x>
+     <y>530</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>删除</string>
    </property>
   </widget>
  </widget>

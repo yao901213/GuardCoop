@@ -9,6 +9,9 @@ class CarMaintain :public QDialog
 public:
 	CarMaintain(QString &filter, int index, int sort);
 	~CarMaintain();
+	void InitAddFunc();
+	void InitDetailFunc(QString &carid);
+	void InitAddFromDetail(QString &carid);
 private:
 	void InitDiag();
 	Ui_CarMaintain *ui;

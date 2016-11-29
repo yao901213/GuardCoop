@@ -29,7 +29,6 @@ void Car::InitWidget()
 	model->setHeaderData(4, Qt::Horizontal, QString::fromLocal8Bit("购买日期"), Qt::DisplayRole);
 	model->setHeaderData(5, Qt::Horizontal, QString::fromLocal8Bit("使用状态"), Qt::DisplayRole);
 	model->setHeaderData(6, Qt::Horizontal, QString::fromLocal8Bit("车况"), Qt::DisplayRole);
-	//model->setHeaderData(7, Qt::Horizontal, QString::fromLocal8Bit("备注"), Qt::DisplayRole);
 
 	ui->tableView->setModel(model);
 	ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -47,6 +46,10 @@ void Car::InitWidget()
 	QObject::connect(ui->pushButtonSearch, SIGNAL(clicked()), this, SLOT(ClickSearchButton()));
 	QObject::connect(ui->pushButtonShowAll, SIGNAL(clicked()), this, SLOT(UpdateTable()));
 	QObject::connect(ui->tableView->horizontalHeader(), SIGNAL(sectionClicked(int)), this, SLOT(ClickTableHeader(int)));
+	QObject::connect(ui->pushButtonShowAll, SIGNAL(clicked()), this, SLOT(ClickShowAllButton()));
+
+	ui->pushButtonSearch->setShortcut(Qt::Key_Enter);
+	ui->pushButtonSearch->setShortcut(Qt::Key_Return);
 }
 
 void Car::ClickTableHeader(int column)
@@ -92,6 +95,7 @@ void Car::ClickInsureButton()
 void Car::ClickMaintainButton()
 {
 	maintain = new CarMaintain(model->filter(), ui->tableView->currentIndex().row(), ColumnSort);
+	maintain->InitAddFunc();
 }
 
 void Car::DoubleClickRow()
@@ -110,5 +114,11 @@ void Car::ClickSearchButton()
 	}
 
 	model->setFilter(tr("ID = '%1'").arg(ui->lineEdit->text()));
+	model->select();
+}
+
+void Car::ClickShowAllButton()
+{
+	model->setFilter("");
 	model->select();
 }

@@ -24,6 +24,18 @@ CarInsure::~CarInsure()
 
 void CarInsure::InitDiag()
 {
+	ui->comboBoxCompany->setEditable(true);
+	ui->comboBoxType->setEditable(true);
+	ui->lineEditID->setDisabled(true);
+
+	QObject::connect(ui->pushButtonCancel, SIGNAL(clicked()), this, SLOT(reject()));
+	InitComboBoxs();
+	this->setModal(true);
+	this->show();
+}
+
+void CarInsure::InitAddFunc()
+{
 	if (-1 != Index)
 	{
 		QSqlTableModel modelCar;
@@ -37,29 +49,19 @@ void CarInsure::InitDiag()
 		QSqlRecord record = modelCar.record(Index);
 		ui->lineEditCarID->setText(record.value("ID").toString());
 	}
-	ui->comboBoxCompany->setEditable(true);
-	ui->comboBoxType->setEditable(true);
-	ui->lineEditID->setDisabled(true);
-
-	QObject::connect(ui->pushButtonCancel, SIGNAL(clicked()), this, SLOT(reject()));
-	InitComboBoxs();
-	this->setModal(true);
-	this->show();
-}
-
-void CarInsure::InitAddFunc()
-{
 	QObject::connect(ui->pushButtonOK, SIGNAL(clicked()), this, SLOT(ClickOkButton()));
 
 }
 
-void CarInsure::InitDetailFunc()
+void CarInsure::InitDetailFunc(QString& carid)
 {
-	model->setFilter(tr("CarID = '%1'").arg(ui->lineEditCarID->text()));
+	QObject::connect(ui->pushButtonOK, SIGNAL(clicked()), this, SLOT(reject()));
+	model->setFilter(tr("CarID = '%1'").arg(carid));
 	model->select();
-	QSqlRecord record = model->record(0);
+	QSqlRecord record = model->record(Index);
 	ui->lineEditID->setText(record.value("ID").toString());
 	ui->lineEditID->setDisabled(true);
+	ui->lineEditCarID->setText(carid);
 	ui->lineEditCarID->setDisabled(true);
 	ui->lineEditInCharge->setText(record.value("InCharge").toString());
 	ui->lineEditInCharge->setDisabled(true);
@@ -118,4 +120,11 @@ void CarInsure::ClickOkButton()
 		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("添加数据库成功"), 0);
 		this->accept();
 	}
+}
+
+void CarInsure::InitAddFromDetail(QString &carid)
+{
+	ui->lineEditCarID->setText(carid);
+	ui->lineEditCarID->setDisabled(true);
+	QObject::connect(ui->pushButtonOK, SIGNAL(clicked()), this, SLOT(ClickOkButton()));
 }

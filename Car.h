@@ -40,6 +40,7 @@ private slots:
 	void DoubleClickRow();
 	void ClickSearchButton();
 	void ClickTableHeader(int);
+	void ClickShowAllButton();
 };
 
 
