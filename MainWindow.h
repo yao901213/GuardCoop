@@ -14,6 +14,8 @@
 #include "PropertyTool.h"
 #include "PropertyLoan.h"
 #include "Car.h"
+#include "Ftp.h"
+#include "ContractService.h"
 
 class MainWindow : public QWidget
 {
@@ -34,6 +36,9 @@ private:
 	PropertyTool *propertyTool;
 	PropertyLoan *propertyLoan;
 	Car *car;
+	Ftp *ftp;
+	ContractService *contractService;
+
 	int CompanyInfoIndex;
 	int PhoneBookIndex;
 	int GuardInfoIndex;
@@ -43,6 +48,7 @@ private:
 	int PropertyToolIndex;
 	int PropertyLoanIndex;
 	int CarIndex;
+	int ContractServiceIndex;
 	DB connectDB;
 	void InitTopPic();
 	void InitStackedWidget();
@@ -57,6 +63,7 @@ private slots:
 	void StackWidgetSwitch2PropertyTool();
 	void StackWidgetSwitch2PropertyLoan();	
 	void StackWidgetSwitch2Car();
+	void StackWidgetSwitch2ContractService();
 	void SetLabelPosCompanyInfo();
 	void SetLabelPosInstitution();
 	void SetLabelPosLaw();

@@ -45,7 +45,9 @@ void MainWindow::InitStackedWidget()
 	propertyTool = new PropertyTool();
 	propertyLoan = new PropertyLoan();
 	car = new Car();
+	contractService = new ContractService();
 
+	ContractServiceIndex = ui->stackedWidget->addWidget(contractService);
 	CompanyInfoIndex = ui->stackedWidget->addWidget(CompanyInfo);
 	PhoneBookIndex = ui->stackedWidget->addWidget(phonebook);
 	GuardInfoIndex = ui->stackedWidget->addWidget(GuardInfo);
@@ -76,6 +78,7 @@ void MainWindow::InitConnection()
 	QObject::connect(ui->pushButtonPropertyTool, SIGNAL(clicked()), this, SLOT(StackWidgetSwitch2PropertyTool()));
 	QObject::connect(ui->pushButtonPropertyUse, SIGNAL(clicked()), this, SLOT(StackWidgetSwitch2PropertyLoan()));
 	QObject::connect(ui->pushButtonCar, SIGNAL(clicked()), this, SLOT(StackWidgetSwitch2Car()));
+	QObject::connect(ui->pushButtonContractService, SIGNAL(clicked()), this, SLOT(StackWidgetSwitch2ContractService()));
 
 	//对几个文本页面的初始化
 	QObject::connect(ui->pushButtonCompany, SIGNAL(clicked()), CompanyInfo, SLOT(InitCompanyInfo()));
@@ -98,7 +101,6 @@ void MainWindow::InitTopPic()
 	file.open(QIODevice::ReadOnly);
 	data = file.readAll();
 	file.close();
-	//QVariant var(data);
 	QPixmap photo;
 	photo.loadFromData(data, "JPG");
 	ui->labelTopPic->setPixmap(photo);
@@ -217,4 +219,17 @@ void MainWindow::StackWidgetSwitch2Car()
 
 	ui->stackedWidget->setCurrentIndex(CarIndex);
 	car->UpdateTable();
+}
+
+void MainWindow::StackWidgetSwitch2ContractService()
+{
+	QString str = QString::fromLocal8Bit("档案管理->服务合同");
+	ui->labelPosition->setText(strPos + str);
+
+	ui->stackedWidget->setCurrentIndex(ContractServiceIndex);
+
+	//ftp = new Ftp();
+	//ftp->SetUrl(QString("ftp://localhost/111.txt"));
+	//ftp->SetLocalFile(QString("E:\\1.txt"));
+	//ftp->Upload();
 }
