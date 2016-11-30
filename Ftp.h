@@ -11,8 +11,6 @@
 class Ftp :public QObject
 {
 	Q_OBJECT
-
-
 public:
 	Ftp();
 	~Ftp();

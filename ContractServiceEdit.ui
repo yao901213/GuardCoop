@@ -6,14 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>393</width>
+    <width>388</width>
     <height>345</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>新增合同信息</string>
   </property>
-  <widget class="QPushButton" name="pushButtonMod">
+  <widget class="QPushButton" name="pushButtonOk">
    <property name="geometry">
     <rect>
      <x>90</x>
@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>修改</string>
+    <string>确认</string>
    </property>
   </widget>
   <widget class="QPushButton" name="pushButtonCancel">
@@ -183,6 +183,19 @@
    </property>
    <property name="displayFormat">
     <string>yyyy/M/d</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButtonBrowse">
+   <property name="geometry">
+    <rect>
+     <x>320</x>
+     <y>210</y>
+     <width>31</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>...</string>
    </property>
   </widget>
  </widget>

@@ -216,6 +216,9 @@
     <CustomBuild Include="ContractServiceEdit.h">
       <Filter>HeadFiles</Filter>
     </CustomBuild>
+    <CustomBuild Include="ContractService.h">
+      <Filter>HeadFiles</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SourceFile\ErrorProc.cpp">
@@ -521,6 +524,9 @@
     <ClCompile Include="GeneratedFiles\Release\moc_ContractServiceEdit.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_ContractService.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HeadFiles\Connect2DB.h">
@@ -606,9 +612,6 @@
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_CarDetail.h">
       <Filter>Generated Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ContractService.h">
-      <Filter>HeadFiles</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_ContractServiceEdit.h">
       <Filter>Generated Files</Filter>

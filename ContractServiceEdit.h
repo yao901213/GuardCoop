@@ -3,6 +3,7 @@
 #define CONTRACT_SERVICE_EDIT_H
 #include "ui_ContractServiceEdit.h"
 #include <QSqlTableModel>
+#include "Ftp.h"
 
 class ContractServiceEdit : public QDialog
 {
@@ -12,9 +13,16 @@ public:
 	~ContractServiceEdit();
 	void InitAddFunc();
 private:
+	int Index;
 	QSqlTableModel *model;
 	Ui_ContractServiceEdit *ui;
 	void InitDiag();
+	bool IsInputValid();
+	Ftp *ftp;
+private slots:
+	void ClickOkButtonAddFunc();
+	void ClickOkButtonModFunc();
+
 };
 
 
