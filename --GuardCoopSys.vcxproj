@@ -115,7 +115,7 @@
       <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>"$(QTDIR)\lib\qtmaind.lib";shell32.lib;"$(QTDIR)\lib\Qt5Widgetsd.lib";"$(QTDIR)\lib\Qt5Guid.lib";"$(QTDIR)\lib\Qt5Sqld.lib";"$(QTDIR)\lib\Qt5Cored.lib";"$(QTDIR)\lib\Qt5WebEngineWidgetsd.lib";"$(QTDIR)\lib\Qt5WebEngineCored.lib";%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>"$(QTDIR)\lib\qtmaind.lib";shell32.lib;"$(QTDIR)\lib\Qt5Widgetsd.lib";"$(QTDIR)\lib\Qt5Guid.lib";"$(QTDIR)\lib\Qt5Sqld.lib";"$(QTDIR)\lib\Qt5Cored.lib";"$(QTDIR)\lib\Qt5WebEngineWidgetsd.lib";"$(QTDIR)\lib\Qt5WebEngineCored.lib";"$(QTDIR)\lib\Qt5Networkd.lib";%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>"$(QTDIR)\lib";C:\utils\postgresql\pgsql\lib;C:\utils\my_sql\my_sql\lib;$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>

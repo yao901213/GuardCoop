@@ -19,6 +19,8 @@ private:
 	void InitDiag();
 	bool IsInputValid();
 	Ftp *ftp;
+	QString strFolder;
+	void SetFolderName();
 private slots:
 	void ClickOkButtonAddFunc();
 	void ClickOkButtonModFunc();

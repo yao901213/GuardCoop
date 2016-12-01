@@ -22,6 +22,9 @@ private:
 	QNetworkAccessManager *manager;
 	QString UrlStr;
 	QString file;
+	private slots:
+	void replyFinished(QNetworkReply *);
+	void slotError(QNetworkReply::NetworkError);
 };
 
 

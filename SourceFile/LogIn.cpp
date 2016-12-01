@@ -3,6 +3,7 @@
 #include "Connect2DB.h"
 #include <QSqlQuery>
 #include <QSqlTableModel>
+#include <QTextCodec>
 
 QString AdminAccount = "";
 
@@ -159,7 +160,7 @@ InitUi::~InitUi()
 int main(int argc, char *argv[])
 {
 	QApplication app(argc, argv);
-
+	QTextCodec::setCodecForLocale(QTextCodec::codecForName("gbk"));
 	InitUi ui;
 
 	ui.login->show();

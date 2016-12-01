@@ -5,8 +5,9 @@
 #include <QSqlError>
 #include <QFileInfo>
 #include <QSqlQuery>
+#include <QTextCodec>
 
-const QString strurl = "ftp://localhost";
+const QString strurl = "ftp://localhost/";
 
 ContractServiceEdit::ContractServiceEdit(QString &filter, int index, int sort)
 {
@@ -59,16 +60,20 @@ void ContractServiceEdit::ClickOkButtonAddFunc()
 	{
 		return;
 	}
+	QFileInfo fileinfo(ui->lineEditPath->text());
+	
+	SetFolderName();
+	QString url = strurl + strFolder + "/" + QString("_%1").arg(ui->dateEditStart->date().year()) + "." + fileinfo.suffix();
 
-	QFileInfo fileinfo(ui->lineEditPath->text());//
-	QString url = strurl + "/" + ui->comboBoxType->currentText() + "/" + ui->lineEditName->text()
-		+ QString("_%1").arg(ui->dateEditStart->date().year()) + "." + fileinfo.suffix();
-
-	ftp->SetUrl(url);
+	ftp->SetUrl(strFolder);
 	ftp->SetLocalFile(ui->lineEditPath->text());
 	ftp->Upload();
 
 	QSqlQuery query;
+	query.prepare("SELECT MAX(ID) FROM HumanResource.ContractService");
+	query.exec();
+	int maxid = query.record().value(0).toInt();
+
 	query.prepare("INSERT INTO HumanResource.ContractService(ID, Name, Type, DateofStart, DateofEnd, Url)"
 		"VALUES(NEXT VALUE FOR HumanResource.ContractServiceSeq, :Name, :Type, :DateofStart, :DateofEnd, :Url)");
 	query.bindValue(":Name", ui->lineEditName->text());
@@ -109,6 +114,12 @@ bool ContractServiceEdit::IsInputValid()
 		return false;
 	}
 
+	if (ui->comboBoxType->currentIndex() == 0)
+	{
+		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("请选择合同类型"), 2);
+		return false;
+	}
+
 	QFileInfo fileinfo(ui->lineEditPath->text());
 	if (!fileinfo.exists())
 	{
@@ -125,4 +136,32 @@ bool ContractServiceEdit::IsInputValid()
 	}
 
 	return true;
+}
+
+void ContractServiceEdit::SetFolderName()
+{
+	switch (ui->comboBoxType->currentIndex())
+	{
+	case 0:
+		return;
+	case 1:
+		strFolder = "baoan";
+		break;
+	case 2:
+		strFolder = "wuye";
+		break;
+	case 3:
+		strFolder = "baojing";
+		break;
+	case 4:
+		strFolder = "jinrong";
+		break;
+	case 5:
+		strFolder = "keji";
+		break;
+	default:
+		strFolder = "other";
+		break;
+	}
+	strFolder += "/";
 }

@@ -227,9 +227,4 @@ void MainWindow::StackWidgetSwitch2ContractService()
 	ui->labelPosition->setText(strPos + str);
 
 	ui->stackedWidget->setCurrentIndex(ContractServiceIndex);
-
-	//ftp = new Ftp();
-	//ftp->SetUrl(QString("ftp://localhost/111.txt"));
-	//ftp->SetLocalFile(QString("E:\\1.txt"));
-	//ftp->Upload();
 }
