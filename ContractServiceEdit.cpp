@@ -5,7 +5,6 @@
 #include <QSqlError>
 #include <QFileInfo>
 #include <QSqlQuery>
-#include <QTextCodec>
 
 const QString strurl = "ftp://localhost/";
 
@@ -60,22 +59,24 @@ void ContractServiceEdit::ClickOkButtonAddFunc()
 	{
 		return;
 	}
-	QFileInfo fileinfo(ui->lineEditPath->text());
-	
-	SetFolderName();
-	QString url = strurl + strFolder + "/" + QString("_%1").arg(ui->dateEditStart->date().year()) + "." + fileinfo.suffix();
-
-	ftp->SetUrl(strFolder);
-	ftp->SetLocalFile(ui->lineEditPath->text());
-	ftp->Upload();
 
 	QSqlQuery query;
 	query.prepare("SELECT MAX(ID) FROM HumanResource.ContractService");
 	query.exec();
-	int maxid = query.record().value(0).toInt();
+	query.next();
+ 	int maxid = query.value(0).toInt();
+
+	QFileInfo fileinfo(ui->lineEditPath->text());
+	SetFolderName();
+	QString url = strurl + strFolder + QString("%1_%2").arg(maxid).arg(ui->dateEditStart->date().year()) + "." + fileinfo.suffix();
+
+	ftp->SetUrl(url);
+	ftp->SetLocalFile(ui->lineEditPath->text());
+	ftp->Upload();
 
 	query.prepare("INSERT INTO HumanResource.ContractService(ID, Name, Type, DateofStart, DateofEnd, Url)"
-		"VALUES(NEXT VALUE FOR HumanResource.ContractServiceSeq, :Name, :Type, :DateofStart, :DateofEnd, :Url)");
+		"VALUES(:ID, :Name, :Type, :DateofStart, :DateofEnd, :Url)");
+	query.bindValue(":ID", maxid + 1);
 	query.bindValue(":Name", ui->lineEditName->text());
 	query.bindValue(":Type", ui->comboBoxType->currentText());
 	query.bindValue(":DateofStart", ui->dateEditStart->text());
@@ -164,4 +165,25 @@ void ContractServiceEdit::SetFolderName()
 		break;
 	}
 	strFolder += "/";
+}
+
+void ContractServiceEdit::InitDetailFunc()
+{
+	model->select();
+	QSqlRecord record = model->record(Index);
+
+	ui->lineEditName->setText(record.value("Name").toString());
+	ui->lineEditName->setDisabled(true);
+	ui->dateEditEnd->setDate(record.value("DateofEnd").toDate());
+	ui->dateEditEnd->setDisabled(true);
+	ui->dateEditStart->setDate(record.value("DateofStart").toDate());
+	ui->dateEditStart->setDisabled(true);
+	ui->comboBoxType->setCurrentText(record.value("Type").toString());
+	ui->comboBoxType->setDisabled(true);
+
+}
+
+void ContractServiceEdit::InitModFunc()
+{
+	
 }

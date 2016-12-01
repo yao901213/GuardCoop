@@ -12,6 +12,8 @@ public:
 	explicit ContractServiceEdit(QString &filter, int index, int sort);
 	~ContractServiceEdit();
 	void InitAddFunc();
+	void InitDetailFunc();
+	void InitModFunc();
 private:
 	int Index;
 	QSqlTableModel *model;

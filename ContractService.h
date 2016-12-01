@@ -20,13 +20,15 @@ private:
 	Ui_PhoneBookWidget *ui;
 	void InitWidget();
 	ContractServiceEdit *edit;
-	private slots:
+	int Sort;
+private slots:
 	void ClickAddButton();
 	void ClickModButton();
 	void ClickSearchButton();
 	void ClickDelButton();
 	void UpdateTable();
 	void DoubleClickRow();
+	void ClickTableHeader(int);
 };
 
 

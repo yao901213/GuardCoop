@@ -43,6 +43,7 @@ void ContractService::InitWidget()
 	QObject::connect(ui->pushButtonSearch, SIGNAL(clicked()), this, SLOT(ClickSearchButton()));
 	QObject::connect(ui->pushButtonDelete, SIGNAL(clicked()), this, SLOT(ClickDelButton()));
 	QObject::connect(ui->tableView, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(DoubleClickRow()));
+	QObject::connect(ui->tableView->horizontalHeader(), SIGNAL(sectionClicked(int)), this, SLOT(ClickTableHeader(int)));
 }
 
 
@@ -81,6 +82,14 @@ void ContractService::UpdateTable()
 
 void ContractService::DoubleClickRow()
 {
+	edit = new ContractServiceEdit(model->filter(), ui->tableView->currentIndex().row(), Sort);
+	edit->InitDetailFunc();
 
+}
 
+void ContractService::ClickTableHeader(int num)
+{
+	Sort = num;
+	model->setSort(Sort, Qt::AscendingOrder);
+	model->select();
 }
