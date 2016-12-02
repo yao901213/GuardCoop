@@ -14,8 +14,8 @@ public:
 private:
 	void InitDiag();
 	QUrl url;
-	QNetworkReply *reply;
 	Ui_PicView *ui;
+	Ftp *ftp;
 	QString Path;
 	void InitPicLabel();
 	private slots:

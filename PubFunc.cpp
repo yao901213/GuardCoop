@@ -9,3 +9,8 @@ void UiEmbellish::RedText(QLabel *label)
 {
 	label->setStyleSheet(QStringLiteral("color: rgb(255, 0, 0);"));
 }
+
+void StringMod::ChangeSlash2ReSlash(QString &str)
+{
+	str.replace("/", "\\");
+}

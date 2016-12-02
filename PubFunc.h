@@ -11,4 +11,10 @@ public:
 	static void RedText(QLabel *label);
 };
 
+class StringMod
+{
+public:
+	static void ChangeSlash2ReSlash(QString &str);
+};
+
 #endif

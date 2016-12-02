@@ -5,6 +5,7 @@
 #include <QSqlError>
 #include <QFileInfo>
 #include <QSqlQuery>
+#include <QFileDialog>
 
 const QString strurl = "ftp://localhost/";
 
@@ -42,6 +43,7 @@ void ContractServiceEdit::InitDiag()
 	ui->comboBoxType->addItem(QString::fromLocal8Bit("科技工程"));
 
 	QObject::connect(ui->pushButtonCancel, SIGNAL(clicked()), this, SLOT(reject()));
+	QObject::connect(ui->pushButtonBrowse, SIGNAL(clicked()), this, SLOT(ClickBrowseButton()));
 
 	this->setModal(true);
 	this->show();
@@ -50,7 +52,7 @@ void ContractServiceEdit::InitDiag()
 void ContractServiceEdit::InitAddFunc()
 {
 	QObject::connect(ui->pushButtonOk, SIGNAL(clicked()), this, SLOT(ClickOkButtonAddFunc()));
-
+	ui->pushButtonPic->setDisabled(true);
 }
 
 void ContractServiceEdit::ClickOkButtonAddFunc()
@@ -64,7 +66,7 @@ void ContractServiceEdit::ClickOkButtonAddFunc()
 	query.prepare("SELECT MAX(ID) FROM HumanResource.ContractService");
 	query.exec();
 	query.next();
- 	int maxid = query.value(0).toInt();
+	int maxid = query.value(0).toInt();
 
 	QFileInfo fileinfo(ui->lineEditPath->text());
 	SetFolderName();
@@ -97,8 +99,42 @@ void ContractServiceEdit::ClickOkButtonAddFunc()
 
 void ContractServiceEdit::ClickOkButtonModFunc()
 {
+	model->select();
+	QSqlRecord record = model->record(Index);
 
+	record.setValue("Name", ui->lineEditName->text());
+	record.setValue("Type", ui->comboBoxType->currentText());
+	record.setValue("DateofStart", ui->dateEditStart->text());
+	record.setValue("DateofEnd", ui->dateEditEnd->text());
+	model->setRecord(Index, record);
+	if (!model->submitAll())
+	{
+		QString str = QString::fromLocal8Bit("修改数据库错误:") + model->lastError().text();
+		ErrorProc::PopMessageBox(&str, 2);
+		return;
+	}
+	else
+	{
+		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("修改数据库成功"), 0);
+	}
 
+	if (ui->lineEditPath->text().isEmpty())
+	{
+		this->accept();
+		return;
+	}
+
+	QFileInfo fileinfo(ui->lineEditPath->text());
+	if (!fileinfo.exists())
+	{
+		QString str = QString::fromLocal8Bit("输入的路径错误:") + ui->lineEditPath->text();
+		ErrorProc::PopMessageBox(&str, 2);
+		return;
+	}
+
+	ftp->SetUrl(record.value("Url").toString());
+	ftp->SetLocalFile(ui->lineEditPath->text());
+	ftp->Upload();
 }
 
 bool ContractServiceEdit::IsInputValid()
@@ -169,31 +205,54 @@ void ContractServiceEdit::SetFolderName()
 
 void ContractServiceEdit::InitDetailFunc()
 {
-	model->select();
-	QSqlRecord record = model->record(Index);
-
-	ui->lineEditName->setText(record.value("Name").toString());
+	InitLineedit();
 	ui->lineEditName->setDisabled(true);
-	ui->dateEditEnd->setDate(record.value("DateofEnd").toDate());
 	ui->dateEditEnd->setDisabled(true);
-	ui->dateEditStart->setDate(record.value("DateofStart").toDate());
 	ui->dateEditStart->setDisabled(true);
-	ui->comboBoxType->setCurrentText(record.value("Type").toString());
 	ui->comboBoxType->setDisabled(true);
-	ui->lineEditPath->setText(QString::fromLocal8Bit("已上传"));
 	ui->lineEditPath->setDisabled(true);
+	ui->lineEditPath->setText(QString::fromLocal8Bit("已上传"));
 
+	ui->pushButtonBrowse->setDisabled(true);
+
+	QObject::connect(ui->pushButtonOk, SIGNAL(clicked()), this, SLOT(reject()));
 	QObject::connect(ui->pushButtonPic, SIGNAL(clicked()), this, SLOT(ClickPicButton()));
 }
 
 void ContractServiceEdit::InitModFunc()
 {
+	InitLineedit();
+	ui->lineEditPath->setPlaceholderText(QString::fromLocal8Bit("选择新的文件进行修改"));
 	
+	//TODO： 无法确定能修改的内容，暂时将合同类型设置为不可修改
+	ui->comboBoxType->setDisabled(true);
+
+	QObject::connect(ui->pushButtonPic, SIGNAL(clicked()), this, SLOT(ClickPicButton()));
+	QObject::connect(ui->pushButtonOk, SIGNAL(clicked()), this, SLOT(ClickOkButtonModFunc()));
 }
 
 void ContractServiceEdit::ClickPicButton()
 {
 	QSqlRecord record = model->record(Index);
 	view = new PicView(record.value("Url").toString());
+}
 
+void ContractServiceEdit::ClickBrowseButton()
+{
+	QString filename = QFileDialog::getOpenFileName(this,
+		QString::fromLocal8Bit("请选择要上传的扫描文件"), "./",
+		"Image(*.jpg)");
+
+	ui->lineEditPath->setText(filename);
+}
+
+void ContractServiceEdit::InitLineedit()
+{
+	model->select();
+	QSqlRecord record = model->record(Index);
+
+	ui->lineEditName->setText(record.value("Name").toString());
+	ui->dateEditEnd->setDate(record.value("DateofEnd").toDate());
+	ui->dateEditStart->setDate(record.value("DateofStart").toDate());
+	ui->comboBoxType->setCurrentText(record.value("Type").toString());
 }

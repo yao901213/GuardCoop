@@ -25,10 +25,12 @@ private:
 	QString strFolder;
 	void SetFolderName();
 	PicView *view;
+	void InitLineedit();
 private slots:
 	void ClickOkButtonAddFunc();
 	void ClickOkButtonModFunc();
 	void ClickPicButton();
+	void ClickBrowseButton();
 };
 
 

@@ -1,4 +1,5 @@
 #include "ContractService.h"
+#include "ErrorProc.h"
 
 ContractService::ContractService(QWidget *parent):
 	QWidget(parent)
@@ -22,7 +23,7 @@ ContractService::~ContractService()
 
 void ContractService::InitWidget()
 {
-	ui->lineEdit->setPlaceholderText(QString::fromLocal8Bit(""));
+	ui->lineEdit->setPlaceholderText(QString::fromLocal8Bit("输入合同名称查询"));
 	model->setHeaderData(1, Qt::Horizontal, QString::fromLocal8Bit("乙方名称"));
 	model->setHeaderData(2, Qt::Horizontal, QString::fromLocal8Bit("合同类型"));
 	model->setHeaderData(3, Qt::Horizontal, QString::fromLocal8Bit("生效时间"));
@@ -57,18 +58,30 @@ void ContractService::ClickAddButton()
 
 void ContractService::ClickModButton()
 {
+	if (-1 == ui->tableView->currentIndex().row())
+	{
+		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("请选择要修改的数据"), 2);
+		return;
+	}
+	edit = new ContractServiceEdit(model->filter(), ui->tableView->currentIndex().row(), Sort);
+	edit->InitModFunc();
 
-
+	QObject::connect(edit, SIGNAL(accepted()), this, SLOT(UpdateTable()));
 }
 
 void ContractService::ClickSearchButton()
 {
-
-
+	model->setFilter(tr("Name = '%1'").arg(ui->lineEdit->text()));
+	model->select();
 }
 
 void ContractService::ClickDelButton()
 {
+	if (-1 == ui->tableView->currentIndex().row())
+	{
+		ErrorProc::PopMessageBox(&QString::fromLocal8Bit("请选择要删除的数据"), 2);
+		return;
+	}
 
 
 }

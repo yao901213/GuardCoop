@@ -15,7 +15,7 @@ public:
 	Ftp();
 	~Ftp();
 	void Upload();
-	void Download();
+	void Download(QByteArray &data);
 	inline void SetUrl(QString &urlstr) { UrlStr = urlstr; };
 	inline void SetLocalFile(QString &path) { file = path; };
 private:
