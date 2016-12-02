@@ -4,6 +4,7 @@
 #include "ui_ContractServiceEdit.h"
 #include <QSqlTableModel>
 #include "Ftp.h"
+#include "PicView.h"
 
 class ContractServiceEdit : public QDialog
 {
@@ -23,10 +24,11 @@ private:
 	Ftp *ftp;
 	QString strFolder;
 	void SetFolderName();
+	PicView *view;
 private slots:
 	void ClickOkButtonAddFunc();
 	void ClickOkButtonModFunc();
-
+	void ClickPicButton();
 };
 
 

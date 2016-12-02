@@ -180,10 +180,20 @@ void ContractServiceEdit::InitDetailFunc()
 	ui->dateEditStart->setDisabled(true);
 	ui->comboBoxType->setCurrentText(record.value("Type").toString());
 	ui->comboBoxType->setDisabled(true);
+	ui->lineEditPath->setText(QString::fromLocal8Bit("ÒÑÉÏ´«"));
+	ui->lineEditPath->setDisabled(true);
 
+	QObject::connect(ui->pushButtonPic, SIGNAL(clicked()), this, SLOT(ClickPicButton()));
 }
 
 void ContractServiceEdit::InitModFunc()
 {
 	
+}
+
+void ContractServiceEdit::ClickPicButton()
+{
+	QSqlRecord record = model->record(Index);
+	view = new PicView(record.value("Url").toString());
+
 }

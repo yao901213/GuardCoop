@@ -70,6 +70,8 @@ d:\projects\git\guardcoop\x64\debug\guardposition.obj
 d:\projects\git\guardcoop\x64\debug\mainwindow.obj
 d:\projects\git\guardcoop\x64\debug\guard.obj
 d:\projects\git\guardcoop\x64\debug\contractserviceedit.obj
+d:\projects\git\guardcoop\x64\debug\picview.obj
+d:\projects\git\guardcoop\x64\debug\moc_picview.obj
 d:\projects\git\guardcoop\generatedfiles\ui_logindialog.h
 d:\projects\git\guardcoop\generatedfiles\debug\moc_propertyemployeeloandetail.cpp
 d:\projects\git\guardcoop\generatedfiles\debug\moc_car.cpp
@@ -77,6 +79,8 @@ d:\projects\git\guardcoop\generatedfiles\debug\moc_caredit.cpp
 d:\projects\git\guardcoop\generatedfiles\debug\moc_carinsure.cpp
 d:\projects\git\guardcoop\generatedfiles\debug\moc_cardetail.cpp
 d:\projects\git\guardcoop\generatedfiles\debug\moc_carmaintain.cpp
+d:\projects\git\guardcoop\generatedfiles\debug\moc_ftp.cpp
+d:\projects\git\guardcoop\generatedfiles\debug\moc_contractservice.cpp
 d:\projects\git\guardcoop\generatedfiles\debug\moc_propertyemployeeselect.cpp
 d:\projects\git\guardcoop\generatedfiles\debug\moc_propertyloanedit.cpp
 d:\projects\git\guardcoop\generatedfiles\debug\moc_propertyloan.cpp
@@ -127,9 +131,9 @@ d:\projects\git\guardcoop\generatedfiles\ui_carinsure.h
 d:\projects\git\guardcoop\generatedfiles\ui_carmaintain.h
 d:\projects\git\guardcoop\generatedfiles\ui_cardetail.h
 d:\projects\git\guardcoop\generatedfiles\ui_contractserviceedit.h
-d:\projects\git\guardcoop\generatedfiles\debug\moc_ftp.cpp
-d:\projects\git\guardcoop\generatedfiles\debug\moc_contractservice.cpp
 d:\projects\git\guardcoop\generatedfiles\debug\moc_contractserviceedit.cpp
+d:\projects\git\guardcoop\generatedfiles\debug\moc_picview.cpp
+d:\projects\git\guardcoop\generatedfiles\ui_picview.h
 d:\projects\git\guardcoop\debug\guardcoopsys.ilk
 d:\projects\git\guardcoop\debug\guardcoopsys.exe
 d:\projects\git\guardcoop\debug\guardcoopsys.pdb
